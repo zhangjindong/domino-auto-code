@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<agent name='agtDialogShow' alias='Dialog Ajax' xmlns='http://www.lotus.com/dxl'
+ version='9.0' maintenanceversion='1.0' replicaid='482584A1002906C1' hide='v3'
+ publicaccess='false' designerversion='8.5.3'>
+<noteinfo noteid='1f2' unid='3618B23FF54109B34825804F00668EA8' sequence='23'>
+<created><datetime>20161018T024011,92+08</datetime></created>
+<modified><datetime>20191028T153146,16+08</datetime></modified>
+<revised><datetime>20170918T171809,03+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,16+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,16+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<designchange><datetime>20170918T171754,67+08</datetime></designchange>
+<trigger type='actionsmenu'/>
+<documentset type='runonce'/><code event='options'><lotusscript>%REM
+	Agent agtDialogShow
+	Created 2016-10-18 by admin/digi
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+Use "GeneralLib"
+
+</lotusscript></code><code event='initialize'><lotusscript>Sub Initialize
+	On Error GoTo err_handle
+	ContentType "","" '定义往前端输出的数据类型
+	Print |DialogShow|
+	Exit Sub
+err_handle:
+	ShowError("agtDialogShow")
+End Sub</lotusscript></code>
+<rundata processeddocs='0' exitcode='0'>
+<agentmodified><datetime>20161018T024233,31+08</datetime></agentmodified></rundata>
+<item name='$POID'><datetime>20170918T171809,03+08</datetime></item></agent>
+

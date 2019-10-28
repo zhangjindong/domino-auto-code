@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='utf-8'?>
+<form name='$$ReturnGeneralError' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' nocompose='true' publicaccess='false'
+ designerversion='8.5.3' renderpassthrough='true'>
+<noteinfo noteid='162' unid='4A9FF7753288B4CC482572EC003B0E24' sequence='222'>
+<created><datetime>20070531T184502,44+08</datetime></created>
+<modified><datetime>20191028T153145,32+08</datetime></modified>
+<revised><datetime>20170918T171806,19+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,32+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,32+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><code event='htmlbody'><formula
+>"class=\"no-skin\""</formula></code>
+<body><richtext>
+<pardef id='1' hide='web'/>
+<par def='1'><sharedfieldref name='$$HTMLFrontMatter'/><sharedfieldref name='$$HTMLHEAD'/></par>
+<pardef id='2' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='2'><run html='true'>&lt;div id="navbar" class="navbar navbar-default navbar-collapse h-navbar navbar-fixed-top hide" &gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="main-container" id="main-container"&gt;</run></par>
+<par def='1'><field type='text' kind='editable' name='Path_Info'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='HTTP_User_Agent'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='12' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='Remote_Addr'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='18' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='Remote_User'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='24' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='HTTP_Referer'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='30' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'><field type='text' kind='computedfordisplay' name='Query_String_Decoded'><code
+ event='defaultvalue'><formula>Query_String_Decoded</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run><font color='fuchsia'/></run><field
+ type='text' kind='computedfordisplay' name='Server_Name'><code event='defaultvalue'><formula
+>Server_Name</formula></code></field><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='15' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run><font color='fuchsia'/></run><field
+ type='text' kind='computedfordisplay' name='Remote_Host'><code event='defaultvalue'><formula
+>Remote_Host</formula></code></field><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='24' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'><field type='text' kind='editable'
+ name='db_errorInfo'><code event='defaultvalue'><formula>"flow/flowprocess.nsf"</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='31' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'><field type='text' kind='computedfordisplay' name='$V2AttachmentOptions'><code
+ event='defaultvalue'><formula>"0"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ allowmultivalues='true' kind='computedfordisplay' name='ArgNames' listinputseparators='newline'
+ listdisplayseparator='newline'><code event='defaultvalue'><formula>@ReplaceSubstring(@Left(@Explode(@Right(Query_String_Decoded; "&amp;"); "&amp;"); "="); "!@amp@!"; "&amp;")</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='12' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run><font color='fuchsia'/></run><field
+ type='text' allowmultivalues='true' kind='computedfordisplay' name='ArgValues'
+ listinputseparators='newline' listdisplayseparator='newline'><code event='defaultvalue'><formula
+>@ReplaceSubstring(@Right(@Explode(@Right(Query_String_Decoded; "&amp;"); "&amp;"); "="); "!@amp@!"; "&amp;")</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='21' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='computedfordisplay' name='Query'><code event='defaultvalue'><formula
+>Query</formula></code></field><compositedata type='98' prevtype='65418' nexttype='222'
+ afterparcount='27' containertype='65418' aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field
+ type='text' kind='computedfordisplay' name='isAdmin'><code event='defaultvalue'><formula
+>@UserRoles = "[Admin]"</formula></code></field><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='33' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='saveoptions'><code
+ event='defaultvalue'><formula>"0"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='39' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<pardef id='3' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'>&lt;div class="well" style="width:80%;margin:auto;margin-top:100px"&gt;</run></par>
+<pardef id='4' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='4'><run html='true'>&lt;h1 class="grey lighter smaller"&gt;&lt;span class="red2 bigger-125 "&gt;&lt;i class="ace-icon fa fa-bug"&gt;&lt;/i&gt;&lt;/span&gt;  错&amp;nbsp;&amp;nbsp;误!!!&lt;/h1&gt;</run></par>
+<par def='4'><run html='true'>&lt;hr /&gt;</run></par>
+<par def='4'><run html='true'>&lt;h3 class="lighter smaller"&gt;&lt;i class="ace-icon fa fa-wrench icon-animated-wrench bigger-125"&gt;&lt;/i&gt;提示：为了更快更好地解决这个问题，请您提交给管理员处理。&lt;/h3&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="space"&gt;&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div&gt;</run></par>
+<pardef id='5' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='5'><run html='true'>&lt;h4 class="lighter smaller"&gt;错误详细信息:&lt;/h4&gt;</run></par>
+<par def='5'><run html='true'>&lt;ul class="list-unstyled spaced inline bigger-110 margin-15"&gt;</run></par>
+<pardef id='6' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='6'><run html='true'>&lt;li&gt;&lt;i class="ace-icon fa fa-hand-o-right blue"&gt;&lt;/i&gt;问题描述：</run><run
+ html='true'><font color='red'/><field type='text' kind='editable' name='MessageString'><code
+ event='defaultvalue'><formula>MessageString</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='7' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/li&gt;</run></par>
+<par def='6'><run html='true'>&lt;li&gt;&lt;i class="ace-icon fa fa-hand-o-right blue"&gt;&lt;/i&gt;原因分析：</run><run
+ html='true'><font color='red'/><field type='text' kind='editable' name='AltMessageString'><code
+ event='defaultvalue'><formula>msg := @DbLookup("":"NoCache";"":db_errorInfo;"vwErrByMsg";MessageString;2);
+msg :=@If(@IsError(msg);@DbLookup("":"NoCache";"":db_errorInfo;"vwErrByMsg";@Left(MessageString;" - ");2);msg);
+@For(n := 1; n &lt;= @Elements(msg); n := n + 1;fullshow := @If(n=1;msg[n];fullshow+"&lt;BR&gt;"+msg[n]));
+chkMsg :=@If(@IsError(msg);"没有找到这个错误的帮助信息";fullshow);
+chkMsg</formula></code></field></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='6' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/li&gt;</run></par>
+<par def='5'><run html='true'>&lt;/ul&gt;</run></par>
+<par def='5'><run html='true'>&lt;h4 class="lighter smaller red" id="Result"&gt;&lt;/h4&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;script&gt;</run></par>
+<par def='4'><run html='true'>var errinfo = {</run></par>
+<par def='4'><run html='true'>	"msgstr":escape("</run><run html='true'><computedtext
+><code event='value'><formula>@ReplaceSubstring(MessageString;"\"";"\\\"")</formula></code></computedtext></run><run
+ html='true'>"),</run></par>
+<par def='4'><run html='true'>	"altmsg":escape("</run><run html='true'><computedtext
+><code event='value'><formula>@ReplaceSubstring(AltMessageString;"\"";"\\\"")</formula></code></computedtext></run><run
+ html='true'>"),</run></par>
+<par def='4'><run html='true'>	"path":"</run><run html='true'><computedtext
+><code event='value'><formula>Path_Info</formula></code></computedtext></run><run
+ html='true'>",</run></par>
+<par def='4'><run html='true'>	"Host":"</run><run html='true'><computedtext
+><code event='value'><formula>HTTP_User_Agent</formula></code></computedtext></run><run
+ html='true'>",</run></par>
+<par def='4'><run html='true'>	"Addr":"</run><run html='true'><computedtext
+><code event='value'><formula>Remote_Addr</formula></code></computedtext></run><run
+ html='true'>",</run></par>
+<par def='4'><run html='true'>	"User":"</run><run html='true'><computedtext
+><code event='value'><formula>Remote_User</formula></code></computedtext></run><run
+ html='true'>",</run></par>
+<par def='4'><run html='true'>	"Refr":"</run><run html='true'><computedtext
+><code event='value'><formula>HTTP_Referer</formula></code></computedtext></run><run
+ html='true'>"<break/>};</run></par>
+<par def='4'><run html='true'>function ErrSubmit(){</run></par>
+<par def='4'><run html='true'>	</run></par>
+<par def='4'><run html='true'>	$.ajax({</run></par>
+<par def='4'><run html='true'>		type:"GET",</run></par>
+<par def='4'><run html='true'>		url:ROOT_PATH + "</run><run html='true'><computedtext
+><code event='value'><formula>db_errorInfo</formula></code></computedtext></run><run
+ html='true'>/agtSendErr?openagent",</run></par>
+<par def='4'><run html='true'>		</run><urllink showborder='false' href='data:errinfo'><run
+ html='true'><font color='system'/>data:errinfo</run></urllink><run html='true'>,</run></par>
+<par def='4'><run html='true'>		cache:false,</run></par>
+<par def='4'><run html='true'>		success:function(str){</run></par>
+<par def='4'><run html='true'>			$("#Result").html(str);</run></par>
+<par def='4'><run html='true'>			$(".btn-sm:first").addClass("hide");</run></par>
+<par def='4'><run html='true'>		}</run></par>
+<par def='4'><run html='true'>	});</run></par>
+<par def='4'><run html='true'>}</run></par>
+<par def='4'><run html='true'>function closeWindow(){window.opener=null;window.open('', '_self', ''); window.close();}</run></par>
+<par def='4'><run html='true'>&lt;/script&gt;</run></par>
+<par def='4'><run html='true'>&lt;hr /&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="space"&gt;&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="center"&gt;</run></par>
+<par def='5'><run html='true'>&lt;a href="</run><urllink showborder='false'
+ href='javascript:history.back()'><run html='true'><font color='system'/>javascript:</run><run
+ html='true'>ErrSubmit</run><run html='true'><font color='system'/>()</run></urllink><run
+ html='true'>" class="btn btn-primary btn-sm"&gt;&lt;i class="ace-icon fa fa-arrow-left"&gt;&lt;/i&gt;提交&lt;/a&gt;</run></par>
+<par def='5'><run html='true'>&lt;a href="#" onclick="closeWindow()" class="btn btn-grey btn-sm"&gt;&lt;i class="ace-icon fa fa-tachometer"&gt;&lt;/i&gt;关闭&lt;/a&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par><subformref><code event='value'><formula
+>"CommonInclude"</formula></code></subformref>
+<pardef id='7' leftmargin='0.2500in' firstlineleftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='7'/></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>$$ReturnGeneralError</text></item></form>
+

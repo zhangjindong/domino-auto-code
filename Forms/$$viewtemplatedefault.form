@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<form name='$$viewtemplatedefault' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' nocompose='true' publicaccess='false'
+ designerversion='7' renderpassthrough='true'>
+<noteinfo noteid='166' unid='42617B817FBADFBA482570C50005E997' sequence='147'>
+<created><datetime>20051126T090434,79+08</datetime></created>
+<modified><datetime>20191028T153145,34+08</datetime></modified>
+<revised><datetime>20170918T171803,69+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,34+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,34+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=workplace</name><name>CN=dev1/O=workplace</name><name
+>CN=admin/O=workplace</name><name>CN=dev1/O=workplace</name><name>CN=admin/O=workplace</name><name
+>CN=admin/O=domino8test</name><name>CN=admin/O=ChemChina</name><name>CN=admin/O=DigiWin</name><name
+>CN=admin/O=myserver</name><name>CN=admin/O=DigiWin</name><name>CN=admin/O=DigiWinBJOA</name><name
+>CN=admin/O=DigiWin</name><name>CN=admin/O=DigiWinBJOA</name><name>CN=Admin/O=digiwin</name><name
+>CN=admin/O=Digiwin</name><name>CN=admin/O=DigiWin</name><name>CN=admin/O=digiflow</name><name
+>CN=admin/O=DigiWin</name><name>CN=admin/O=DevServer</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=VICUTU</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1'/>
+<par def='1'><run html='true'>&lt;script&gt;self.location="/Produce/WeboaConfig.nsf/ViewErrorForm?openform";&lt;/script&gt;</run></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>$$viewtemplatedefault</text></item></form>
+

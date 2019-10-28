@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<form name='ExtViewActionBtn' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' treatashtml='true'
+ publicaccess='false' designerversion='8.5.3' comment='视图显示框架的扩展按钮' renderpassthrough='true'>
+<noteinfo noteid='236' unid='B489340F273E4DB84825817C004CF1DC' sequence='7'>
+<created><datetime>20170814T220026,52+08</datetime></created>
+<modified><datetime>20191028T153146,67+08</datetime></modified>
+<revised><datetime>20170918T171809,19+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,67+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,67+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' leftmargin='1in' hide='web' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='1'><field type='text' kind='editable' name='query_string'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='7' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'><run><font color='red'/>&lt;a</run><run><font color='red'/> href="</run><urllink
+ showborder='false' href='javascript:fn_add()'><run><font color='red'/>javascript:</run><run
+><font color='red'/>fn_OpenForm</run><run><font color='red'/>('</run></urllink><run
+><font color='red'/></run><run><font color='red'/><computedtext><code event='value'><formula
+>vw:=@LowerCase(@UrlQueryString("vw"));
+@If(vw="vwdatasource";"dataSource";vw="vwapply";"dbApply";"")</formula></code></computedtext></run><run
+><font color='red'/>'</run><run><font color='red'/>)</run><run><font color='red'/>;" class="add"&gt;&lt;i class="icon"&gt;&lt;/i&gt;&lt;span class="text"&gt;添加&lt;/span&gt;&lt;/a&gt;</run></par>
+<par def='1'><run><font color='red'/>&lt;script&gt;</run></par>
+<par def='1'><run><font color='red'/>function fn_OpenForm(form){</run></par>
+<pardef id='2' leftmargin='1in' firstlineleftmargin='1.2500in' hide='web'
+ tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='2'><run><font color='red'/>if(form==""){</run></par>
+<par def='2'><run><font color='red'/>	alert("表单名称获取失败!");</run></par>
+<par def='2'><run><font color='red'/>	return false;</run></par>
+<par def='2'><run><font color='red'/>}</run></par>
+<par def='2'><run><font color='red'/>location.href = (ROOT_PATH + "</run><run
+><font color='red'/><computedtext><code event='value'><formula>@ReplaceSubstring(@WebDbName;"\\";"/")</formula></code></computedtext></run><run
+><font color='red'/>/"+form+"?openform")</run></par>
+<par def='1'><run><font color='red'/>}</run></par>
+<par def='1'><run><font color='red'/>&lt;/script&gt;//扩展按钮样例</run></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>ExtActionBtn</text></item></form>
+

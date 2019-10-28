@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='utf-8'?>
+<form name='ConfigForm' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.0'
+ replicaid='482584A1002906C1' nocompose='true' htmlallfields='true' publicaccess='false'
+ designerversion='8.5.3' comment='A应用申请单' renderpassthrough='true'>
+<noteinfo noteid='216' unid='520087233EF27A3C48257C0000089E8C' sequence='493'>
+<created><datetime>20131010T093408,76+08</datetime></created>
+<modified><datetime>20191028T153146,51+08</datetime></modified>
+<revised><datetime>20170918T171808,53+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,51+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,51+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><code event='windowtitle'><formula
+>L_ModuleManagement</formula></code><code event='webquerysave'><formula>@Command([ToolsRunMacro]; "SaveAgent")</formula></code><code
+ event='webqueryopen'><formula>@Command([ToolsRunMacro]; "agtInitConfig")</formula></code><code
+ event='htmlbody'><formula>"class=\"no-skin\""</formula></code><code event='jsheader'
+ for='web'><javascript>function fn_initBody(obj,type){
+	if(obj.value == "yes"){
+		$("."+type).removeClass("hide");
+	}else{
+		$("."+type).addClass("hide");
+	}
+}
+function fnSelectFlowNode(f){
+	var funid = [];
+	$("input[name^='AppFlowUnid_']").each(function(){
+		funid.push(this.value);
+	});
+	var filename = "BodyControl";
+	switch(f){
+		case 1:
+			filename = "BodyControl";break;
+		case 2:
+			filename = "AttControl";break;
+		case 3:
+			filename = "BodyTools";break;
+	
+	}
+	var $obj = $("input[name='"+filename+"']");
+	var obj = [];
+	eval("obj = "+($obj.val() == "" ? "{}" : $obj.val()));
+	
+	BootstrapDialog.show({
+			title:"&lt;i class='fa fa-cog'&gt;&lt;/i&gt;"+(f == 1 ? "正文" : "附件")+"可编辑环节选择",
+			closable:false,
+			message: function(dialog) {
+               	var $message = $('&lt;div id="Map" style="height:400px;width:100%;float:none;overflow:auto"&gt;&lt;/div&gt;');
+               	var pageToLoad = dialog.getData('pageToLoad');
+                	$message.load(pageToLoad,function(){
+					for(var i=0;i&lt;obj.length;i++){
+						var id = obj[i].id;
+						var node = obj[i].node;
+						for(var x=0;x&lt;node.length;x++){
+							$("#"+id).find("[value='"+node[x]+"']").attr("checked",true)
+						}
+					}
+				});
+                	return $message;
+              },data: {
+                'pageToLoad': ROOT_PATH + document.all.FlowProcessDB.value + "/agtInitNodeSelect?openagent&amp;fuid=" + funid.join(";")
+            	},buttons: [{
+                label: '取消',
+                action: function(dialog) {
+                    dialog.close();
+                }
+			},{
+			 label:"确定",
+			 cssClass:'btn-warning',
+			 action:function(dialog){
+			 	var rs = [];
+			 	$(".panel-collapse","#NodeList").each(function(n,i){
+			 		var node = [];
+			 		$("input:checked",this).each(function(){
+						node.push('"'+this.value+'"');
+					});
+					rs.push('{id:"'+this.id+'",node:['+node+']}');
+				});
+				$obj.val("["+rs+"]");
+				dialog.close();
+			}
+             }]
+		});
+}
+function saveACL(obj){
+	data = "action=acl&amp;psns=" + $("input[name='Manager']",$(obj).parents(".widget-box:first")).val();
+	saveToConfig(data);
+}
+function addFlowType(AppType,AppFlow,AppFlowUnid,AppSubForm,AppSubject,Abstracts,AppActive,AppUser){
+	var index = $(".template").size()
+	var tmp = $('&lt;div class="col-xs-12 col-sm-6 widget-container-col template"&gt;&lt;/div&gt;').append($(".template").eq(0).html().replace(/\$S/gi,index)).initUI();
+	$(".template").eq(0).parent().append(tmp);
+	$("[name^='AppType_']", tmp).val(AppType || "");
+	$("[name^='AppFlow_']", tmp).val(AppFlow || "");
+	$("[name^='AppFlowUnid_']", tmp).val(AppFlowUnid || "");
+	$("[name^='AppSubForm_']", tmp).val(AppSubForm || "");
+	$("[name^='AppSubject_']", tmp).val(AppSubject || "");
+	$("[name^='Abstract_']", tmp).val(Abstracts || "");
+	$("[name^='AppActive_']", tmp).val(AppActive || "");
+	$("[name^='AppUser_']", tmp).val(AppUser || "");
+}
+function deleteType(obj,index){
+	var data = "action=delflowtype&amp;index="+index;
+	saveToConfig(data);
+	$(obj).closest(".template").remove();
+}
+function ReplaceTemplate(html){
+	
+	return html;
+}
+function saveToConfig(data){
+	$.ajax({
+		url:DB_PATH + "/agtSaveOption?openagent",
+		type:"POST",
+		data:data,
+		cache:false,
+		success:function(){
+			alert("操作成功!");
+		}
+	});
+}
+function saveType(obj,index){
+	var data = ["action=flowtype&amp;index="+index];
+	$this = $(obj).parents(".template:first");
+	var fields = ["AppType","AppFlow","AppFlowUnid","AppSubForm","AppSubject","Abstract","AppActive","AppUser"];
+	for(var i=0;i&lt;fields.length;i++){
+		var f = $("[name^='"+fields[i]+"']",$this);
+		data.push(fields[i]+"="+escape(f.val()));
+	}
+	saveToConfig(data.join("&amp;"));
+}
+
+function saveMoudle(){
+	var data = ["action=moudle"];
+	data.push("HasBody=" + $("input[name='HasBody']:checked").val());
+	data.push("BodyType=" + $("select[name='BodyType']").val());
+	data.push("BodyControl=" + $("input[name='BodyControl']").val());
+	data.push("BodyTools=" + $("input[name='BodyTools']").val());
+	data.push("HasAtt=" + $("input[name='HasAtt']:checked").val());
+	data.push("AttControl=" + $("input[name='AttControl']").val());
+	
+	saveToConfig(data.join("&amp;"));
+}
+function saveMsgExt(obj){
+	var data = ["action=msg"];
+	var $widget = $(obj).closest(".widget-box");
+	$("input[name^='StExtStr']",$widget).each(function(){
+		data.push(this.name+"="+this.value);
+	});
+
+	saveToConfig(data.join("&amp;"));
+}</javascript></code>
+<body><richtext>
+<pardef id='1' hide='web'/>
+<par def='1'><sharedfieldref name='$$HTMLFrontMatter'/><sharedfieldref name='$$HTMLHEAD'/><field
+ type='text' kind='editable' name='FlowProcessDB'><code event='defaultvalue'><formula
+>"flow/flowprocess.nsf"</formula></code></field><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='17' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><sharedfieldref name='$V2AttachmentOptions'/><field
+ type='text' allowmultivalues='true' kind='editable' name='AppTypes' listinputseparators='semicolon'
+ listdisplayseparator='semicolon'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='28' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' allowmultivalues='true'
+ kind='editable' name='AppSubForms' listinputseparators='semicolon' listdisplayseparator='semicolon'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='34' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ allowmultivalues='true' kind='editable' name='AppFlows' listinputseparators='semicolon'
+ listdisplayseparator='semicolon'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='40' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' allowmultivalues='true'
+ kind='editable' name='AppFlowUnids' listinputseparators='semicolon' listdisplayseparator='semicolon'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='46' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ allowmultivalues='true' kind='editable' name='AppSubjects' listinputseparators='semicolon'
+ listdisplayseparator='semicolon'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='52' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' allowmultivalues='true'
+ kind='editable' name='Abstracts' listinputseparators='comma semicolon' listdisplayseparator='semicolon'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='58' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ allowmultivalues='true' kind='editable' name='AppActive' listinputseparators='comma semicolon'
+ listdisplayseparator='semicolon'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='64' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' allowmultivalues='true'
+ kind='editable' name='AppUsers' listinputseparators='comma semicolon' listdisplayseparator='semicolon'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='70' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<pardef id='2' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='2'><run html='true'>&lt;div id="navbar" class="navbar navbar-default navbar-collapse h-navbar navbar-fixed-top" &gt;</run></par>
+<pardef id='3' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'>&lt;script type="text/javascript"&gt;</run></par>
+<pardef id='4' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='4'><run html='true'>try{ace.settings.check('navbar' , 'fixed')}catch(e){}</run></par>
+<par def='3'><run html='true'>&lt;/script&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="navbar-container" id="navbar-container"&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="navbar-header pull-left" style=""background:url(/DF_Res/themes/default/images/global/top_bg.png) repeat-x;"&gt;</run></par>
+<pardef id='5' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='5'><run html='true'>&lt;a href="#" class="navbar-brand"&gt;&lt;/a&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="navbar-header pull-right navbar-collapse center" style="padding-top:10px;"</run><run
+ html='true'>&gt;</run></par>
+<par def='4'/>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;nav role="navigation" class="navbar-menu pull-left collapse navbar-collapse"&gt;&lt;/nav&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;!-- /section:basics/navbar.layout --&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="main-container" id="main-container" style=""&gt;</run></par>
+<par def='3'><run html='true'>&lt;script type="text/javascript"&gt;try{ace.settings.check('main-container' , 'fixed')}catch(e){}&lt;/script&gt;</run></par>
+<par def='3'><run html='true'>&lt;div id="sidebar" class="h-sidebar navbar-collapse collapse sidebar-fixed" style="background-color:</run><run
+ html='true'>#F8F8F8</run><run html='true'>;</run><run html='true'>border-bottom:1px solid </run><run
+ html='true'>#C5D0DC</run><run html='true'>;z-index:1000;position:fixed;padding-left:100px"&gt;</run></par>
+<par def='4'><run html='true'>&lt;ul class="nav nav-tabs"&gt;</run></par>
+<par def='5'><run html='true'>&lt;li class="hover active"&gt;</run></par>
+<pardef id='6' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='6'><run html='true'>&lt;a href="#" data-toggle="tab" data-target="#FlowType"&gt;&lt;i class="menu-icon fa fa-tachometer bigger-125"&gt;&lt;/i&gt;&lt;span class="menu-text"&gt;</run><run
+ html='true'><computedtext><code event='value'><formula>L_ApprovalType</formula></code></computedtext></run><run
+ html='true'>&lt;/span&gt;&lt;/a&gt;&lt;b class="arrow"&gt;&lt;/b&gt;</run></par>
+<par def='5'><run html='true'>&lt;/li&gt;</run></par>
+<par def='5'><run html='true'>&lt;li class="hover"&gt;</run></par>
+<par def='6'><run html='true'>&lt;a href="#" data-toggle="tab" data-target="#Moudle"&gt;&lt;i class="menu-icon fa fa-bookmark-o bigger-125"&gt;&lt;/i&gt;</run><run
+ html='true'><computedtext><code event='value'><formula>L_ModuleManagement</formula></code></computedtext></run><run
+ html='true'>&lt;/a&gt;&lt;b class="arrow"&gt;&lt;/b&gt;</run></par>
+<par def='5'><run html='true'>&lt;/li&gt;</run></par>
+<par def='5'><run html='true'>&lt;li class="hover"&gt;</run></par>
+<par def='6'><run html='true'>&lt;a href="#" data-toggle="tab" data-target="#ACL"&gt;&lt;i class="menu-icon fa fa-hdd-o bigger-125"&gt;&lt;/i&gt;</run><run
+ html='true'><computedtext><code event='value'><formula>L_Privilege</formula></code></computedtext></run><run
+ html='true'>&lt;/a&gt;&lt;b class="arrow"&gt;&lt;/b&gt;</run></par>
+<par def='5'><run html='true'>&lt;/li&gt;</run></par>
+<par def='4'><run html='true'>&lt;/ul&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'/>
+<par def='3'><run html='true'>&lt;div class="main-content no-margin"&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="page-content" id="FlowType"&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="page-header"&gt;</run></par>
+<par def='6'><run html='true'>&lt;h1&gt;摘要信息：&lt;small&gt;创建类型并绑定流程&lt;/small&gt;&lt;/h1&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='7' leftmargin='1.5000in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='7'><run html='true'>&lt;div class="row"&gt;</run></par>
+<pardef id='8' leftmargin='1.7500in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='8'><run html='true'>&lt;div class="col-md-12"&gt;</run></par>
+<pardef id='9' leftmargin='1in' firstlineleftmargin='2.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='9'><run html='true'>&lt;button type="button" onclick="addFlowType()" class="btn btn-primary btn-xs"&gt;&lt;i class="fa fa-plus"&gt;&lt;/i&gt; 新增类型&lt;/button&gt;</run></par>
+<par def='8'><run html='true'>&lt;/div&gt;</run></par>
+<par def='7'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;</run><run html='true'>hr&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="row"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="</run><run html='true'>col-xs-12 col-sm-6 widget-container-col</run><run
+ html='true'> template hide"&gt;</run></par>
+<par def='9'><run html='true'>&lt;div class="widget-box widget-color-blue"&gt;</run></par>
+<pardef id='10' leftmargin='1in' firstlineleftmargin='2.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='10'><run html='true'>&lt;div class="widget-header widget-header-small"&gt;</run></par>
+<pardef id='11' leftmargin='1in' firstlineleftmargin='2.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='11'><run html='true'>&lt;h6 class="widget-title smaller"&gt;类型$S&lt;/h6&gt;</run></par>
+<par def='11'><run html='true'>&lt;div class="widget-toolbar no-border"&gt;</run></par>
+<pardef id='12' leftmargin='1in' firstlineleftmargin='3in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='12'><run html='true'>&lt;button type="button" class="btn btn-info btn-xs" data-rel="tooltip" data-</run><run
+ html='true'>original-title="保存"</run><run html='true'> onclick="saveType(this,$S)"&gt;&lt;i class="fa fa-save bigger-125"&gt;&lt;/i&gt;&lt;/button&gt;</run></par>
+<par def='12'><run html='true'>&lt;button type="button" class="btn btn-info btn-xs" data-rel="tooltip" data-original-title="删除" onclick="deleteType(this,$S)"&gt;&lt;i class="fa fa-ban bigger-125"&gt;&lt;/i&gt;&lt;/button&gt;</run></par>
+<par def='11'><run html='true'>&lt;/div&gt;</run></par>
+<par def='10'><run html='true'>&lt;/div&gt;</run></par>
+<par def='10'><run html='true'>&lt;div class="widget-body"&gt;</run></par>
+<par def='11'><run html='true'>&lt;div class="widget-main"&gt;</run></par>
+<par def='12'><run html='true'>&lt;div class="row"&gt;</run></par>
+<pardef id='13' leftmargin='1.7500in' firstlineleftmargin='3.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='13'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<pardef id='14' leftmargin='2in' firstlineleftmargin='3.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='14'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<pardef id='15' leftmargin='2.2500in' firstlineleftmargin='3.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='15'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;类型名称&lt;/label&gt;&lt;/span&gt;&lt;input name="AppType_$S" type="text" class="form-control" placeholder="请输入审批类型"&gt;</run></par>
+<par def='14'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='14'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='15'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;是否启用&lt;/label&gt;&lt;/span&gt;&lt;select class="form-control" name="AppActive_$S"&gt;&lt;option value="yes"&gt;启用&lt;/option&gt;&lt;option value="no"&gt;关闭&lt;/option&gt;&lt;/select&gt;</run></par>
+<par def='14'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;div class="col-md-12"&gt;</run></par>
+<par def='14'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='15'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;类型标题&lt;/label&gt;&lt;/span&gt;&lt;input name="AppSubject_$S" type="text" class="form-control" placeholder="请输入审批类型标题，格式{域名}"&gt;</run></par>
+<par def='14'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='14'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='15'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;流程&lt;/label&gt;&lt;/span&gt;&lt;input name="AppFlow_$S" type="text" class="form-control"&gt;&lt;input name="AppFlowUnid_$S" type="hidden"&gt;</run></par>
+<par def='10'><run html='true'>&lt;a href="#" class="input-group-addon" data-lookup="</run><run
+ html='true'><computedtext><code event='value'><formula>FlowProcessDB</formula></code></computedtext></run><run
+ html='true'>" data-dbpath="Produce/proind.nsf" data-view="</run><run html='true'>AllFlowConfigViewByUpdate</run><run
+ html='true'>" data-key="0;2" data-field="AppFlowUnid_$S;AppFlow_$S" data-mode="checkbox"&gt;</run><run
+ html='true'><font name='Courier New' pitch='fixed' truetype='true' familyid='30'/>+&lt;/a&gt;</run></par>
+<par def='14'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='14'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='15'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;子表单&lt;/label&gt;&lt;/span&gt;&lt;select class="form-control" name="AppSubForm_$S"&gt;</run><run
+ html='true'><computedtext><code event='value'><formula>"&lt;option value=''&gt;请选择子表单&lt;/option&gt;" + @Implode("&lt;option value="+sforms+"&gt;"+sforms+"&lt;/option&gt;")</formula></code></computedtext></run><run
+ html='true'>&lt;/select&gt;</run></par>
+<par def='14'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;div class="col-md-12"&gt;</run></par>
+<pardef id='16' leftmargin='1.7500in' firstlineleftmargin='3.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='16'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='16'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;摘要&lt;/label&gt;&lt;/span&gt;&lt;input type=text class="form-control" name="Abstract_$S"&gt;&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;div class="col-md-12"&gt;</run></par>
+<par def='16'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='16'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;使用者&lt;/label&gt;&lt;/span&gt;&lt;input type=text class="form-control" name="AppUser_$S" data-psnpicker=true data-group=yes&gt;&lt;/div&gt;</run></par>
+<par def='13'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='17' leftmargin='1.5000in' firstlineleftmargin='3in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='17'><run html='true'>&lt;/div&gt;</run></par>
+<par def='11'><run html='true'>&lt;/div&gt;</run></par>
+<par def='10'><run html='true'>&lt;/div&gt;</run></par>
+<par def='9'><run html='true'>&lt;/div&gt;</run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="page-content hidden-md hidden-lg" id="Moudle"&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="page-header"&gt;</run></par>
+<par def='6'><run html='true'>&lt;h1&gt;正文、附件管理：&lt;small&gt;控制模块的正文、附件组件&lt;/small&gt;&lt;/h1&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="widget-box widget-color-blue"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="widget-header widget-header-small"&gt;</run></par>
+<par def='9'><run html='true'>&lt;h6 class="widget-title smaller"&gt;正文&lt;/h6&gt;</run></par>
+<par def='9'><run html='true'>&lt;div class="widget-toolbar no-border"&gt;</run></par>
+<par def='10'><run html='true'>&lt;button type="button" class="btn btn-info btn-xs" onclick="saveMoudle(this)"&gt;&lt;i class="fa fa-save"&gt;&lt;/i&gt;保存&lt;/button&gt;</run></par>
+<par def='9'><run html='true'>&lt;/div&gt;</run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="widget-body"&gt;</run></par>
+<par def='9'><run html='true'>&lt;div class="widget-main"&gt;</run></par>
+<par def='10'><run html='true'>&lt;div class="row"&gt;</run></par>
+<pardef id='18' leftmargin='1.7500in' firstlineleftmargin='2.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='18'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<pardef id='19' leftmargin='2in' firstlineleftmargin='3in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='19'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<pardef id='20' leftmargin='2.2500in' firstlineleftmargin='3.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='20'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;是否需要正文&lt;/label&gt;&lt;/span&gt;&lt;label&gt;&lt;input name="HasBody" onclick="fn_initBody(this,'</run><run
+ html='true'>BodyStyle</run><run html='true'>')" value="yes" type="radio" </run><run
+ html='true'><computedtext><code event='value'><formula>@If(@GetProfileField("config";"HasBody")="no";"";"checked")</formula></code></computedtext></run><run
+ html='true'>&gt;是&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;input name="HasBody" onclick="fn_initBody(this,'BodyStyle')" value="no" type="radio" </run><run
+ html='true'><computedtext><code event='value'><formula>@If(@GetProfileField("config";"HasBody")="no";"checked";"")</formula></code></computedtext></run><run
+ html='true'>&gt;否&lt;/label&gt;</run></par>
+<par def='19'><run html='true'>&lt;/div&gt;</run></par>
+<par def='18'><run html='true'>&lt;/div&gt;</run></par>
+<par def='18'><run html='true'>&lt;div class="col-md-6 BodyStyle </run><run
+ html='true'><computedtext><code event='value'><formula>@If(@GetProfileField("config";"HasBody")="no";"hide";"")</formula></code></computedtext></run><run
+ html='true'>"&gt;</run></par>
+<par def='19'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='20'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;正文类型&lt;/label&gt;&lt;/span&gt;&lt;select name="BodyType" class="form-control"&gt;&lt;option value=1 </run><run
+ html='true'><computedtext><code event='value'><formula>@If(@GetProfileField("config";"BodyType")="1";"selected";"")</formula></code></computedtext></run><run
+ html='true'>&gt;NTKO&lt;/option&gt;&lt;option value=2 </run><run html='true'><computedtext
+><code event='value'><formula>@If(@GetProfileField("config";"BodyType")="2";"selected";"")</formula></code></computedtext></run><run
+ html='true'>&gt;编辑器&lt;/option&gt;&lt;option value=3 </run><run html='true'><computedtext
+><code event='value'><formula>@If(@GetProfileField("config";"BodyType")="3";"selected";"")</formula></code></computedtext></run><run
+ html='true'>&gt;文本框&lt;/option&gt;&lt;/select&gt;</run></par>
+<par def='19'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='21' leftmargin='2in' firstlineleftmargin='2.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='21'><run html='true'>&lt;/div&gt;</run></par>
+<par def='18'><run html='true'>&lt;div class="col-md-6 BodyStyle </run><run
+ html='true'><computedtext><code event='value'><formula>@If(@GetProfileField("config";"HasBody")="no";"hide";"")</formula></code></computedtext></run><run
+ html='true'>"&gt;</run></par>
+<par def='19'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='20'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;正文控制&lt;/label&gt;&lt;/span&gt;&lt;input name="BodyControl" readonly class="form-control" value='</run><run
+ html='true'><computedtext><code event='value'><formula>@GetProfileField("config";"BodyControl")</formula></code></computedtext></run><run
+ html='true'>'&gt;</run></par>
+<par def='10'><run html='true'>&lt;a href="#" class="input-group-addon" onclick="fnSelectFlowNode(1)"&gt;&lt;i class="fa fa-cog"&gt;&lt;/i&gt;&lt;/a&gt;</run></par>
+<par def='19'><run html='true'>&lt;/div&gt;</run></par>
+<par def='21'><run html='true'>&lt;/div&gt;</run></par>
+<par def='18'><run html='true'>&lt;div class="col-md-6 BodyStyle </run><run
+ html='true'><computedtext><code event='value'><formula>@If(@GetProfileField("config";"HasBody")="no";"hide";"")</formula></code></computedtext></run><run
+ html='true'>"&gt;</run></par>
+<par def='19'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='20'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;操作工具条&lt;/label&gt;&lt;/span&gt;&lt;input name="BodyTools" readonly class="form-control" value='</run><run
+ html='true'><computedtext><code event='value'><formula>@GetProfileField("config";"BodyTools")</formula></code></computedtext></run><run
+ html='true'>'&gt;</run></par>
+<par def='10'><run html='true'>&lt;a href="#" class="input-group-addon" onclick="fnSelectFlowNode(3)"&gt;&lt;i class="fa fa-cog"&gt;&lt;/i&gt;&lt;/a&gt;</run></par>
+<par def='19'><run html='true'>&lt;/div&gt;</run></par>
+<par def='21'><run html='true'>&lt;/div&gt;</run></par>
+<par def='18'><run html='true'>&lt;div class="col-md-6</run><run html='true'>"&gt;</run></par>
+<par def='19'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='20'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;是否需要附件&lt;/label&gt;&lt;/span&gt;&lt;label&gt;&lt;input name="HasAtt" onclick="fn_initBody(this,'AttStyle')" value="yes" type="radio" </run><run
+ html='true'><computedtext><code event='value'><formula>@If(@GetProfileField("config";"HasAtt")="no";"";"checked")</formula></code></computedtext></run><run
+ html='true'>&gt;是&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;input name="HasAtt" onclick="fn_initBody(this,'AttStyle')" value="no" type="radio" </run><run
+ html='true'><computedtext><code event='value'><formula>@If(@GetProfileField("config";"HasAtt")="no";"checked";"")</formula></code></computedtext></run><run
+ html='true'>&gt;否&lt;/label&gt;</run></par>
+<par def='19'><run html='true'>&lt;/div&gt;</run></par>
+<par def='18'><run html='true'>&lt;/div&gt;</run></par>
+<par def='18'><run html='true'>&lt;div class="col-md-6 </run><run html='true'>AttStyle</run><run
+ html='true'> </run><run html='true'><computedtext><code event='value'><formula
+>@If(@GetProfileField("config";"HasAtt")="no";"hide";"")</formula></code></computedtext></run><run
+ html='true'>"&gt;</run></par>
+<par def='19'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='20'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;附件控制&lt;/label&gt;&lt;/span&gt;&lt;input name="AttControl" readonly class="form-control" value='</run><run
+ html='true'><computedtext><code event='value'><formula>@GetProfileField("config";"AttControl")</formula></code></computedtext></run><run
+ html='true'>'&gt;</run></par>
+<par def='10'><run html='true'>&lt;a href="#" class="input-group-addon" onclick="fnSelectFlowNode(2)"&gt;&lt;i class="fa fa-cog"&gt;&lt;/i&gt;&lt;/a&gt;</run></par>
+<par def='19'><run html='true'>&lt;/div&gt;</run></par>
+<par def='21'><run html='true'>&lt;/div&gt;</run></par>
+<par def='21'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='21'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='22' leftmargin='1.7500in' firstlineleftmargin='2.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='22'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='23' leftmargin='1.7500in' firstlineleftmargin='2.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='23'><run html='true'>&lt;/div&gt;</run></par>
+<par def='8'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='24' leftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='24'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="widget-box widget-color-blue"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="widget-header widget-header-small"&gt;</run></par>
+<par def='9'><run html='true'>&lt;h6 class="widget-title smaller"&gt;消息扩展字段:&lt;i class="red"&gt;缺省输入域名，[value]格式表示常量&lt;/i&gt;&lt;/h6&gt;</run></par>
+<par def='9'><run html='true'>&lt;div class="widget-toolbar no-border"&gt;</run></par>
+<par def='10'><run html='true'>&lt;button type="button" class="btn btn-info btn-xs" onclick="saveMsgExt(this)"&gt;&lt;i class="fa fa-save"&gt;&lt;/i&gt;保存&lt;/button&gt;</run></par>
+<par def='9'><run html='true'>&lt;/div&gt;</run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="widget-body"&gt;</run></par>
+<par def='9'><run html='true'>&lt;div class="widget-main"&gt;</run></par>
+<par def='10'><run html='true'>&lt;div class="row msg"&gt;</run></par>
+<par def='11'><run html='true'>&lt;div class="hide" id="MsgExt"&gt;</run><run
+ html='true'><computedtext><code event='value'><formula>@GetProfileField("config";"MsgExtStr")</formula></code></computedtext></run><run
+ html='true'>&lt;/div&gt;</run></par>
+<par def='18'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='19'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='20'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;扩展字段$S&lt;/label&gt;&lt;/span&gt;&lt;input name="</run><run
+ html='true'>StExtStr</run><run html='true'>$S" class="form-control" value='</run><run
+ html='true'><computedtext><code event='value'><formula>@GetProfileField("config";"StExtStr1")</formula></code></computedtext></run><run
+ html='true'>'&gt;</run></par>
+<pardef id='25' leftmargin='2.2500in' firstlineleftmargin='3in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='25'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='26' leftmargin='2.2500in' firstlineleftmargin='2.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='26'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='27' leftmargin='2.2500in' firstlineleftmargin='2.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='27'><run html='true'>&lt;/div&gt;</run></par>
+<par def='23'><run html='true'>&lt;/div&gt;</run></par>
+<par def='8'><run html='true'>&lt;/div&gt;</run></par>
+<par def='24'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="page-content hidden-md hidden-lg" id="ACL"&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="page-header"&gt;</run></par>
+<par def='6'><run html='true'>&lt;h1&gt;模块管理：&lt;small&gt;添加模块管理员，管理模块基本配置信息&lt;/small&gt;&lt;/h1&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="widget-box widget-color-blue"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="widget-header widget-header-small"&gt;</run></par>
+<par def='9'><run html='true'>&lt;h6 class="widget-title smaller"&gt;模块管理员&lt;/h6&gt;</run></par>
+<par def='9'><run html='true'>&lt;div class="widget-toolbar no-border"&gt;</run></par>
+<par def='10'><run html='true'>&lt;button type="button" class="btn btn-info btn-xs" onclick="saveACL(this)"&gt;&lt;i class="fa fa-save"&gt;&lt;/i&gt;保存&lt;/button&gt;</run></par>
+<par def='9'><run html='true'>&lt;/div&gt;</run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="widget-body"&gt;</run></par>
+<par def='9'><run html='true'>&lt;div class="widget-main"&gt;</run></par>
+<par def='10'><run html='true'>&lt;div class="row"&gt;</run></par>
+<par def='18'><run html='true'>&lt;div class="col-md-12"&gt;</run></par>
+<pardef id='28' leftmargin='1.7500in' firstlineleftmargin='3in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='28'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='13'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;管理员&lt;/label&gt;&lt;/span&gt;&lt;input class="form-control" value="</run><run
+ html='true'><computedtext><code event='value'><formula>Managers</formula></code></computedtext></run><run
+ html='true'>" type=text name="Manager" </run><run html='true'>data-psnpicker=true </run><run
+ html='true'>data-mode=checkbox</run><run html='true'>&gt;</run></par>
+<par def='28'><run html='true'>&lt;/div&gt;</run></par>
+<par def='18'><run html='true'>&lt;/div&gt;</run></par>
+<par def='22'><run html='true'>&lt;/div&gt;</run></par>
+<par def='23'><run html='true'>&lt;/div&gt;</run></par>
+<par def='8'><run html='true'>&lt;/div&gt;</run></par>
+<par def='24'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="footer" data-ajax="/</run><run
+ html='true'><computedtext><code event='value'><formula>FlowProcessDB</formula></code></computedtext></run><run
+ html='true'>/footer?openpage"&gt;&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"&gt;&lt;i class="ace-icon fa fa-angle-double-up icon-only bigger-110"&gt;&lt;/i&gt;&lt;/a&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='29' leftmargin='0.2500in' firstlineleftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/><subformref
+><code event='value'><formula>"CommonInclude"</formula></code></subformref>
+<pardef id='30' leftmargin='0.2500in' firstlineleftmargin='1in' hide='notes mobile'/>
+<par def='30'><run html='true'>&lt;script&gt;</run></par>
+<par def='3'><run html='true'>$(function(){</run></par>
+<par def='4'><run html='true'>$("li",".nav-tabs").click(function(){</run></par>
+<par def='5'><run html='true'>var $this = $(this);</run></par>
+<par def='5'><run html='true'>var $a = $("a",this);</run></par>
+<par def='5'><run html='true'>var ids = [];</run></par>
+<par def='5'><run html='true'>$("li",".nav-tabs").each(function(){</run></par>
+<par def='5'><run html='true'>	if($("a",this).data("target") != $a.data("target"))</run></par>
+<par def='6'><run html='true'>ids.push($("a",this).data("target"));</run></par>
+<par def='5'><run html='true'>});</run></par>
+<par def='5'><run html='true'>$(ids.join(",")).addClass("hidden-md hidden-lg");</run></par>
+<par def='5'><run html='true'>$($a.data("target")).removeClass("hidden-md hidden-lg");</run></par>
+<par def='4'><run html='true'>});</run></par>
+<par def='4'><run html='true'>var index = "</run><run html='true'><computedtext
+><code event='value'><formula>@Elements(AppTypes)</formula></code></computedtext></run><run
+ html='true'>" || 1;</run></par>
+<par def='4'><run html='true'><computedtext><code event='value'><formula>@Implode("addFlowType('"+AppTypes+"','"+AppFlows+"','"+AppFlowUnids+"','"+AppSubForms+"','"+AppSubjects+"','"+Abstracts+"','"+AppActive+"','"+AppUsers+"');")</formula></code></computedtext></run></par>
+<pardef id='31' leftmargin='1.7500in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='31'><run html='true'>var MsgExt = ($("#MsgExt").html() == "" ? [] : $("#MsgExt").html().split(";"));</run></par>
+<par def='31'><run html='true'>if(MsgExt.length &lt; 10){</run></par>
+<par def='31'><run html='true'>	MsgExt[9] = "";</run></par>
+<par def='31'><run html='true'>}</run></par>
+<par def='31'><run html='true'>var html = $(".col-md-6:first",".msg").html();</run></par>
+<par def='31'><run html='true'>for(var i=0;i&lt;MsgExt.length;i++){</run></par>
+<par def='31'><run html='true'>	$(".msg").append('&lt;div class="col-md-6"&gt;'+html.replace(/\$S/gi,i+1)+'&lt;/div&gt;');</run></par>
+<par def='31'><run html='true'>	$("input[name='</run><run html='true'>StExtStr</run><run
+ html='true'>"+(i+1)+"']").val(MsgExt[i]);</run></par>
+<par def='31'><run html='true'>}</run></par>
+<par def='31'><run html='true'>$(".col-md-6:first",".msg").remove();</run></par>
+<par def='3'><run html='true'>});</run></par>
+<par def='30'><run html='true'>&lt;/script&gt;</run></par></richtext></body>
+<item name='OriginalModTime' sign='true'><datetime>20070830T100129,45+08</datetime></item>
+<item name='$MimeCharSet'><text>UTF-8</text></item>
+<item name='$$ScriptName' summary='false' sign='true'><text>AppMainForm</text></item></form>
+

@@ -1,0 +1,93 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+%REM
+	Library TaskLib
+	Created 2016-6-15 by admin/VICUTUDEV
+	Description: Comments for Library
+%END REM
+Option Public
+Option Declare
+Use "Generallib"
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Public Class Task
+Declare Public Class Webservice
+Declare Sub Initialize
+
+'++LotusScript Development Environment:2:5:(Declarations):0:10
+Dim webservice List As Webservice
+Public Class Task
+	Public id As String
+	Public taskname As String
+	Public doc As NotesDocument
+	
+	Public Sub start(doc As NotesDocument)
+		Set me.doc = doc
+	End Sub
+	
+	Public Sub New(id As String,taskname As String)
+		me.id = id
+		me.taskname = taskname
+	End Sub
+End Class
+
+%REM
+	Class WebserviceInterface
+	Description: Comments for Class
+%END REM
+Public Class Webservice
+	%REM
+		Function load
+		Description: Comments for Function
+	%END REM
+	Private tasks List As Task
+	Private ids As Variant
+	
+	Public Sub New
+		ReDim me.ids(0) As String
+		
+	End Sub
+	Public Function start(doc As NotesDocument)
+		On Error GoTo err_handle
+		Dim index As Integer
+		index = 1
+		ForAll id In ids
+			On Error Resume Next
+			Call me.tasks(id).start(doc)
+			index = index + 1
+		End ForAll
+		Exit Function
+err_handle:
+		ShowError("")
+	End Function
+	%REM
+		Sub addTask
+		Description: Comments for Sub
+	%END REM
+	Public Sub setTask(task As Task)
+		Set tasks(task.id) = task
+		ids = arrayappend(ids,task.id)
+	End Sub
+	
+	Public Function getTask(id As String) As Task
+		On Error GoTo catch
+		Set getTask = me.tasks(id)
+		Exit Function
+catch:
+		Set getTask = Nothing
+	End Function
+	
+	%REM
+		Sub removeTask
+		Description: Comments for Sub
+	%END REM
+	Public Sub removeTask(id As String)
+		Set me.tasks(id) = Nothing
+		ids = fnRemoveFromArray(ids,id)
+	End Sub
+End Class
+'++LotusScript Development Environment:2:2:Initialize:1:10
+Sub Initialize
+	Set webservice("opendoc") = New webservice
+	Set webservice("savedoc") = New webservice
+End Sub
+

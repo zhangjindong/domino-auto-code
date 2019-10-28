@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<page name='bbhinfo' alias='VS8001' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' publicaccess='false'
+ designerversion='8.5.3' renderpassthrough='true'>
+<noteinfo noteid='212' unid='88CE4360259F36C5482572EC003AFD80' sequence='310'>
+<created><datetime>20070531T184419,84+08</datetime></created>
+<modified><datetime>20191028T153146,30+08</datetime></modified>
+<revised><datetime>20170918T171806,21+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,30+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,30+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=VICUTU</name><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' firstlineleftmargin='1in'/>
+<par def='1'/>
+<table htmlstyle='border-collapse:collapse;font-size:12;width:100%;' extrahtmlattrs='cellspacing=0 cellspadding=0'
+ widthtype='fixedleft' refwidth='7.3757in'><tablecolumn width='0.4326in'/><tablecolumn
+ width='0.6021in'/><tablecolumn width='0.8764in'/><tablecolumn width='0.6014in'/><tablecolumn
+ width='2.6875in'/><tablecolumn width='2.1757in'/>
+<tablerow>
+<tablecell bgcolor='#efefef'>
+<pardef id='2' keepwithnext='true' keeptogether='true'/>
+<par def='2'>序号</par></tablecell>
+<tablecell bgcolor='#efefef'>
+<pardef id='3' keepwithnext='true' keeptogether='true'/>
+<par def='3'>版本号</par></tablecell>
+<tablecell bgcolor='#efefef'>
+<pardef id='4' keepwithnext='true' keeptogether='true'/>
+<par def='4'>修改时间</par></tablecell>
+<tablecell bgcolor='#efefef'>
+<pardef id='5' keepwithnext='true' keeptogether='true'/>
+<par def='5'>更改类型</par></tablecell>
+<tablecell bgcolor='#efefef'>
+<pardef id='6' keepwithnext='true' keeptogether='true'/>
+<par def='6'>功能/问题描述</par></tablecell>
+<tablecell bgcolor='#efefef'>
+<pardef id='7' keepwithnext='true' keeptogether='true'/>
+<par def='7'>升级相关信息说明</par></tablecell></tablerow>
+<tablerow>
+<tablecell>
+<par def='2'>1</par></tablecell>
+<tablecell>
+<par def='3'>V8001</par></tablecell>
+<tablecell>
+<par def='4'/></tablecell>
+<tablecell>
+<par def='5'>新应用</par></tablecell>
+<tablecell>
+<pardef id='8' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'
+ keepwithnext='true' keeptogether='true'/>
+<par def='8'/></tablecell>
+<tablecell>
+<par def='7'/></tablecell></tablerow>
+<tablerow>
+<tablecell>
+<pardef id='9' keepwithnext='true' keeptogether='true'/>
+<par def='9'/></tablecell>
+<tablecell>
+<pardef id='10' keepwithnext='true' keeptogether='true'/>
+<par def='10'/></tablecell>
+<tablecell>
+<pardef id='11' keepwithnext='true' keeptogether='true'/>
+<par def='11'/></tablecell>
+<tablecell>
+<pardef id='12' keepwithnext='true' keeptogether='true'/>
+<par def='12'/></tablecell>
+<tablecell>
+<pardef id='13' keepwithnext='true' keeptogether='true'/>
+<par def='13'/></tablecell>
+<tablecell>
+<pardef id='14' keepwithnext='true' keeptogether='true'/>
+<par def='14'/></tablecell></tablerow></table>
+<par def='1'/></richtext></body>
+<item name='OriginalModTime' sign='true'><datetime>20071109T164619,13+08</datetime></item>
+<item name='$$ScriptName' summary='false' sign='true'><text>VS8001</text></item></page>
+

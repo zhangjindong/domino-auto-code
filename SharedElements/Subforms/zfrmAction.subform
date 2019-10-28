@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='zfrmAction' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'
+ comment='C.0 保存操作' renderpassthrough='true'>
+<noteinfo noteid='2a6' unid='CD95A397F8F5D4C348257BCF0032CACD' sequence='104'>
+<created><datetime>20130822T171447,17+08</datetime></created>
+<modified><datetime>20191028T153147,69+08</datetime></modified>
+<revised><datetime>20170918T171808,47+08</datetime></revised>
+<lastaccessed><datetime>20191028T153147,69+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153147,69+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digiflow</name><name>CN=admin/O=DigiWin</name><name
+>CN=admin/O=DevServer</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=VICUTU</name><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='1'><run html='true'>&lt;div class="navbar-header"&gt;</run></par>
+<pardef id='2' leftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='2'><run html='true'>&lt;div class="container"&gt;</run></par>
+<pardef id='3' leftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'>&lt;button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav_sidebar"&gt;</run></par>
+<pardef id='4' leftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='4'><run html='true'>&lt;span class="sr-only"&gt;Toggle navigation&lt;/span&gt;</run></par>
+<par def='4'><run html='true'>&lt;span class="icon-bar"&gt;&lt;/span&gt;</run></par>
+<par def='4'><run html='true'>&lt;span class="icon-bar"&gt;&lt;/span&gt;</run></par>
+<par def='4'><run html='true'>&lt;span class="icon-bar"&gt;&lt;/span&gt;</run></par>
+<par def='3'><run html='true'>&lt;/button&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="btn-group fr btn_tools" id="FlowOptContainer"&gt;</run></par>
+<pardef id='5' leftmargin='1.7500in' hide='edit previewedit' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>!(@Name([CN];@UserName(0)) = StPsnEN|@IsMember("[admin]";@UserRoles))</formula></code></pardef>
+<par def='5'><run html='true'><font color='fuchsia'/>&lt;button type="button" </run><run
+ html='true'><font color='fuchsia'/>onclick="document.all('btActionEdit').onclick();" class="btn btn-default"&gt;&lt;i class="icon-wrench bigger-125"&gt;&lt;/i&gt;编  辑&lt;/button&gt;</run></par>
+<pardef id='6' leftmargin='1.7500in' hide='read preview' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen' enabled='false'><formula>!(@IsDocBeingEdited &amp; (@Name([CN];@UserName(0)) = StPsnEN|@IsMember("[admin]";@UserRoles)))</formula></code></pardef>
+<par def='6'><run html='true'><font color='blue'/>&lt;button type="button" </run><run
+ html='true'><font color='blue'/>onclick="check_submit();" class="btn btn-default"&gt;&lt;i class="icon-save bigger-125"&gt;&lt;/i&gt;保  存&lt;/button&gt;</run></par>
+<par def='4'><run html='true'>&lt;button type="button" </run><run html='true'>onclick="window.close();" class="btn btn-default"&gt;&lt;i class="icon-external-link bigger-125"&gt;&lt;/i&gt;退  出&lt;/button&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="navbar-collapse collapse"&gt;</run></par>
+<par def='4'><run html='true'>&lt;a class="logo" href="#"&gt;&lt;/a&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='1'><run html='true'>&lt;/div&gt;</run></par>
+<par def='1'><run html='true'>&lt;DIV style="display:none"&gt;</run><button
+ width='2in' widthtype='maximum' maxlines='1' wraptext='true' bgcolor='system'
+ extrahtmlattrs='id="btActionEdit"'><code event='click'><formula>@Command([EditDocument])</formula></code>编辑</button><run
+ html='true'>&lt;/DIV&gt;</run></par>
+<par def='1'/></richtext></body>
+<item name='OriginalModTime' sign='true'><datetime>20080423T154612,55+08</datetime></item>
+<item name='$$ScriptName' summary='false' sign='true'><text>zfrmAction</text></item></subform>
+

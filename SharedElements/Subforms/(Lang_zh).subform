@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='(Lang_zh)' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.0'
+ replicaid='482584A1002906C1' designerversion='8.5.3' renderpassthrough='true'>
+<noteinfo noteid='1ba' unid='812EC0CDD835D467482580CD00044A1A' sequence='18'>
+<created><datetime>20170220T084651,14+08</datetime></created>
+<modified><datetime>20191028T153145,69+08</datetime></modified>
+<revised><datetime>20170918T171809,15+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,69+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,69+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' hide='web'/>
+<par def='1'>###################################################</par>
+<par def='1'>#<run><font name='Courier New' pitch='fixed' truetype='true'
+ familyid='30' color='#3f8080'/>Copyright (c)2017 Tomas, Inc.</run></par>
+<par def='1'>###################################################</par>
+<par def='1'><field type='text' kind='computedfordisplay' name='L_BasicInfo'><code
+ event='defaultvalue'><formula>"基本信息"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'><field type='text' kind='computedfordisplay' name='L_MainBody'><code
+ event='defaultvalue'><formula>"正文"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'><field type='text' kind='computedfordisplay' name='L_Attachment'><code
+ event='defaultvalue'><formula>"附件"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'><field type='text' kind='computedfordisplay' name='L_ListMind'><code
+ event='defaultvalue'><formula>"流转意见"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'><field type='text' kind='computedfordisplay' name='L_Abstract'><code
+ event='defaultvalue'><formula>"摘要信息"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'>##################################################</par>
+<par def='1'>#配置表单</par>
+<par def='1'>##################################################</par>
+<par def='1'><field type='text' kind='computedfordisplay' name='L_ApprovalType'><code
+ event='defaultvalue'><formula>"审批类型"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'><field type='text' kind='computedfordisplay' name='L_ModuleManagement'><code
+ event='defaultvalue'><formula>"模块管理"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='1'><field type='text' kind='computedfordisplay' name='L_Privilege'><code
+ event='defaultvalue'><formula>"权限管理"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>(Lang_zh)</text></item></subform>
+

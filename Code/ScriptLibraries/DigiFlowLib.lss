@@ -1,0 +1,268 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+%REM
+	Library DigiFlowLib
+	Created 2017-2-24 by mat/xinxibu/VICUTU
+	Description: Comments for Library
+%END REM
+Option Public
+Option Declare
+Use "GeneralLib"
+Use "libUserAndOrg"
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Sub Initialize
+Declare Function fnGetPsnMsgDB(itcode As String) As NotesDatabase
+Declare Sub suCreateMsgDbOnServer(msgserver As String,itcode As String)
+Declare Sub suSendPsnEvent(subject As String,dbpath As String,docid As String,action As String,users As Variant)
+Declare Sub suSendFlowMail(subject As String,strBody As String,sendto As Variant,fromUser As String)
+
+'++LotusScript Development Environment:2:5:(Declarations):0:10
+Dim overNodes As Variant
+Dim msgServer As String,msgFlag As String
+Dim ProcessDB As NotesDatabase,ProcessAppView As NotesView
+Dim ProcessDoc As NotesDocument
+
+'++LotusScript Development Environment:2:2:Initialize:1:10
+Sub Initialize
+	msgFlag = "no"
+	msgServer = session.Currentdatabase.Server
+	Dim curServer As String
+	curServer = session.Currentdatabase.Server
+	Set ProcessDB = session.Getdatabase("", "flow/flowprocess.nsf")
+	
+	Dim db As NotesDatabase,vw As NotesView
+	Set vw = ProcessDB.Getview("vwProperty")
+	Set ProcessDoc = vw.Getfirstdocument()
+	
+	Set db = session.Getdatabase(curServer, "Produce/GeneralMessage.nsf")
+	If db.Isopen Then
+		Set vw = db.Getview("ParasSetMngView")
+		Dim doc As NotesDocument
+		Set doc = vw.Getfirstdocument()
+		If Not doc Is Nothing Then
+			If Trim(doc.msgServer(0)) <> "" Then
+				msgServer = doc.msgServer(0)
+			End If
+			If doc.OrgType(0)="yes" Then
+				msgFlag = "yes"
+			End If
+		End If
+	End If
+End Sub
+
+'++LotusScript Development Environment:2:1:fnGetPsnMsgDB:5:8
+%REM
+	Function fnGetPsnMsgDB
+	Description: Comments for Function
+%END REM
+Function fnGetPsnMsgDB(itcode As String) As NotesDatabase
+	On Error GoTo err_handle
+	Dim msgDB As NotesDatabase,tmpMsgServer As String
+	tmpMsgServer = msgServer
+	Dim psndoc As NotesDocument
+	Set psndoc = UserList(itcode).Document()
+	If psndoc Is Nothing Then
+		Set fnGetPsnMsgDB = Nothing
+		Exit Function
+	End If
+	If msgFlag = "yes" Then
+		
+		If Not psndoc Is Nothing Then
+			If psndoc.msgAtServerName(0) <> "" Then
+				tmpMsgServer = psndoc.msgAtServerName(0)
+			End If
+		End If
+	End If
+getdb:
+	Set msgdb = session.Getdatabase(tmpMsgServer,"DFMessage/dfmsg_" + itcode + ".nsf")
+	If msgdb Is Nothing Or Not msgdb.isopen Then
+		Set msgdb = session.Getdatabase(tmpMsgServer, "names.nsf")
+		If msgdb.Isopen Then
+			Call suCreateMsgDbOnServer(tmpMsgServer,itcode)
+			GoTo getdb
+		Else
+			'put in event list
+		End If
+	End If
+	Set fnGetPsnMsgDB = msgdb
+	Exit Function
+err_handle:
+	Set fnGetPsnMsgDB = Nothing
+	ShowError("fnGetPsnMsgDB")
+End Function
+
+'++LotusScript Development Environment:2:2:suCreateMsgDbOnServer:5:8
+%REM
+	Sub fnCreateMsgDbOnServer
+	Description: Comments for Sub
+%END REM
+Sub suCreateMsgDbOnServer(msgserver As String,itcode As String)
+	On Error GoTo err_handle
+	Dim fdb As NotesDatabase
+	
+	Dim doc As NotesDocument
+	Set doc = ProcessDB.Createdocument()
+	doc.form = "creatpersondb"
+	doc.msgserver =msgserver
+	doc.itcode = itcode
+	Call doc.Save(True,False)
+	Dim agent As NotesAgent
+	Set agent = ProcessDB.Getagent("agtCreatePersonDB")
+	Call agent.Run(doc.Noteid)
+	Exit Sub
+err_handle:
+	ShowError("suCreateMsgDbOnServer")
+End Sub
+
+'++LotusScript Development Environment:2:2:suSendPsnEvent:5:8
+%REM
+	Sub suSendPsnMsg
+	Description: Comments for Sub
+%END REM
+Sub suSendPsnEvent(subject As String,dbpath As String,docid As String,action As String,users As Variant)
+	On Error GoTo err_handle
+	Dim UserNames As Variant
+	ReDim UserNames(0) As String
+	Dim msgdb As NotesDatabase
+	
+	If TypeName(users) = "STRING" Then
+		If Not UserList(CStr(users)).getUserDoc() Is Nothing Then
+			UserNames(0) = users
+		End If
+	Else
+		ForAll d In users
+			If Not UserList(CStr(d)).getUserDoc() Is Nothing Then
+				UserNames = ArrayAppend(UserNames,CStr(d))
+			End If
+		End ForAll
+	End If
+	UserNames = ArrayUnique(FullTrim(UserNames))
+	
+	ForAll u In UserNames
+		Dim user As New NotesName(u)
+		Set msgdb = fnGetPsnMsgDB(user.Common)
+		Dim msgvw As NotesView,msgdoc As NotesDocument,msgType As Variant
+		Set msgvw = msgdb.Getview("FlowByUNIDView")
+		Set msgdoc = msgvw.Getdocumentbykey(docid, True)
+		If action = "del" Then
+			If Not msgdoc Is Nothing Then
+				Call msgdoc.Remove(True)
+			End If
+			Exit Sub
+		End If
+		
+		If msgdoc Is Nothing Then
+			Dim curItem As NotesItem
+			Set msgdoc = msgdb.Createdocument()
+			msgdoc.form = "UniformMsg_form"
+			
+			Set curItem = New NotesItem(msgdoc,"admin","[admin]")
+			Call curItem.Appendtotextlist(user.Canonical)
+			curItem.Issummary = True
+			curItem.Isreaders = True
+			
+			Set curItem = New NotesItem(msgdoc,"StFlowUNID",docid)
+			curItem.Issummary = True
+			
+			Set curItem = New NotesItem(msgdoc,"StMsgParentID",docid)
+			curItem.Issummary = True
+			
+			Set curItem = New NotesItem(msgdoc,"StFlowDbPath",dbpath)
+			curItem.Issummary = True
+			
+			Set curItem = New NotesItem(msgdoc,"StMsgDB",dbpath)
+			curItem.Issummary = True
+	
+			Set curItem = New NotesItem(msgdoc,"StFlowServer",ServerDomain(session.Currentdatabase.Server))
+			curItem.Issummary = True
+			
+			Set curItem = New NotesItem(msgdoc,"StMsgServer",ServerDomain(session.Currentdatabase.Server))
+			curItem.Issummary = True
+			
+			Set curItem = New NotesItem(msgdoc,"StFlowCreater",curName.Common)
+			curItem.Issummary = True
+			
+			Set curItem = New NotesItem(msgdoc,"StFlowCreaterCN",curName.Common)
+			curItem.Issummary = True
+			
+			Set curItem = New NotesItem(msgdoc,"StFlowStart",now)
+			curItem.Issummary = True
+			
+			Set curItem = New NotesItem(msgdoc,"Creater",curName.Common)
+			curItem.Issummary = True
+			curItem.Isreaders = True
+	
+		End If
+		Call msgdoc.Replaceitemvalue("StFlowText", subject)
+		Call msgdoc.Replaceitemvalue("StMsgText", subject)
+		Call msgdoc.replaceitemvalue("StMsgState","0")
+		Call msgdoc.Replaceitemvalue("MsgType", action)
+		Call msgdoc.Replaceitemvalue("StMsgType", action)
+		Call msgdoc.Replaceitemvalue("StMsgCreated",Now)
+		Call msgdoc.save(True,false)
+	End ForAll
+	Exit Sub
+err_handle:
+	ShowError("suSendPsnMsg")	
+End Sub
+
+'++LotusScript Development Environment:2:2:suSendFlowMail:1:8
+Sub suSendFlowMail(subject As String,strBody As String,sendto As Variant,fromUser As String)
+	On Error GoTo err_handle
+	Dim SendMail As String,SendName As String
+	If ProcessDoc.MailSenderType(0) = "2" Then
+		SendMail = ProcessDoc.Flow_Send_Mail(0)
+		SendName = StrLeft(SendMail,"@")
+	ElseIf ProcessDoc.MailSenderType(0) = "3" Then
+		If fromUser = "" Then
+			SendMail = ""
+			SendName = ""
+		Else
+			Dim lp As String,p As NotesName
+			Set p = New NotesName(fromUser)
+			Dim u As NotesDocument
+			If ProcessDoc.IsMailSend(0) = "no" Then
+				Set u = UserList(p.Common).getNameDoc()
+				If Not u Is Nothing Then
+					sendmail =  u.InternetAddress(0)
+				End If
+				sendName = p.common
+			Else
+				Set u = UserList(p.common).Document()
+				If Not u Is Nothing Then
+					sendmail = u.UserMail(0)
+					sendName = p.common
+				End If
+			End If
+		End If
+	Else
+		SendMail = ""
+		SendName = ""
+	End If
+	
+	If ProcessDoc.IsMailSend(0) = "no" Then'这是使用组织邮箱地址的标记
+		Dim i As Integer,tuser As NotesName
+		Dim users As Variant
+		ReDim users(0) As String
+		For i = 0  To UBound(sendto)
+			If sendto(i) <> "" Then
+				Set tuser = New NotesName(sendto(i))
+				Dim userDoc As NotesDocument
+				Set userDoc = UserList(tuser.Common).Document()
+				If Not userDoc Is Nothing Then
+					If userDoc.UserMail(0) <> "" Then
+						users = ArrayAppend(users,Split(userDoc.UserMail(0),";"))
+					End If
+				End If
+			End If
+		Next
+		users = ArrayUnique(FullTrim(users))
+	Else
+		users = sendto
+	End If
+	
+	Call sendMail_ext(subject,strBody,users,SendMail,SendName)
+	Exit Sub
+err_handle:
+	ShowError("suSendFlowMail")
+End Sub

@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='utf-8'?>
+<form name='AppConfigForm' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' htmlallfields='true'
+ publicaccess='false' designerversion='8.5.3' editonopen='true' renderpassthrough='true'>
+<noteinfo noteid='206' unid='AE9796FD99A0BE0A48257FD2004310FC' sequence='83'>
+<created><datetime>20160614T201232,60+08</datetime></created>
+<modified><datetime>20191028T153146,24+08</datetime></modified>
+<revised><datetime>20170918T171806,79+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,24+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,24+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><code event='windowtitle'><formula
+>"配置项目样例"</formula></code><code event='webquerysave'><formula>@Command([ToolsRunMacro]; "agtSave")</formula></code><code
+ event='htmlbody'><formula>"class=\"no-skin\""</formula></code>
+<body><richtext>
+<pardef id='1' hide='web'/>
+<par def='1'><sharedfieldref name='$$HTMLFrontMatter'/><sharedfieldref name='$$HTMLHEAD'/><field
+ type='text' kind='editable' name='FlowProcessDB'><code event='defaultvalue'><formula
+>"flow/flowprocess.nsf"</formula></code></field><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='17' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='query_string'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='23' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='Path_Info_Decoded'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='29' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='computedfordisplay'
+ name='viewForm'><code event='defaultvalue'><formula>ref:=Path_Info_Decoded;
+tempstr1:=@Left(ref;"?");
+tempstr2:=@RightBack(tempstr1;"/");
+@If(tempstr2=""; tempstr1;tempstr2)</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='35' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<pardef id='2' leftmargin='0.2500in' firstlineleftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/><subformref
+><code event='value'><formula>"CommonInclude"</formula></code></subformref>
+<pardef id='3' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'>&lt;div style="display:none"&gt;</run></par>
+<pardef id='4'/>
+<par def='4'><run><font size='9pt' color='red'/><field type='text' kind='editable'
+ name='$$querysaveagent' extrahtmlattrs='type=hidden'><code event='defaultvalue'><formula
+>"agtSave"</formula></code></field></run><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='8' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'><font size='9pt' color='red'/><field
+ type='text' kind='computedfordisplay' name='saveoptions'><code event='defaultvalue'><formula
+>"1"</formula></code></field></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='15' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'><font size='9pt' color='red'/><field
+ type='text' kind='computedfordisplay' name='$$return'><code event='defaultvalue'><formula
+>""</formula></code></field></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='21' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;div id="navbar" class="navbar navbar-default navbar-collapse h-navbar navbar-fixed-top" &gt;</run></par>
+<pardef id='5' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='5'><run html='true'>&lt;script type="text/javascript"&gt;</run></par>
+<pardef id='6' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='6'><run html='true'>try{ace.settings.check('navbar' , 'fixed')}catch(e){}</run></par>
+<par def='5'><run html='true'>&lt;/script&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="navbar-container" id="navbar-container"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="navbar-header pull-left" &gt;</run></par>
+<pardef id='7' leftmargin='1in' firstlineleftmargin='1.7500in' hide='web'
+ tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='7'><run html='true'>&lt;button class="pull-left navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".sidebar"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="sr-only"&gt;Toggle sidebar&lt;/span&gt;&lt;span class="icon-bar"&gt;&lt;/span&gt;&lt;span class="icon-bar"&gt;&lt;/span&gt;&lt;span class="icon-bar"&gt;&lt;/span&gt;</run></par>
+<par def='7'><run html='true'>&lt;/button&gt;</run></par>
+<pardef id='8' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='8'><run html='true'>&lt;a href="#" class="navbar-brand"&gt;&lt;/a&gt;</run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="navbar-header pull-right navbar-collapse center" style="padding-top:10px;"&gt;</run></par><subformref
+><code event='value'><formula>"Action_"+@If(@IsNewDoc;viewForm;Form)</formula></code></subformref>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;!-- /section:basics/navbar.layout --&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="main-container" id="main-container" style=""&gt;</run></par>
+<par def='5'><run html='true'>&lt;script type="text/javascript"&gt;try{ace.settings.check('main-container' , 'fixed')}catch(e){}&lt;/script&gt;</run></par>
+<par def='5'><run html='true'>&lt;div id="sidebar" class="h-sidebar navbar-collapse collapse sidebar-fixed" style="background-color:#F8F8F8;border-bottom:1px solid #C5D0DC;z-index:1000;position:fixed;padding-left:100px"&gt;</run></par>
+<par def='6'><run html='true'>&lt;ul class="nav nav-tabs"&gt;</run></par>
+<par def='8'><run html='true'>&lt;li class="hover active"&gt;</run></par>
+<pardef id='9' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='9'><run html='true'>&lt;a href="#" data-toggle="tab" data-target="#FlowType"&gt;&lt;i class="menu-icon fa fa-tachometer"&gt;&lt;/i&gt;&lt;span class="menu-text"&gt;基本信息&lt;/span&gt;&lt;/a&gt;&lt;b class="arrow"&gt;&lt;/b&gt;</run></par>
+<par def='8'><run html='true'>&lt;/li&gt;</run></par>
+<par def='6'><run html='true'>&lt;/ul&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="main-content no-margin"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="page-content" id="BasicInfo"&gt;</run></par><subformref
+><code event='value'><formula>"subform_"+ @If(@IsNewDoc;viewForm;Form)</formula></code></subformref>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="footer" data-ajax="/</run><run
+ html='true'><computedtext><code event='value'><formula>FlowProcessDB</formula></code></computedtext></run><run
+ html='true'>/footer?openpage"&gt;&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"&gt;&lt;i class="ace-icon fa fa-angle-double-up icon-only bigger-110"&gt;&lt;/i&gt;&lt;/a&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='10' leftmargin='0.2500in' firstlineleftmargin='1in' hide='notes mobile'/>
+<par def='10'><run html='true'>&lt;script&gt;</run></par>
+<par def='5'><run html='true'>$(function(){</run></par>
+<par def='6'><run html='true'>$("li",".nav-tabs").on(ace.click_event,function(){</run></par>
+<par def='8'><run html='true'>var $this = $(this);</run></par>
+<par def='8'><run html='true'>var $a = $("a",this);</run></par>
+<par def='8'><run html='true'>var ids = [];</run></par>
+<par def='8'><run html='true'>$("li",".nav-tabs").removeClass("active").each(function(){</run></par>
+<par def='9'><run html='true'>ids.push($("a",this).data("target"));</run></par>
+<par def='8'><run html='true'>});</run></par>
+<par def='8'><run html='true'>$(ids.join(",")).addClass("hidden-md hidden-lg");</run></par>
+<par def='8'><run html='true'>$this.addClass("active");</run></par>
+<par def='8'><run html='true'>$($a.data("target")).removeClass("hidden-md hidden-lg");</run></par>
+<pardef id='11' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") != "1"</formula></code></pardef>
+<par def='11'><run html='true'>if($a.data("target") == "#MainContent"){</run></par>
+<pardef id='12' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") != "1"</formula></code></pardef>
+<par def='12'><run html='true'><font name='Courier New' pitch='fixed' truetype='true'
+ familyid='30' color='#4200ff'/>NTKO_Flow.init();</run></par>
+<par def='11'><run html='true'>}</run></par>
+<par def='6'><run html='true'>});</run></par>
+<par def='5'><run html='true'>});</run></par>
+<par def='10'><run html='true'>&lt;/script&gt;</run></par></richtext></body>
+<item name='$SubForm_RepIDs' sign='true'><textlist><text>0000000000000000</text><text
+>0000000000000000</text></textlist></item>
+<item name='$$ScriptName' summary='false' sign='true'><text>AppConfigForm</text></item></form>
+

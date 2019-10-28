@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sharedfield name='$$HTMLFrontMatter' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'>
+<noteinfo noteid='15a' unid='5B56CC30546CB7C748257CB6000CF5C9' sequence='63'>
+<created><datetime>20140410T102133,53+08</datetime></created>
+<modified><datetime>20191028T153145,28+08</datetime></modified>
+<revised><datetime>20170918T171808,15+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,28+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,28+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=DevServer</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=VICUTU</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><field type='text' kind='computedfordisplay'
+ name='$$HTMLFrontMatter'><code event='defaultvalue'><formula>"&lt;!DOCTYPE html&gt;"</formula></code></field>
+<item name='$HTMLCode' sign='true'>
+<rawitemdata type='1'>
+</rawitemdata></item></sharedfield>
+

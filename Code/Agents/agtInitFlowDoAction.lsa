@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='utf-8'?>
+<agent name='agtInitFlowDoAction' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' hide='v3' runaswebuser='true'
+ publicaccess='false' designerversion='8.5.3'>
+<noteinfo noteid='1fa' unid='15BC22B0E352BFD44825809100615506' sequence='9'>
+<created><datetime>20161223T014307,58+08</datetime></created>
+<modified><datetime>20191028T153146,18+08</datetime></modified>
+<revised><datetime>20170918T171809,09+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,18+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,18+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=dxsport</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<designchange><datetime>20170918T171754,70+08</datetime></designchange>
+<trigger type='actionsmenu'/>
+<documentset type='runonce'/><code event='options'><lotusscript>%REM
+	Agent agtInitFlowAction
+	Created 2016-12-22 by admin/dxsport
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+Use "GeneralLib"
+
+</lotusscript></code><code event='initialize'><lotusscript>Sub Initialize
+	On Error GoTo err_handle
+	Dim db As NotesDatabase,view As String,vw As NotesView
+	Set db = session.Currentdatabase
+	Dim doccl As NotesDocumentCollection
+	
+	view = QueryString("view")
+	If view = "" Then
+		view = "vwDoing"
+	End If
+	
+	Set doccl = db.Search(|Form="MainForm" &amp; TFCurNodeID!="FlowStartNode" &amp; TFCurNodeID!="FlowEndNode" &amp; @contains(TFCurNodeAuthors;"|+session.Effectiveusername+|")|, Nothing, 0)
+	Set vw = db.Getview(view)
+	
+	
+	Dim vwens As NotesViewEntryCollection,vwen As NotesViewEntry,doc As NotesDocument
+	Set vwens = vw.Allentries
+	Call vwens.Intersect(doccl)
+	
+	
+	Dim clw As Variant,clwt As Double,strHTML As String
+	ReDim clw(0) As Double
+	Dim vwc As NotesViewColumn
+	
+	clwt = 0
+	ForAll c In vw.Columns
+		Set vwc = c
+		If Not (vwc.Ishidden Or vwc.Iscategory) Then
+			If clw(0) = 0 Then
+				clw(0) = vwc.Width
+			Else
+				clw = ArrayAppend(clw,vwc.Width)
+			End If
+			clwt = clwt + vwc.Width
+		End If
+	End ForAll
+	
+	
+	Dim ck As String
+	ck = |&lt;label class="position-relative"&gt;&lt;input class="ace" type="checkbox"&gt;&lt;span class="lbl"&gt;&lt;/span&gt;&lt;/label&gt;|
+	
+	strHTML = |&lt;tr&gt;&lt;th style="width:15px"&gt;|+ck+|&lt;/th&gt;&lt;th class="xh" nowrap="nowrap" style="width:20px;text-align:center"&gt;序号&lt;/th&gt;
+		|
+	Dim index As Integer
+	index = 0
+	ForAll c In vw.Columns
+		Set vwc = c
+		If Not (vwc.Ishidden Or vwc.Iscategory) Then
+			strHTML = strHTML + |&lt;th style="width:|+CStr(Int(clw(index)/clwt*90))+|%"&gt;| + vwc.Title + |&lt;/th&gt;|
+			index = index + 1
+		End If
+	End ForAll
+	strHTML = strHTML + |&lt;th&gt;操作结果&lt;/th&gt;|
+	strHTML = strHTML + |&lt;/tr&gt;|
+	
+	Dim note As NotesDocument,i As Integer
+	Set note = session.Documentcontext
+	
+	note.thead = strHTML
+	
+	Set vwen = vwens.Getfirstentry()
+	index  = 1
+	strHTML = ""
+	While Not vwen Is Nothing
+		Set doc = vwen.Document
+		Dim v As String
+		v = Replace(|fdb=|+doc.FlowProcessDB(0)+|&amp;db=|+db.Filepath+|&amp;uid=|+doc.Universalid,|\|,|/|)
+		ck = |&lt;input class="ace" type="checkbox" name="DocUnid" value="|+v+|"&gt;&lt;span class="lbl"&gt;&lt;/span&gt;|
+		strHTML = strHTML + |&lt;tr&gt;|
+		strHTML = strHTML + |&lt;td style="width:15px"&gt;|+ck+|&lt;/td&gt;&lt;td class="xh" nowrap="nowrap" style="width:20px;text-align:center"&gt;|+CStr(index)+|&lt;/td&gt;|	
+		i = 0
+		ForAll c In vw.Columns
+			Set vwc = c
+			If Not (vwc.Ishidden Or vwc.Iscategory) Then
+				strHTML = strHTML + |&lt;td&gt;| +vwen.Columnvalues(i) + |&lt;/td&gt;|
+			End If
+			i = i + 1
+		End ForAll
+		strHTML = strHTML + |&lt;td&gt;&lt;/td&gt;|
+		strHTML = strHTML + |&lt;/tr&gt;|
+		index = index + 1
+		Set vwen = vwens.Getnextentry(vwen)
+	Wend
+	
+	note.tbody = strHTML
+	Exit Sub
+err_handle:
+	ShowError("agtInitFlowAction")
+End Sub</lotusscript></code>
+<rundata processeddocs='0' exitcode='0'>
+<agentmodified><datetime>20161222T235359,66+08</datetime></agentmodified>
+<agentrun><datetime>20161223T000029,97+08</datetime></agentrun>
+<runlog>Started running agent 'agtInitFlowDoAction' on 2016/12/23 00:00:29
+Ran LotusScript code
+Done running agent 'agtInitFlowDoAction' on 2016/12/23 00:00:29
+</runlog></rundata>
+<item name='$POID'><datetime>20170918T171809,09+08</datetime></item></agent>
+

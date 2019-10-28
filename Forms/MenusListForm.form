@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<form name='MenusListForm' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' nocompose='true' htmlallfields='true'
+ publicaccess='false' designerversion='8.5.3' comment='Z.Z 功能链接列表' editonopen='true'
+ renderpassthrough='true'>
+<noteinfo noteid='24a' unid='648DE3390EFB4BBB482576520023AA68' sequence='238'>
+<created><datetime>20091017T142933,84+08</datetime></created>
+<modified><datetime>20191028T153146,81+08</datetime></modified>
+<revised><datetime>20170918T171805,19+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,81+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,81+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=VICUTU</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><code event='webqueryopen'><formula
+>@Command([ToolsRunMacro]; "initBbDdForm")</formula></code><code event='htmlbody'><formula
+>"onselectstart='return false' style='overflow:auto;margin:0 0 0 0;background:#DCE6F2;'"</formula></code><code
+ event='onLoad' for='web'><javascript>content(1);DF_loadMenu();
+if(document.all("isAdminFlag")!=null &amp;&amp; document.all("isAdminFlag").value=="yes")
+{
+	//允许删除单据
+	if(window.parent.document.frames("viewListFrame")!=null &amp;&amp; window.parent.document.frames("viewListFrame").document.all("imgDelIt")!=null)
+	{
+		window.parent.document.frames("viewListFrame").document.all("imgDelIt").style.display="";
+	}
+}
+if(document.all("StShowAllFlag")!=null)showflag=document.all("StShowAllFlag").value;
+//所以人访问时都可以自动展开菜单
+if(showflag!="none")DF_showAllMenu();  
+</javascript></code><code event='onClick' for='web'><javascript>DF_formClick();</javascript></code>
+<body><richtext>
+<pardef id='1' leftmargin='1in' hide='notes mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='1'><run html='true'>&lt;div style="display:none"&gt;</run><sharedfieldref
+ name='DF_DbPath'/><sharedfieldref name='DF_DbDir'/><sharedfieldref name='DF_DbName'/></par>
+<par def='1'><run html='true'><font color='blue'/>是否默认全部展开:</run><run html='true'><field
+ type='text' kind='editable' name='StShowAllFlag' description='"none"为全部折叠,""为全部展开'><code
+ event='defaultvalue'><formula>""</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='10' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'> </run></par>
+<par def='1'><run html='true'><font color='#00c200'/>查询模板key值:</run><run html='true'><field
+ type='text' kind='editable' name='StSearchCfgKey'><code event='defaultvalue'><formula
+>""</formula></code></field></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='9' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'> (默认为空，取当前数据库路径为key值，不为空时注意路径中的"\"应写成"\\"，并和配置信息中的路径写法一致)</run></par>
+<par def='1'><run html='true'><font color='#00c200'/>所查数据库路径:</run><run html='true'><field
+ type='text' kind='editable' name='StSearchDBPath' description='"none"为全部折叠,""为全部展开'><code
+ event='defaultvalue'><formula>""</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='9' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'> (默认为空，取查询模板配置中的数据库路径，不为空时win和Linux路径规则一样，如：Application/Test.nsf)</run></par>
+<par def='1'><run html='true'>&lt;/div&gt;</run></par><subformref><code event='value'><formula
+>"zfrmMenuList"</formula></code></subformref>
+<par def='1'><run html='true'><font color='teal'/>&lt;tr&gt;&lt;td&gt;</run></par>
+<par def='1'><run html='true'>&lt;TEXTAREA id="MenuXmlList" style="display:none"&gt;</run></par>
+<par def='1'><run html='true'>&lt;</run><run html='true'>Menu name="</run><run
+ html='true'>操作目录菜单</run><run html='true'>" opt="</run><run html='true'>"</run><run
+ html='true'> ico=""</run><run html='true'>&gt;</run></par>
+<par def='1'><run html='true'><field type='text' kind='computedfordisplay'
+ name='MenuXML'><code event='defaultvalue'><formula>MenuXML</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<pardef id='2' leftmargin='1in' rightmargin='100%'><code event='hidewhen'><formula
+>@IsNotMember("[admin]";@UserRoles)</formula></code></pardef>
+<par def='2'><run html='true'><font style='italic' name='Courier New' pitch='fixed'
+ truetype='true' familyid='30' color='#4100c2'/>&lt;Menu1 name="模块配置信息" opt="window.open('/</run><run
+ html='true'><computedtext><code event='value'><formula>@WebDbName</formula></code></computedtext></run><run
+ html='true'><font style='italic' name='Courier New' pitch='fixed' truetype='true'
+ familyid='30' color='#4100c2'/>/configform?OpenForm</run><run html='true'><font
+ style='italic' name='Courier New' pitch='fixed' truetype='true' familyid='30'
+ color='#4100c2'/>&amp;login')" ico="/DF_Res/DF_Img_Source/Img_KJ/create.gif" /&gt;</run></par>
+<par def='1'><run html='true'>&lt;/Menu&gt;</run></par>
+<par def='1'><run html='true'>&lt;/TEXTAREA&gt;</run></par>
+<par def='1'><run html='true'><font color='teal'/>&lt;/td&gt;&lt;/tr&gt;</run></par>
+<par def='1'><run html='true'><font color='teal'/>&lt;/table&gt;</run></par>
+<par def='1'/></richtext></body>
+<item name='OriginalModTime' sign='true'><datetime>20071109T103045,79+08</datetime></item>
+<item name='$$ScriptName' summary='false' sign='true'><text>MenusListForm</text></item></form>
+

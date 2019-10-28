@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='FlowAction' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'
+ renderpassthrough='true'>
+<noteinfo noteid='23a' unid='B472182A2DD4874048257FCE00570288' sequence='62'>
+<created><datetime>20160610T235022,80+08</datetime></created>
+<modified><datetime>20191028T153146,69+08</datetime></modified>
+<revised><datetime>20170918T171806,71+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,69+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,69+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=VICUTU</name><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' leftmargin='1in' hide='web' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>showPrint = "no"</formula></code></pardef>
+<par def='1'><run html='true'>&lt;div onclick="Flow.Print()" class="btn btn-primary btn-sm"&gt;&lt;i class="fa fa-print"&gt;&lt;/i&gt;打印&lt;/div&gt;</run></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>FlowAction</text></item></subform>
+

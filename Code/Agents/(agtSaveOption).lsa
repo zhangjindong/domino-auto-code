@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='utf-8'?>
+<agent name='(agtSaveOption)' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' hide='v3' publicaccess='false'
+ designerversion='8.5.3'>
+<noteinfo noteid='19a' unid='9AD11F185A489F2348257F7800271C4F' sequence='191'>
+<created><datetime>20160316T150711,51+08</datetime></created>
+<modified><datetime>20191028T153145,54+08</datetime></modified>
+<revised><datetime>20170918T171806,83+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,54+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,54+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<designchange><datetime>20170918T171753,98+08</datetime></designchange>
+<trigger type='agentlist'/>
+<documentset type='runonce'/><code event='options'><lotusscript>%REM
+	Agent agtSaveOption
+	Created 2016-3-16 by admin/DevServer
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+Use "GeneralLib"
+
+</lotusscript></code><code event='initialize'><lotusscript>Sub Initialize
+	On Error GoTo err_handle
+	Dim db As NotesDatabase,pdoc As NotesDocument
+	Set db = session.Currentdatabase
+	Set pdoc = db.Getprofiledocument("config")
+	Dim Key As String,value As String
+	Dim note As NotesDocument,Query_String As String
+	Set note = session.Documentcontext
+	Query_String = note.query_String_Decoded(0)
+	Dim index As String
+	Dim action As String
+	action = QueryString("action")
+	Select Case action
+		Case "msg":
+			Dim x As Integer,Ext As String,ExtMsg As Variant
+			ReDim ExtMsg(9) As String
+			For x = 1 To 10
+				Ext = "StExtStr" + CStr(x)
+				ExtMsg(x-1) =  QueryString(Ext)
+			Next
+			Call pdoc.Replaceitemvalue("MsgExtStr", Join(ExtMsg,";"))
+		Case "flowtype":
+			Dim AppSubject As String,AppType As String,AppFlow As String,AppSubForm As String,AppFlowUnid As String,Abstract As String
+			Dim AppActive As String,AppUser As String
+			index = QueryString("index")
+			AppType = QueryString("AppType")
+			AppFlow = QueryString("AppFlow")
+			AppSubForm = QueryString("AppSubForm")
+			AppFlowUnid = QueryString("AppFlowUnid")
+			AppSubject = QueryString("AppSubject")
+			Abstract = QueryString("Abstract")
+			AppActive = QueryString("AppActive")
+			AppUser = QueryString("AppUser")
+			
+			Call pdoc.Replaceitemvalue("AppTypes", ArrayReplaceItem(pdoc.AppTypes,Val(index)-1,AppType))
+			Call pdoc.Replaceitemvalue("AppFlows", ArrayReplaceItem(pdoc.AppFlows,Val(index)-1,AppFlow))
+			Call pdoc.Replaceitemvalue("AppSubForms", ArrayReplaceItem(pdoc.AppSubForms,Val(index)-1,AppSubForm))
+			Call pdoc.Replaceitemvalue("AppFlowUnids", ArrayReplaceItem(pdoc.AppFlowUnids,Val(index)-1,AppFlowUnid))
+			Call pdoc.Replaceitemvalue("AppSubjects", ArrayReplaceItem(pdoc.AppSubjects,Val(index)-1,AppSubject))
+			Call pdoc.Replaceitemvalue("Abstracts", ArrayReplaceItem(pdoc.Abstracts,Val(index)-1,Abstract))
+			Call pdoc.Replaceitemvalue("AppActive", ArrayReplaceItem(pdoc.AppActive,Val(index)-1,AppActive))
+			Call pdoc.Replaceitemvalue("AppUser", ArrayReplaceItem(pdoc.AppUser,Val(index)-1,AppUser))
+		Case "moudle":
+			Dim HasBody As String,BodyType As String,BodyControl As String
+			Dim HasAtt As String,AttControl As String,BodyTools As String
+			
+			
+			HasBody = QueryString("HasBody")
+			BodyType = QueryString("BodyType")
+			BodyControl = QueryString("BodyControl")
+			BodyTools = QueryString("BodyTools")
+			HasAtt = QueryString("HasAtt")
+			AttControl = QueryString("AttControl")
+			
+			Call pdoc.Replaceitemvalue("HasBody",HasBody)
+			Call pdoc.Replaceitemvalue("BodyType",BodyType)
+			Call pdoc.Replaceitemvalue("BodyControl",BodyControl)
+			Call pdoc.Replaceitemvalue("BodyTools",BodyTools)
+			Call pdoc.Replaceitemvalue("HasAtt",HasAtt)
+			Call pdoc.Replaceitemvalue("AttControl",AttControl)
+		Case "acl":
+			Dim psn As String,psns As Variant
+			psn = QueryString("psns")
+			psns = Split(psn,";")
+			
+			Dim acl As NotesACL,aclen As NotesACLEntry
+			Set acl = db.Acl
+			Set aclen = acl.Getfirstentry()
+			Dim i As Integer
+			i = 0
+			ForAll p In psns
+				psns(i) = fnNotesNames(CStr(p)) 
+				Set aclen = acl.Getentry(psns(i))
+				If aclen Is Nothing Then
+					Set aclen = acl.Createaclentry(psns(i), 6)
+					aclen.Isperson = True
+					aclen.Candeletedocuments = True
+					aclen.Cancreatedocuments = True
+					aclen.Enablerole("[admin]")
+				End If
+				i = i + 1
+			End ForAll
+			Dim tmp As NotesACLEntry
+			While Not aclen Is Nothing
+				Set tmp = acl.Getnextentry(aclen)
+				If aclen.Isroleenabled("[admin]") Then
+					If IsNull(ArrayGetIndex(psns, aclen.Name)) Then
+						Call aclen.Remove()
+					End If
+				End If
+				Set aclen = tmp
+			Wend
+			Call acl.Save()
+		Case "delflowtype":
+			'Dim index As String
+			index = QueryString("index")
+			'MsgBox Join(pdoc.AppTypes)
+			Call pdoc.Replaceitemvalue("AppTypes", ArrayRemoveItem(pdoc.AppTypes,Val(index)-1))
+			Call pdoc.Replaceitemvalue("AppFlows", ArrayRemoveItem(pdoc.AppFlows,Val(index)-1))
+			Call pdoc.Replaceitemvalue("AppSubForms", ArrayRemoveItem(pdoc.AppSubForms,Val(index)-1))
+			Call pdoc.Replaceitemvalue("AppFlowUnids", ArrayRemoveItem(pdoc.AppFlowUnids,Val(index)-1))
+			Call pdoc.Replaceitemvalue("AppSubjects", ArrayRemoveItem(pdoc.AppSubjects,Val(index)-1))
+			Call pdoc.Replaceitemvalue("Abstracts", ArrayRemoveItem(pdoc.Abstracts,Val(index)-1))
+			Call pdoc.Replaceitemvalue("AppActive", ArrayRemoveItem(pdoc.AppActive,Val(index)-1))
+			Call pdoc.Replaceitemvalue("AppUser", ArrayRemoveItem(pdoc.AppUser,Val(index)-1))
+	End Select
+	Call pdoc.Save(true, false)
+	Exit Sub
+err_handle:
+	ShowError("agtSaveConfig")
+End Sub
+
+</lotusscript></code><code event='ArrayRemoveItem'><lotusscript>%REM
+	Function ArrayRemoveItem
+	Description: Comments for Function
+%END REM
+Function ArrayRemoveItem(arr As Variant,index As Integer)
+	On Error GoTo err_handle
+	Dim i As Integer
+	If index &lt; UBound(arr) Then
+		For i = index To UBound(arr)-1
+			arr(i) = arr(i+1)
+		Next
+	End If
+	ReDim Preserve arr(UBound(arr)-1)
+	ArrayRemoveItem = arr
+	Exit Function
+err_handle:
+	ShowError("ArrayRemoveItem")
+End Function
+
+</lotusscript></code><code event='ArrayReplaceItem'><lotusscript>%REM
+	Function ArrayReplaceItem
+	Description: Comments for Function
+%END REM
+Function ArrayReplaceItem(arr As Variant,index As Integer,value As Variant) As Variant
+	On Error GoTo err_handle
+	
+	If Not IsArray(arr) Then
+		ReDim arr(0) As Variant
+	End If
+	
+	If index &gt; UBound(arr) Then
+		ReDim Preserve arr(index)
+	End If
+	arr(index) = value
+	ArrayReplaceItem = arr
+	exit Function
+err_handle:
+	ShowError("ArrayReplaceItem")
+End Function</lotusscript></code>
+<rundata processeddocs='0' exitcode='0'>
+<agentmodified><datetime>20170731T120138,10+08</datetime></agentmodified></rundata>
+<item name='$POID'><datetime>20170918T171806,83+08</datetime></item></agent>
+

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sharedfield name='DF_DbDir' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'>
+<noteinfo noteid='21e' unid='6EB5CF1236537A3448257305004C8E53' sequence='107'>
+<created><datetime>20070625T215611,71+08</datetime></created>
+<modified><datetime>20191028T153146,55+08</datetime></modified>
+<revised><datetime>20170918T171806,27+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,55+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,55+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digiflow</name><name>CN=admin/O=DigiWin</name><name
+>CN=admin/O=DevServer</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=VICUTU</name><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><field type='text' kind='editable'
+ name='DF_DbDir' htmlid='DF_DbDir'><code event='defaultvalue'><formula>@LeftBack(DF_DbPath;"/")</formula></code></field>
+<item name='$HTMLCode' sign='true'>
+<rawitemdata type='1'>
+</rawitemdata></item></sharedfield>
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="filter" maintenanceversion="1.0" replicaid="482584A1002906C1" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="266" sequence="72" unid="346F70379F5412E148257FD300353855">
+<created><datetime>20160615T174118,29+08</datetime></created>
+<modified><datetime>20191028T153147,31+08</datetime></modified>
+<revised><datetime>20170918T171809,21+08</datetime></revised>
+<lastaccessed><datetime>20191028T153147,31+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153147,31+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=VICUTU</name><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<item name="$TITLE" sign="true"><text>TaskLib</text></item>
+<item name="$Flags"><text>s34Q</text></item>
+<item name="$PublicAccess" sign="true"><text>1</text></item>
+<item name="$DesignerVersion" sign="true"><text>8.5.3</text></item>
+
+
+<item name="$POID"><datetime>20170918T171809,21+08</datetime></item></note>

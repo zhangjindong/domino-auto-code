@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<view name='vwDraftByCat' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.0'
+ replicaid='482584A1002906C1' showinmenu='false' publicaccess='false' designerversion='8.5.3'
+ unreadmarks='none' onopengoto='lastopened' onrefresh='displayindicator' headers='beveled'
+ opencollapsed='false' showresponsehierarchy='true' showmargin='true' shrinkrows='false'
+ extendlastcolumn='false' showhierarchies='false' unreadcolor='black' rowlinecount='1'
+ headerlinecount='1' rowspacing='1' bgcolor='white' totalscolor='black' headerbgcolor='white'
+ boldunreadrows='false' evaluateactions='false' allownewdocuments='false'
+ allowcustomizations='true' hidemarginborder='false' marginwidth='0px' marginbgcolor='white'
+ uniquekeys='false'>
+<noteinfo noteid='28a' unid='BA5DBBE02B13666748258020003A030B' sequence='12'>
+<created><datetime>20160831T183338,67+08</datetime></created>
+<modified><datetime>20191028T153147,49+08</datetime></modified>
+<revised><datetime>20170918T171809,39+08</datetime></revised>
+<lastaccessed><datetime>20191028T153147,49+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153147,49+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=VICUTU</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><code event='selection'><formula
+>SELECT Form="MainForm" &amp; TFCurNodeID="FlowStartNode"</formula></code>
+<column sort='ascending' hidedetailrows='false' itemname='$15' width='10'
+ resizable='true' separatemultiplevalues='true' sortnoaccent='false' sortnocase='true'
+ showaslinks='false' categorized='true' hidden='true'><columnheader><font
+ size='9pt' style='bold'/></columnheader><code event='value'><formula>AppIndex+"$"</formula></code></column>
+<column sort='descending' hidedetailrows='false' itemname='$11' width='12.6250'
+ resizable='true' separatemultiplevalues='false' sortnoaccent='false' sortnocase='true'
+ showaslinks='false' hidden='true'><columnheader title='创建时间'><font size='9pt'
+ style='bold'/></columnheader><code event='value'><formula>@Created</formula></code></column>
+<column hidedetailrows='false' itemname='AppCreated' width='13.5000' resizable='true'
+ separatemultiplevalues='false' sortnoaccent='false' sortnocase='true' showaslinks='false'><columnheader
+ title='申请日期'><font size='9pt' style='bold'/></columnheader></column>
+<column hidedetailrows='false' itemname='AppCreaterCN' width='14.2500' resizable='true'
+ separatemultiplevalues='false' sortnoaccent='true' sortnocase='true' showaslinks='false'><columnheader
+ title='申请人'><font size='9pt' style='bold'/></columnheader></column>
+<column hidedetailrows='false' itemname='AppCreaterDeptName' width='14' resizable='true'
+ separatemultiplevalues='false' sortnoaccent='false' sortnocase='true' showaslinks='false'><columnheader
+ title='申请部门'><font size='9pt' style='bold'/></columnheader></column>
+<column hidedetailrows='false' itemname='TFCurNodeName' width='15.7500' resizable='true'
+ separatemultiplevalues='false' sortnoaccent='false' sortnocase='true' showaslinks='false'><columnheader
+ title='当前环节名称'><font size='9pt' style='bold'/></columnheader></column></view>
+

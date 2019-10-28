@@ -1,0 +1,86 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+%REM
+	Library AppTaskLib
+	Created 2016-6-15 by admin/VICUTUDEV
+	Description: Comments for Library
+%END REM
+Option Public
+Option Declare
+Use "GeneralLib"
+Use "TaskLib"
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Public Class OpenTask As Task
+Declare Public Class OpenTask1 As Task
+Declare Public Class OpenTask2 As Task
+Declare Sub Initialize
+
+'++LotusScript Development Environment:2:5:(Declarations):0:10
+Public Class OpenTask As Task
+	
+	Public Sub New(id As String,taskname As String),Task(id,taskname)
+		
+	End Sub
+	
+	%REM
+		Sub start
+		Description: Comments for Sub
+	%END REM
+	Public Sub start(doc As NotesDocument)
+		
+		MsgBox doc.TFCurNodeID(0)
+	End Sub
+End class
+Public Class OpenTask1 As Task
+	
+	Public Sub New(id As String,taskname As String),Task(id,taskname)
+		
+	End Sub
+	
+	%REM
+		Sub start
+		Description: Comments for Sub
+	%END REM
+	Public Sub start(doc As NotesDocument)
+		
+		MsgBox doc.TFCurNodeID(0)
+	End Sub
+End Class
+Public Class OpenTask2 As Task
+	
+	Public Sub New(id As String,taskname As String),Task(id,taskname)
+		
+	End Sub
+	
+	%REM
+		Sub start
+		Description: Comments for Sub
+	%END REM
+	Public Sub start(doc As NotesDocument)
+		
+		MsgBox doc.TFCurNodeID(0)
+	End Sub
+End Class
+'++LotusScript Development Environment:2:2:Initialize:1:10
+Sub Initialize
+	On Error GoTo err_handle
+	%REM
+	注册任务对象
+	Dim opentask As OpenTask
+	Set opentask = New OpenTask("DDD","发邮件")
+	注入任务对象到opendoc服务
+	Call webservice("opendoc").setTask(opentask)
+	
+	注册任务对象
+	Dim opentask1 As OpenTask1
+	Set opentask1 = New OpenTask1("ddd","发邮件")
+	注入任务对象到savedoc服务
+	Call webservice("savedoc").setTask(opentask1)
+	从opendoc服务中删除DDD任务
+	Call webservice("opendoc").removeTask("DDD")
+	%END REM
+	Exit Sub
+err_handle:
+	ShowError("AppTaskLib-Initialize")
+End Sub
+

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='utf-8'?>
+<agent name='(agtDocSaveOnServer)' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' hide='v3' publicaccess='false'
+ designerversion='8.5.3' restrictions='fulladminunrestricted'>
+<noteinfo noteid='182' unid='6C0C9F17C2E5226F4825809100615D8E' sequence='11'>
+<created><datetime>20161223T014329,42+08</datetime></created>
+<modified><datetime>20191028T153145,45+08</datetime></modified>
+<revised><datetime>20170918T171809,11+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,45+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,45+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<designchange><datetime>20170918T171754,72+08</datetime></designchange>
+<trigger type='agentlist'/>
+<documentset type='runonce'/><code event='options'><lotusscript>%REM
+	Agent agtSaveDoc
+	Created 2016-2-26 by matao
+	Description: 业务单据保存
+%END REM
+Option Public
+Option Declare
+Use "GeneralLIb"
+Use "AppTaskLib"
+Use "LibUserAndOrg"
+
+</lotusscript></code><code event='initialize'><lotusscript>Sub Initialize
+	On Error GoTo err_handle
+	Dim agent As NotesAgent
+	Set agent = session.Currentagent
+	Dim doc As NotesDocument
+	Set doc = session.Currentdatabase.Getdocumentbyid(agent.Parameterdocid)
+
+	If Not doc Is Nothing Then
+		Dim pdb As NotesDatabase,pdoc As NotesDocument
+		Set pdb = session.Getdatabase("", doc.FlowProcessDB(0))
+		Set pdoc = pdb.Getdocumentbyunid(doc.FlowProcessUnid(0))
+		If doc.Isnewnote Then
+			doc.Universalid = doc.DocUnid(0)
+		End If
+		Dim item As NotesItem
+		If Not pdoc Is Nothing Then
+			'同步权限域
+			Dim readers As Variant,authors As Variant
+			authors = pdoc.FullAuthors
+			authors = ArrayAppend(authors,pdoc.NodeAllAuthor)
+			authors = ArrayAppend(authors,pdoc.NodeAuthor)
+			authors = ArrayAppend(authors,pdoc.ThisFlowCreater)
+			doc.FlowAuthors = FullTrim(ArrayUnique(authors))
+			
+			readers = pdoc.FullReaders
+			readers = ArrayAppend(readers,pdoc.NodeReader)
+			doc.FlowReaders = FullTrim(ArrayUnique(readers))
+			
+			doc.NodeAuthor = pdoc.NodeAuthor
+			Call doc.Removeitem("Body_Show")
+			'同步相关域
+			doc.TFCurNodeID = pdoc.NodeID(0)
+			doc.TFCurNodeName = pdoc.NodeName(0)
+			doc.TFcurNodeAuthors = pdoc.NodeAuthor
+			doc.TFcurNodeAuthorsCN = getUserName(pdoc.NodeAuthor)
+			
+			'同步标题
+			If doc.Subject(0) &lt;&gt; "" Then
+				pdoc.Subject = doc.Subject(0)
+			Else
+				pdoc.Subject = fnGetString(doc.AppSubject(0),doc)
+			End If
+			Call pdoc.Save(True, False)
+			
+		End If
+		Call webservice("savedoc").start(doc)
+		
+		Call doc.Save(True, False)
+	End If
+	Exit Sub
+err_handle:
+	ShowError("agtDocSaveOnServer")
+End Sub
+
+</lotusscript></code><code event='getUserName'><lotusscript>%REM
+	Function getUserName
+	Description: Comments for Function
+%END REM
+Function getUserName(psns As Variant) As Variant
+	On Error GoTo err_handle
+	Dim tUser As NotesName,i As Integer
+	For i = 0 To UBound(psns)
+		Set tUser = New NotesName(psns(i))
+		psns(i) = Util.getUserName(tUser.Common)(0)
+	Next
+	getUserName = psns
+	Exit Function
+err_handle:
+	ShowError("getUserName")
+End Function</lotusscript></code>
+<rundata processeddocs='0' exitcode='0'>
+<agentmodified><datetime>20161227T122052,25+08</datetime></agentmodified></rundata>
+<item name='$POID'><datetime>20170918T171809,11+08</datetime></item></agent>
+

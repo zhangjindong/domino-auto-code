@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sharedfield name='DF_FlowJS' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'>
+<noteinfo noteid='22a' unid='551AB06C4687807948257694000AD08B' sequence='155'>
+<created><datetime>20091222T095807,47+08</datetime></created>
+<modified><datetime>20191028T153146,61+08</datetime></modified>
+<revised><datetime>20170918T171808,81+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,61+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,61+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=DigiWin</name><name>CN=admin/O=DevServer</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=VICUTU</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><field type='text' kind='computedfordisplay'
+ name='DF_FlowJS'><code event='defaultvalue'><formula>"&lt;script src='/Produce/ProInd.nsf/FlowTraceControlJS?openjavascriptlibrary'&gt;&lt;/script&gt;"
++"&lt;script src='/Produce/DigiFlowScriptCss.nsf/FlowOptControlJS?openjavascriptlibrary'&gt;&lt;/script&gt;"
++"&lt;script src='/jquery/js/Dialog.js'&gt;&lt;/script&gt;"
++"&lt;script src=\"/DF_Res/bootstrap/component/table/digiflow.table.js\" type=\"text/javascript\"&gt;&lt;/script&gt;"</formula></code></field>
+<item name='$HTMLCode' sign='true'>
+<rawitemdata type='1'>
+</rawitemdata></item></sharedfield>
+

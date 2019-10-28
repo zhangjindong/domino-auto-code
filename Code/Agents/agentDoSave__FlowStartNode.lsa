@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<agent name='agentDoSave__FlowStartNode' xmlns='http://www.lotus.com/dxl'
+ version='9.0' maintenanceversion='1.0' replicaid='482584A1002906C1' hide='v3'
+ publicaccess='false' designerversion='8.5.3'>
+<noteinfo noteid='1ea' unid='9B866886AC83852848257F6800225DC1' sequence='44'>
+<created><datetime>20160229T141522,25+08</datetime></created>
+<modified><datetime>20191028T153146,14+08</datetime></modified>
+<revised><datetime>20170918T171807,59+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,14+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,14+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<designchange><datetime>20170918T171754,23+08</datetime></designchange>
+<trigger type='actionsmenu'/>
+<documentset type='runonce'/><code event='options'><lotusscript>%REM
+	Agent agtDo_FlowStartNode
+	Created 2016-2-29 by admin/DevServer
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+
+
+</lotusscript></code><code event='initialize'><lotusscript>Sub Initialize
+	'MsgBox "保存单据时执行操作！---FlowStartNode"
+End Sub</lotusscript></code>
+<rundata processeddocs='0' exitcode='0'>
+<agentmodified><datetime>20170401T014732,03+08</datetime></agentmodified></rundata>
+<item name='$POID'><datetime>20170918T171807,59+08</datetime></item></agent>
+

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dataconnection name='(无标题)' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' nocompose='true' designerversion='8.5.3'
+ class='rdbms' type='db2' objecttype='table' blockkeyfieldupdates='true'>
+<noteinfo noteid='1be' unid='339F557AADCF1AAD48257FB700531D7F' sequence='63'>
+<created><datetime>20160518T230750,39+08</datetime></created>
+<modified><datetime>20191028T153145,71+08</datetime></modified>
+<revised><datetime>20170918T171806,63+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,71+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,71+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=VICUTU</name><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<item name='$POID'><datetime>20170918T171806,63+08</datetime></item></dataconnection>
+

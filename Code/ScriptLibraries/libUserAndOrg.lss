@@ -1,0 +1,507 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+%REM
+	Library GeneralUserAndOrg
+	Created 2014-8-14 by admin/digi
+	Description: Comments for Library
+%END REM
+Option Public
+Option Declare
+Use "GeneralLib"
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Class User
+Declare Class Dept
+Declare Public Class NameUtil
+Declare Sub Initialize
+Declare Function DeptList(deptid As String) As Dept
+Declare Function UserList(userid As String) As User
+Declare Function fnGetRoleMember(role As String,flag As Boolean) As Variant
+Declare Function fnGetRoleMemberCommon(role As String,flag As Boolean) As Variant
+
+'++LotusScript Development Environment:2:5:(Declarations):0:10
+Dim l_coredb As NotesDatabase
+Dim l_psndb As NotesDatabase,l_psnvw As NotesView
+Dim l_orgdb As NotesDatabase,l_orgvw As NotesView,l_orgparentvw As NotesView
+Dim l_namedb As NotesDatabase,l_namevw As NotesView,l_groupvw As NotesView
+Dim UserLists List As User,DeptLists List As Dept
+%REM
+	Type Util
+	Description: Comments for Type
+%END REM
+Dim Util As NameUtil
+
+
+
+%REM
+	Class User
+	Description: Comments for Class
+%END REM
+Class User
+	%REM
+		Sub New
+		Description: Comments for Sub
+	%END REM
+	Private userid As String
+	
+	Private userDoc As NotesDocument
+	Private nameDoc As NotesDocument
+	Private deptDoc As NotesDocument
+	
+	Sub New(userid As String)
+		On Error GoTo err_handle
+		me.userid = Trim(userid)
+		If me.userid <> "" Then
+			Set me.userDoc = l_psnvw.Getdocumentbykey(me.userid, True)
+			Set UserLists(me.userid) = Me
+		Else
+			Set me.userDoc = Nothing
+		End If
+		Exit Sub
+err_handle:
+		ShowError("User New")
+	End Sub
+	%REM
+		Function getUserDoc
+		Description: Comments for Function
+	%END REM
+	Public Function getUserDoc() As NotesDocument
+		Set getUserDoc = me.userDoc
+	End Function
+	%REM
+		Function getNameDoc
+		Description: Comments for Function
+	%END REM
+	Public Function getNameDoc() As NotesDocument
+		Set me.nameDoc = l_namevw.Getdocumentbykey(me.userid, True)
+		Set getNameDoc = me.nameDoc
+	End Function
+	
+	%REM
+		Function getDeptDoc
+		Description: Comments for Function
+	%END REM
+	Public Function getDeptDoc() As NotesDocument
+		If Not me.getUserDoc() Is Nothing Then
+			Set getDeptDoc = DeptList(me.getUserDoc().DeptID(0)).getDeptDoc()
+			Exit Function
+		End If
+		Set getDeptDoc = Nothing
+	End Function
+	
+	Public Function getDept() As Dept
+		If Not me.getUserDoc() Is Nothing Then
+			Set getDept = DeptList(me.getUserDoc().DeptID(0))
+			Exit Function
+		End If
+		Set getDept = Nothing
+	End Function
+	
+	%REM
+		Function Document
+		Description: Comments for Function
+	%END REM
+	Public Function Document() As NotesDocument
+		Set Document = me.getUserDoc()
+	End Function
+End Class
+%REM
+	Class Dept
+	Description: Comments for Class
+%END REM
+Class Dept
+	%REM
+		Sub New
+		Description: Comments for Sub
+	%END REM
+	Private deptid As String
+	Private deptDoc As NotesDocument
+	'Public Document As NotesDocument
+	
+	Sub New(Tdept As Variant)
+		If TypeName(Tdept) = "STRING" Then
+			me.deptid = Trim(Tdept)
+			If me.deptid <> "" Then
+				Set me.deptDoc = l_orgvw.Getdocumentbykey(me.deptid, True)
+			Else
+				Set me.deptDoc = Nothing
+			End If
+		ElseIf TypeName(Tdept) = "NOTESDOCUMENT" Then
+			me.deptid = Tdept.StOrgID(0)
+			Set me.deptDoc = Tdept
+		End If
+	End Sub
+	
+	%REM
+		Function getDeptDoc
+		Description: Comments for Function
+	%END REM
+	Public Function getDeptDoc() As NotesDocument
+		Set getDeptDoc = me.deptDoc
+	End Function
+	
+	%REM
+		Function getDeptID
+		Description: Comments for Function
+	%END REM
+	Public Function getDeptID() As String
+		getDeptID = me.deptid
+	End Function
+	%REM
+		Function getChildrenDepts
+		Description: Comments for Function
+	%END REM
+	Public Function getChildrenDepts() As Variant
+		On Error GoTo err_handle
+		Dim dl As Variant,tmpDept As Dept,tmpdl As Variant
+		ReDim dl(0) As Dept
+		Dim vwens As NotesViewEntryCollection,vwen As NotesViewEntry
+		Set vwens = l_orgparentvw.Getallentriesbykey(me.deptid, True)
+		Dim orgdoc As NotesDocument
+		If vwens.Count > 0 Then
+			Set vwen = vwens.Getfirstentry()
+			While Not vwen Is Nothing 
+				Set orgdoc = vwen.Document
+				Set DeptLists(orgdoc.StOrgID(0)) = New Dept(orgdoc)
+				If dl(0) Is Nothing Then
+					Set dl(0) = DeptLists(orgdoc.StOrgID(0))
+				Else
+					dl = ArrayAppend(dl,DeptLists(orgdoc.StOrgID(0)))
+				End If
+				tmpdl = DeptLists(orgdoc.StOrgID(0)).getChildrenDepts()
+				If Not tmpdl(0) Is Nothing Then
+					dl = ArrayAppend(dl,tmpdl)
+				End If
+				Set vwen = vwens.Getnextentry(vwen)
+			Wend
+		End If
+		getChildrenDepts = dl
+		Exit Function
+err_handle:
+		ShowError("getChildrenDepts")
+	End Function
+	
+	%REM
+		Function Document
+		Description: Comments for Function
+	%END REM
+	Public Function Document() As NotesDocument
+		Set Document = me.deptDoc
+	End Function
+End Class
+%REM
+	Class Util
+	Description: Comments for Class
+%END REM
+Public Class NameUtil
+	%REM
+		Function recovertToDocument
+		Description: Comments for Function
+	%END REM
+	Public Function ToDocumentCollection(dps As Variant) As NotesDocumentCollection
+		Dim doccl As NotesDocumentCollection
+		Set doccl = dps(0).Document.Responses 
+		Call doccl.Removeall(true)
+		ForAll d In dps
+			Call doccl.Adddocument(d.Document)
+		End ForAll
+		Set ToDocumentCollection = doccl
+	End Function
+	%REM
+		Function getUserName
+		Description: Comments for Function
+	%END REM
+	Public Function getUserName(ids As Variant) As Variant
+		Dim UserNames As Variant
+		ReDim UserNames(0) As String
+		If TypeName(ids) = "STRING" Then
+			If Not UserList(CStr(ids)).getUserDoc() Is Nothing Then
+				UserNames(0) = UserList(CStr(ids)).getUserDoc().UserNameCN(0)
+			Else
+				UserNames(0) = ""
+			End If
+		Else
+			ForAll d In ids
+				If Not UserList(CStr(d)).getUserDoc() Is Nothing Then
+					UserNames = ArrayAppend(UserNames,UserList(CStr(d)).getUserDoc().UserNameCN(0))
+				Else
+					UserNames = ArrayAppend(UserNames,"")
+				End If
+			End ForAll
+		End If
+		getUserName = UserNames
+	End Function
+	
+	%REM
+		Function getDeptPost
+		Description: Comments for Function
+	%END REM
+	Public Function getDeptPost(deptid As String,postid As Variant)
+		On Error GoTo err_handel
+		Dim Post As Variant,doc As NotesDocument,keys(1) As String,PostValue As String
+		keys(0) = "/"
+		keys(1) = ";"
+		ReDim Post(0) As String
+		Set doc = DeptList(deptid).getDeptDoc()
+		If Not doc Is Nothing Then
+			If TypeName(postid) = "STRING" Then
+				PostValue = doc.Getitemvalue("St"+postid+"Member")(0)
+				If PostValue <> "" Then
+					Post = fnSplit(PostValue,keys,2)
+				End If
+			Else
+				ForAll p In postid
+					If Trim(p) <> "" Then
+						PostValue = doc.Getitemvalue("St"+p+"Member")(0)
+						If PostValue <> "" Then
+							If Post(0) = "" Then
+								Post = fnSplit(PostValue,keys,2)
+							Else
+								Post = ArrayAppend(Post,fnSplit(PostValue,keys,2))
+							End If
+						End If
+					End If
+				End ForAll
+			End If
+		End If
+		getDeptPost = ArrayUnique(Post)
+		Exit Function
+err_handel:
+		ShowError("getDeptPost")
+	End Function
+	
+	%REM
+		Function getDeptName
+		Description: Comments for Function
+	%END REM
+	Public Function getDeptName(deptid As Variant) As Variant
+		On Error GoTo err_handle
+		Dim doc As NotesDocument,deptName As Variant
+		ReDim deptName(0) As String
+		If TypeName(deptid) = "STRING" Then
+			Set doc = DeptList(CStr(deptid)).getDeptDoc()
+			If Not doc Is Nothing Then
+				deptName(0) = doc.StOrgName(0)
+			End If
+		Else
+			ForAll d In deptid
+				If Trim(d) <> "" Then
+					Set doc = DeptList(CStr(d)).getDeptDoc()
+					If Not doc Is Nothing Then
+						deptName = ArrayAppend(deptName,doc.StOrgName(0))
+					Else
+						deptName = ArrayAppend(deptName,"")
+					End If
+				End If
+			End ForAll
+		End If 
+		getDeptName = deptName
+		Exit Function
+err_handle:
+		ShowError("getDeptName")
+	End Function
+	
+	%REM
+		Function parseDeptName
+		Description: Comments for Function
+	%END REM
+	Public Function parseDeptID(dept As Variant) As Variant
+		On Error GoTo err_handle
+		Dim deptID As Variant
+		ReDim deptID(0) As String
+		If TypeName(dept) = "STRING" Then
+			If InStr(dept,"/") Then
+				If Not DeptList(StrRight(dept,"/")).getDeptDoc() Is Nothing Then
+					deptID = ArrayAppend(deptID,StrRight(dept,"/"))
+				Else
+					deptID = ArrayAppend(deptID,StrRight(dept,"/"))
+				End If
+			Else
+				If Not DeptList(cStr(dept)).getDeptDoc() Is Nothing Then
+					deptID = ArrayAppend(deptID,cStr(dept))
+				Else
+					deptID = ArrayAppend(deptID,CStr(dept))
+				End If
+			End If
+		Else
+			ForAll d In dept
+				If InStr(Str(d),"/") Then
+					If Not DeptList(StrRight(Str(d),"/")).getDeptDoc() Is Nothing Then
+						deptID = ArrayAppend(deptID,StrRight(cStr(d),"/"))
+					Else
+						deptID = ArrayAppend(deptID,StrRight(cStr(d),"/"))
+					End If
+				Else
+					If Not DeptList(cStr(dept)).getDeptDoc() Is Nothing Then
+						deptID = ArrayAppend(deptID,Str(d))
+					Else
+						deptID = ArrayAppend(deptID,Str(d))
+					End If
+				End If
+			End ForAll
+		End If
+		parseDeptID = deptID
+		Exit Function
+err_handle:
+		ShowError("parseDeptID")
+	End Function
+End Class
+
+'++LotusScript Development Environment:2:2:Initialize:1:10
+Sub Initialize
+	On Error GoTo err_handle
+	
+	Set Util = New NameUtil()
+	Set l_coredb = session.GetDatabase("","Produce/DigiFlowOrgSysMng.nsf")
+	Set l_psndb = session.Getdatabase("", "Produce/DigiFlowOrgPsnMng.nsf")
+	Set l_orgdb = session.Getdatabase("", "Produce/DigiFlowOrgMng.nsf")
+	Set l_namedb = session.Getdatabase("", "names.nsf")
+	
+	If l_psndb.Isopen Then
+		Set l_psnvw = l_psndb.Getview("OrgPsnListByITCode")
+	Else
+		msg |psn-database is not open.|
+	End If
+	
+	If l_orgdb.Isopen Then
+		Set l_orgvw = l_orgdb.Getview("OrgRegView2")
+		Set l_orgparentvw = l_orgdb.Getview("OrgRegView1")
+	Else
+		msg |org-database is not open.|
+	End If
+	
+	If l_namedb.Isopen Then
+		Set l_namevw = l_namedb.Getview("$VIMPeopleByLastName")
+		Set l_groupvw = l_namedb.Getview("$VIMGroups")
+	End If
+	Exit Sub
+err_handle:
+	ShowError("GeneralUserAndOrg")
+End Sub
+
+'++LotusScript Development Environment:2:2:Terminate:0:2
+
+'++LotusScript Development Environment:2:1:DeptList:5:8
+%REM
+	Function DeptList
+	Description: Comments for Function
+%END REM
+Function DeptList(deptid As String) As Dept
+	On Error GoTo err_handle
+	On Error Resume Next
+	If DeptLists(Trim(deptid)) Is Nothing Then
+		Set DeptList = New Dept(deptid)
+	Else
+		Set DeptList = DeptLists(Trim(deptid))
+	End If
+	Exit Function
+err_handle:
+	ShowError("DeptList")
+End Function
+
+'++LotusScript Development Environment:2:1:UserList:5:8
+%REM
+	Function UserList
+	Description: Comments for Function
+%END REM
+Function UserList(userid As String) As User
+	On Error GoTo err_handle
+	On Error Resume Next
+	If UserLists(Trim(userid)) Is Nothing Then
+		Set UserList = New User(userid)
+	Else
+		Set UserList = UserLists(Trim(userid))
+	End If
+	Exit Function
+err_handle:
+	ShowError("UserList")	
+End Function
+
+
+
+
+
+
+
+
+
+
+
+
+'++LotusScript Development Environment:2:1:fnGetRoleMember:5:8
+%REM
+	Function fnGetRoleMember
+	Description: Comments for Function
+%END REM
+Function fnGetRoleMember(role As String,flag As Boolean) As Variant
+	On Error GoTo err_handle
+	Dim doc As NotesDocument
+	Dim li As Variant
+	ReDim li(0) As String
+	Dim tmp As NotesName
+	
+	Set doc = l_groupvw.Getdocumentbykey(role, true)
+	If Not doc Is Nothing Then
+		If flag Then
+			ForAll m In doc.Members
+				If Trim(m)<> "" then
+				Set tmp = New NotesName(m)
+				If m = tmp.Common Then
+					li = ArrayAppend(li,FullTrim(fnGetRoleMember(m,true)))
+				Else
+					li = ArrayAppend(li,m)
+				End If
+				End if
+			End ForAll
+			fnGetRoleMember = ArrayUnique(FullTrim(li))
+		Else
+			fnGetRoleMember = doc.Members
+			Exit function
+		End If
+	End If
+	fnGetRoleMember = li
+	Exit Function
+err_handle:
+	ShowError("fnGetRoleMember")
+End Function
+
+
+
+'++LotusScript Development Environment:2:1:fnGetRoleMemberCommon:5:8
+%REM
+	Function fnGetRoleMember
+	Description: Comments for Function
+%END REM
+Function fnGetRoleMemberCommon(role As String,flag As Boolean) As Variant
+	On Error GoTo err_handle
+	Dim doc As NotesDocument
+	Dim li As Variant
+	ReDim li(0) As String
+	Dim tmp As NotesName
+	
+	Set doc = l_groupvw.Getdocumentbykey(role, True)
+	If Not doc Is Nothing Then
+		If flag Then
+			ForAll m In doc.Members
+				If Trim(m)<> "" Then
+					Set tmp = New NotesName(m)
+					If m = tmp.Common Then
+						li = ArrayAppend(li,FullTrim(fnGetRoleMember(m,True)))
+					Else
+						li = ArrayAppend(li,tmp.Common)
+					End If
+				End If
+			End ForAll
+			fnGetRoleMemberCommon = ArrayUnique(FullTrim(li))
+		Else
+			fnGetRoleMemberCommon = doc.Members
+			Exit Function
+		End If
+	End If
+	fnGetRoleMemberCommon = li
+	Exit Function
+err_handle:
+	ShowError("fnGetRoleMemberCommon")
+End Function
+
+
+

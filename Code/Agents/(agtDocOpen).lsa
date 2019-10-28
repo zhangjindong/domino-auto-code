@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='utf-8'?>
+<agent name='(agtDocOpen)' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' hide='v3' publicaccess='false'
+ designerversion='8.5.3'>
+<noteinfo noteid='172' unid='B4FFD131697B720648257F6500328D43' sequence='119'>
+<created><datetime>20160226T171209,63+08</datetime></created>
+<modified><datetime>20191028T153145,39+08</datetime></modified>
+<revised><datetime>20170918T171808,23+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,39+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,39+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<designchange><datetime>20170918T171754,42+08</datetime></designchange>
+<trigger type='agentlist'/>
+<documentset type='runonce'/><code event='options'><lotusscript>%REM
+	Agent agtDocOpen
+	Created 2016-2-26 by admin/DevServer
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+Use "GeneralLib"
+Use "AppTaskLib"
+Use "LibUserAndOrg"
+
+
+</lotusscript></code><code event='initialize'><lotusscript>Sub Initialize
+	On Error GoTo err_handle
+	Dim session As New NotesSession
+	Dim db As NotesDatabase,doc As NotesDocument
+	Set db = session.Currentdatabase
+	Set doc = session.Documentcontext
+	
+		
+	'初始化简要配置信息
+	Dim pdoc As notesdocument
+	Set pdoc = db.Getprofiledocument("config")
+	
+	ForAll i In pdoc.Items
+		if InStr(LCase(i.name),doc.subForm(0)+"_") Then
+			Call i.remove()
+		End If
+	End ForAll
+	ForAll f In db.Forms
+		If f.isSubform Then
+			If InStr(LCase(f.name),doc.subForm(0)+"_") Then
+				Call pdoc.Replaceitemvalue(f.name, f.name)
+			End If
+		End If
+	End ForAll
+	
+	Dim s As Variant,item As NotesItem
+	s = Evaluate("@username(0)",doc)
+	Set item = doc.Getfirstitem("NodeAuthor")
+	
+	doc.AttControl = "false"
+	doc.BodyControl = "0"
+	doc.BodyTools = "0"
+	If item.Contains(s(0)) Then
+		If doc.Isnewnote Or doc.TFCurNodeID(0) = "FlowStartNode" Then
+			doc.AttControl = "true"
+			doc.BodyControl = "1"
+			doc.BodyTools = "0"
+		Else
+			If pdoc.HasAtt(0) = "yes" and pdoc.AttControl(0) &lt;&gt; "" Then
+				Dim con As String
+				con = StrRight(pdoc.AttControl(0),doc.AppFlowUnid(0)+|",node:[|)
+				con = StrLeft(con,"]}")
+				If InStr(con,|"|+doc.TFCurNodeID(0)+|"|) Then
+					doc.AttControl = "true"
+				End If
+			End If
+			
+			If pdoc.HasBody(0) = "yes" And pdoc.BodyControl(0) &lt;&gt; "" Then
+				con = StrRight(pdoc.BodyControl(0),doc.AppFlowUnid(0)+|",node:[|)
+				con = StrLeft(con,"]}")
+				If InStr(con,|"|+doc.TFCurNodeID(0)+|"|) Then
+					doc.BodyControl = "1"
+				End If
+			End If
+			
+			If pdoc.HasBody(0) = "yes" And pdoc.BodyTools(0) &lt;&gt; "" Then
+		
+				con = StrRight(pdoc.BodyTools(0),doc.AppFlowUnid(0)+|",node:[|)
+				con = StrLeft(con,"]}")
+				If InStr(con,|"|+doc.TFCurNodeID(0)+|"|) Then
+					doc.BodyTools = "1"
+				End If
+			End If
+			
+		End If
+	End If
+	
+	Call pdoc.save(True,false)
+	
+	If doc.Isnewnote Then
+		Dim psndoc As NotesDocument
+		Set psndoc = UserList(doc.AppCreater(0)).Document()
+		If Not psndoc Is Nothing Then
+			doc.AppCreaterCN = psndoc.UserNameCN(0)
+			doc.AppCreaterDeptID = psndoc.DeptID(0)
+			doc.AppCreaterDeptName = psndoc.DeptName(0)
+		End If
+		
+		doc.form = StrLeft(StrRightBack( doc.Path_Info_Decoded(0),"/"),"?")
+		doc.TFCurNodeID = "FlowStartNode"
+		doc.TFCurNodeName = "开始"
+	End If
+	Call webservice("opendoc").start(doc)
+	'检查数据库中是否存在扩展的代理，存在即调用一次
+	Dim agent As NotesAgent
+	Set agent = db.Getagent("agentDoOpen_"+doc.TFCurNodeID(0)+"_" + doc.Form(0))
+	If agent Is Nothing Then
+		If LCase(doc.Form(0)) = "mainform" Then
+			Set agent = db.Getagent("agentDoOpen_"+doc.TFCurNodeID(0))
+		End If
+	End If
+	If Not agent Is Nothing Then
+		Call agent.Run(doc.Noteid)
+	End If
+	Exit Sub
+err_handle:
+	ShowError("agtDocOpen")
+End Sub</lotusscript></code>
+<rundata processeddocs='0' exitcode='0'>
+<agentmodified><datetime>20170809T060536,51+08</datetime></agentmodified></rundata>
+<item name='$POID'><datetime>20170918T171808,23+08</datetime></item></agent>
+

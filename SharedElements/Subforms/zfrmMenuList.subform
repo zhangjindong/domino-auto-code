@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='zfrmMenuList' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'
+ comment='Z.B 功能链接表' renderpassthrough='true'>
+<noteinfo noteid='2aa' unid='3236EA814778016548257BCF0032CACE' sequence='92'>
+<created><datetime>20130822T171447,18+08</datetime></created>
+<modified><datetime>20191028T153147,71+08</datetime></modified>
+<revised><datetime>20170918T171808,49+08</datetime></revised>
+<lastaccessed><datetime>20191028T153147,71+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153147,71+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=DigiWin</name><name>CN=admin/O=DevServer</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=VICUTU</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' hide='notes' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='1'><run html='true'><font color='blue'/>&lt;!--**************国际化代码实现2006-3-1**************************--&gt;</run></par>
+<pardef id='2' leftmargin='1in'/>
+<par def='2'><run html='true'><font color='blue'/>&lt;div style="display:none"&gt;</run><run
+ html='true'><font color='blue'/><field type='text' kind='computedfordisplay'
+ name='DF_Psn_Ln_Set' htmlstyle='display:none'><code event='defaultvalue'><formula
+>ln:=@DbLookup("":"";"":"Produce/DFInterSet.nsf";"PsnLnSetView";@Name([CN];@UserName(0));"STxtLnType");
+ln1:=@If(@IsError(ln);@DbLookup("":"";"":"Produce/DFInterSet.nsf";"SysLnSetView";"DF_Sys_Defaut_Ln_Set";"STxtLnType");ln);
+@If(@IsError(ln1);"ZH";ln1[1])</formula></code></field></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='11' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'><font
+ color='blue'/>&lt;/div&gt;</run></par>
+<par def='1'><run html='true'><font color='blue'/>&lt;script language="JavaScript" type="text/javascript" src="/Produce/ProInd.nsf/DF_LocalSetJS?OpenJavascriptLibrary&amp;"&gt;</run></par>
+<par def='1'><run html='true'><font color='blue'/>&lt;/script&gt;</run></par>
+<pardef id='3' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'><font color='blue'/>&lt;XML ID="DF_LocalSourceData" src="/DF_Res/DF_Lng_Source/Clt/DF_L_SystemKJ_</run><run
+ html='true'><font color='blue'/><computedtext><code event='value'><formula
+>DF_Psn_Ln_Set</formula></code></computedtext></run><run html='true'><font
+ color='blue'/>.xml" /&gt;</run></par>
+<par def='1'><run html='true'><font color='blue'/>&lt;!--*****************************************************--&gt;</run></par>
+<par def='3'><run html='true'>&lt;LINK href="</run><run html='true'>/DF_Res/DF_Style_Source/DF_Style_New/DF_Css/mainform.css</run><run
+ html='true'>" type="text/css" rel="stylesheet"/&gt;</run></par>
+<par def='3'><run html='true'>&lt;LINK href="/DF_Res/DF_Style_Source/DF_Style_New/DF_Css/menulist.css</run><run
+ html='true'>" type="text/css" rel="stylesheet"/&gt;</run></par>
+<par def='3'><run html='true'>&lt;script src="/jquery/js/jquery.js"&gt;&lt;/script&gt;</run></par>
+<par def='3'><run html='true'>&lt;script src="/Produce/DigiFlowScriptCss.nsf/CommonJS?openjavascriptlibrary"&gt;&lt;/script&gt;</run></par>
+<pardef id='4' leftmargin='1in' hide='notes mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='4'><run html='true'>&lt;script language="JavaScript" type="text/javascript" src="/Produce/DesignTools.nsf/CommonOptJS?OpenJavascriptLibrary"&gt;</run></par>
+<par def='4'><run html='true'>&lt;/script&gt;</run></par>
+<par def='4'><run html='true'>&lt;script language="JavaScript" type="text/javascript" src="/Produce/DigiFlowScriptCss.nsf/MenuListJS?OpenJavascriptLibrary"&gt;</run></par>
+<par def='4'><run html='true'>&lt;/script&gt;</run></par>
+<par def='4'><run html='true'>&lt;script language="javascript"&gt;</run></par>
+<par def='4'><run html='true'>function InitList(theList, theTable, iEnd, iId, checkIt){</run></par>
+<par def='4'><run html='true'>	//var colWidth = (document.body.clientWidth - 500) / iEnd;</run></par>
+<par def='4'><run html='true'>	with(theList){</run></par>
+<par def='4'><run html='true'>		View = 3</run></par>
+<par def='4'><run html='true'>		BorderStyle = 1</run></par>
+<par def='4'><run html='true'>		GridLines = true</run></par>
+<par def='4'><run html='true'>		Checkboxes = checkIt</run></par>
+<par def='4'><run html='true'>		FullRowSelect = true</run></par>
+<par def='4'><run html='true'>		LabelEdit = 1</run></par>
+<par def='4'><run html='true'>		theList.ColumnHeaders.Clear();</run></par>
+<par def='4'><run html='true'>		ColumnHeaders.Add(1,'Col0',theTable.rows[0].cells[0].innerText, 20);</run></par>
+<par def='4'><run html='true'>		for(var i = 1; i &lt; iEnd; i ++){</run></par>
+<par def='4'><run html='true'>			ColumnHeaders.Add(i+1,'Col'+i,theTable.rows[0].cells[i].innerText, 100);</run></par>
+<par def='4'><run html='true'>		}</run></par>
+<par def='4'><run html='true'>		theList.ListItems.Clear();</run></par>
+<par def='4'><run html='true'>		for(var i = 1; i &lt; theTable.rows.length; i ++){</run></par>
+<par def='4'><run html='true'>			document.all("myList").ListItems.Add( i,'Key'+theTable.rows[i].cells[iId -1].innerText.replace(" ", ""), theTable.rows[i].cells[0].innerText.replace(" ", ""));</run></par>
+<par def='4'><run html='true'>			for(var j = 1; j &lt; iEnd; j ++){</run></par>
+<par def='4'><run html='true'>  				ListItems(i).SubItems(j) = theTable.rows[i].cells[j].innerText.replace(" ", "")</run></par>
+<par def='4'><run html='true'>			}</run></par>
+<par def='4'><run html='true'>		}</run></par>
+<par def='4'><run html='true'>		Sorted = true</run></par>
+<par def='4'><run html='true'>	}</run></par>
+<par def='4'><run html='true'>}</run></par>
+<par def='4'><run html='true'>&lt;/script&gt;</run></par>
+<par def='4'><run html='true'>&lt;script language = 'javascript' for = 'myList' event = 'ColumnClick(ColumnHeader)'&gt;</run></par>
+<par def='4'><run html='true'>if(ColumnHeader.SubItemIndex == document.all("myList").SortKey){</run></par>
+<par def='4'><run html='true'>    	if(document.all("myList").SortOrder == 0) document.all("myList").SortOrder = 1</run></par>
+<par def='4'><run html='true'>    	else document.all("myList").SortOrder = 0</run></par>
+<par def='4'><run html='true'>}else{</run></par>
+<par def='4'><run html='true'>    	document.all("myList").SortKey = ColumnHeader.SubItemIndex</run></par>
+<par def='4'><run html='true'>    	if(document.all("myList").SortOrder == 0) document.all("myList").SortOrder = 1</run></par>
+<par def='4'><run html='true'>    	else document.all("myList").SortOrder = 0</run></par>
+<par def='4'><run html='true'>}</run></par>
+<par def='4'><run html='true'>&lt;/script&gt;</run></par>
+<par def='4'><run html='true'>&lt;script language = 'javascript' for = 'myList' event = 'ItemClick(Item)'&gt;</run></par>
+<par def='4'><run html='true'>var keyID=Item.key;</run></par>
+<par def='4'><run html='true'>for(var i=1;i&lt;document.all("myTale").rows.length;i++){</run></par>
+<par def='4'><run html='true'>	if("Key"+document.all("myTale").rows(i).cells(0).outerText==keyID){ </run></par>
+<par def='4'><run html='true'>		parent.frames.helpDoc.document.location=document.all("myTale").rows(i).cells(2).outerText;</run></par>
+<par def='4'><run html='true'>		break;</run></par>
+<par def='4'><run html='true'>	}</run></par>
+<par def='4'><run html='true'>}</run></par>
+<par def='4'><run html='true'>&lt;/script&gt;</run></par>
+<par def='4'/>
+<par def='4'><run html='true'>&lt;script&gt;</run></par>
+<par def='4'><run html='true'>var Num=1; //这里是增加选项卡的数目</run></par>
+<par def='4'><run html='true'>var carNum=2+Num</run></par>
+<par def='4'><run html='true'>function document.onselectstart()</run></par>
+<par def='4'><run html='true'>{</run></par>
+<par def='4'><run html='true'>	var obj=event.srcElement </run></par>
+<par def='4'><run html='true'>	if(obj.tagName=="SPAN"){</run></par>
+<par def='4'><run html='true'>		return false;</run></par>
+<par def='4'><run html='true'>	}</run></par>
+<par def='4'><run html='true'>}</run></par>
+<par def='4'><run html='true'>function document.onmousedown()</run></par>
+<par def='4'><run html='true'>{</run></par>
+<par def='4'><run html='true'>	var obj=event.srcElement</run></par>
+<par def='4'><run html='true'>	var pobj=obj.id;</run></par>
+<par def='4'><run html='true'>	if(obj.className=="span" || obj.className=="span1"){</run></par>
+<par def='4'><run html='true'>		for(i=1;i&lt;carNum;i++)</run></par>
+<par def='4'><run html='true'>		{</run></par>
+<par def='4'><run html='true'>			if(pobj==("MenuName"+i)) {</run></par>
+<par def='4'><run html='true'>				obj.className="span";</run></par>
+<par def='4'><run html='true'>				content(i);</run></par>
+<par def='4'><run html='true'>			}else{</run></par>
+<par def='4'><run html='true'>				document.all("MenuName"+i).className="span1";</run></par>
+<par def='4'><run html='true'>			}</run></par>
+<par def='4'><run html='true'>		}</run></par>
+<par def='4'><run html='true'>	}</run></par>
+<par def='4'><run html='true'>}</run></par>
+<par def='4'><run html='true'>function content(i)</run></par>
+<par def='4'><run html='true'>{</run></par>
+<par def='4'><run html='true'>	//这里是菜单名</run></par>
+<par def='4'><run html='true'>	var gjstr1=document.all("DF_LocalSourceData").XMLDocument.selectSingleNode("//DF_00006").text; //操作目录</run></par>
+<par def='4'><run html='true'>	var gjstr2=document.all("DF_LocalSourceData").XMLDocument.selectSingleNode("//DF_00007").text; //查询</run></par>
+<par def='4'><run html='true'>	mnuItem(1," "+gjstr1+" ")</run></par>
+<par def='4'><run html='true'>	mnuItem(2," "+gjstr2+" ")</run></par>
+<par def='4'><run html='true'>	//mnuItem(1,"常用操作")</run></par>
+<par def='4'><run html='true'>	//mnuItem(2,"高级功能")</run></par>
+<par def='4'><run html='true'>	//End</run></par>
+<par def='4'><run html='true'>	switch(i)</run></par>
+<par def='4'><run html='true'>	{</run></par>
+<par def='4'><run html='true'>		case 1:</run></par>
+<par def='4'><run html='true'>			document.all("mydiv1").style.display="";</run></par>
+<par def='4'><run html='true'>			document.all("mydiv2").style.display="none";</run></par>
+<par def='4'><run html='true'>			break;</run></par>
+<par def='4'><run html='true'>		case 2:</run></par>
+<par def='4'><run html='true'>			document.all("mydiv1").style.display="none";</run></par>
+<par def='4'><run html='true'>			document.all("mydiv2").style.display="";</run></par>
+<par def='4'><run html='true'>			break;</run></par>
+<par def='4'><run html='true'>	}</run></par>
+<par def='4'><run html='true'>}</run></par>
+<par def='4'><run html='true'>function mnuItem(i,con)</run></par>
+<par def='4'><run html='true'>{</run></par>
+<par def='4'><run html='true'>	document.all("MenuName"+i).innerText=con;</run></par>
+<par def='4'><run html='true'>}</run></par>
+<par def='4'><run html='true'>&lt;/script&gt;</run></par>
+<pardef id='5' leftmargin='1in' hide='notes web mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='5'/>
+<par def='4'><run html='true'>&lt;table bgcolor="#F8F9FD" width="100%" style="overflow-x:auto;" align=left cellpadding=0 cellspacing=0 rowspacing=0 valign="top"&gt;</run></par>
+<pardef id='6' leftmargin='1.2500in' hide='notes mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='6'><run html='true'>&lt;tr id="tabTR"&gt;&lt;td&gt;</run></par>
+<pardef id='7' leftmargin='1.5000in' hide='notes mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='7'><run html='true'>&lt;table cellpadding=0 cellspacing=0 onselectstart="return false" width="100%" height=26px&gt;</run></par>
+<pardef id='8' leftmargin='1.7500in' hide='notes mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='8'><run html='true'>&lt;tr height=1px width=100%&gt;&lt;td colspan=2&gt;&lt;/td&gt;&lt;/tr&gt;</run></par>
+<par def='8'><run html='true'>&lt;tr width=100%&gt;</run></par>
+<pardef id='9' leftmargin='2in' hide='notes mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='9'><run html='true'>&lt;td width=50%&gt;</run></par>
+<pardef id='10' leftmargin='2.2500in' hide='notes mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='10'><run html='true'>&lt;table cellspacing=0 cellpadding=0 bgcolor=#DCE6F2 width=100%&gt;</run></par>
+<pardef id='11' leftmargin='2.5000in' hide='notes mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='11'><run html='true'>&lt;tr&gt;</run></par>
+<pardef id='12' leftmargin='2.7500in' hide='notes mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='12'><run html='true'>&lt;td id=AttCardbtn1&gt;&lt;span class=span id=MenuName1&gt;&lt;/span&gt;&lt;/td&gt;</run></par>
+<par def='11'><run html='true'>&lt;/tr&gt;</run></par>
+<par def='10'><run html='true'>&lt;/table&gt;</run></par>
+<par def='9'><run html='true'>&lt;/td&gt;</run></par>
+<par def='9'><run html='true'>&lt;script&gt;</run></par>
+<par def='9'><run html='true'>for(i=2;i&lt;carNum;i++)</run></par>
+<par def='9'><run html='true'>{</run></par>
+<par def='10'><run html='true'>tdBody="&lt;td width=50%&gt;"</run></par>
+<par def='10'><run html='true'>tdBody+="&lt;table cellspacing=0 cellpadding=0 bgcolor=#F0F0F0 width=100%&gt;"</run></par>
+<par def='10'><run html='true'>tdBody+="&lt;tr&gt;"</run></par>
+<par def='10'><run html='true'>tdBody+="&lt;td id=AttCardbtn"+i+"&gt;&lt;span class=span1 id=MenuName"+i+"&gt; &lt;\/span&gt;&lt;\/td&gt;"</run></par>
+<par def='10'><run html='true'>tdBody+="&lt;\/tr&gt;"</run></par>
+<par def='10'><run html='true'>tdBody+="&lt;\/table&gt;"</run></par>
+<par def='10'><run html='true'>tdBody+="&lt;\/td&gt;";</run></par>
+<par def='10'><run html='true'>document.write(tdBody)</run></par>
+<par def='9'><run html='true'>}</run></par>
+<par def='9'><run html='true'>&lt;/script&gt;</run></par>
+<par def='9'/>
+<par def='9'><run html='true'>&lt;td width=0&gt;</run><run html='true'><field
+ type='text' kind='editable' name='isAdminFlag' htmlstyle='display:none'><code
+ event='defaultvalue'><formula>@If(@IsMember("[admin]";@UserRoles);"yes";"no")</formula></code></field></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='7' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'><field
+ type='text' kind='editable' name='thDbPath' htmlstyle='display:none'><code
+ event='htmlattributes'><formula>""</formula></code></field></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='15' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/td&gt;</run></par>
+<par def='8'><run html='true'>&lt;/tr&gt;</run></par>
+<par def='8'><run html='true'>&lt;tr height=2px width=100%&gt;&lt;td style="background:</run><run
+ html='true'>#B1C6D3</run><run html='true'>" colspan=2&gt;&lt;/td&gt;&lt;/tr&gt;</run></par>
+<par def='7'><run html='true'>&lt;/table&gt;</run></par>
+<par def='6'><run html='true'>&lt;/td&gt;&lt;tr&gt;</run></par>
+<par def='7'/>
+<par def='6'><run html='true'>&lt;tr id="menuTR"&gt;</run></par>
+<par def='7'><run html='true'>&lt;td valign=top style="overflow-x:auto;"&gt;</run></par>
+<par def='8'><run html='true'>&lt;div style="width:100%;overflow:auto;height:100%;"&gt;</run></par>
+<par def='9'><run html='true'>&lt;!--这里是内容1--&gt;</run></par>
+<par def='9'><run html='true'>&lt;table id=mydiv1 align="left"&gt;</run></par>
+<par def='10'><run html='true'>&lt;tr&gt;&lt;td valign="top"&gt;</run></par>
+<par def='11'><run html='true'>&lt;div id="menuTreeDiv" style="cursor:default;width:100%</run><run
+ html='true'>"&gt;&lt;/div&gt;</run></par>
+<par def='10'><run html='true'>&lt;/td&gt;&lt;/tr&gt;</run></par>
+<par def='9'><run html='true'>&lt;/table&gt;</run></par>
+<pardef id='13' leftmargin='2in' hide='notes web mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='13'/>
+<par def='9'><run html='true'>&lt;!--这里是内容2--&gt;</run></par>
+<par def='9'><run html='true'>&lt;table id=mydiv2 align="left"&gt;</run></par>
+<par def='10'><run html='true'>&lt;tr&gt;&lt;td valign="top"&gt;</run></par>
+<par def='11'><run html='true'>&lt;div id="menuTreeDiv1" style="cursor:default;width:100%"&gt;</run><run
+ html='true'><field type='richtext' kind='computed' name='SearchMenuList'
+ htmlstyle='display:none'/></run><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='7' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAEAAAA=
+</compositedata><run html='true'>&lt;/div&gt;</run></par>
+<par def='10'><run html='true'>&lt;/td&gt;&lt;/tr&gt;</run></par>
+<par def='9'><run html='true'>&lt;/table&gt;</run></par>
+<par def='8'><run html='true'>&lt;/div&gt;</run></par>
+<par def='7'><run html='true'>&lt;/td&gt;</run></par>
+<par def='6'><run html='true'>&lt;/tr&gt;</run></par>
+<par def='6'/>
+<pardef id='14' leftmargin='1.2500in' hide='notes web mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='14'><run html='true'><font color='red'/>&lt;tr&gt;&lt;td align=center&gt;</run></par>
+<table htmlstyle='align:center' extrahtmlattrs='border=0;' leftmargin='1.4958in'
+ widthtype='fixedleft' refwidth='6.2903in'><tablecolumn width='3.1451in'/><tablecolumn
+ width='3.1451in'/>
+<tablerow>
+<tablecell>
+<pardef id='16' hide='notes web mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'
+ keepwithnext='true' keeptogether='true'/>
+<par def='16'><run html='true'><font color='red'/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;img src="/DF_Res/DF_Img_Source/Img_KJ/expand.gif" border=0 &gt;</run><actionhotspot
+ htmlclass='green'><code event='onClick' for='web'><javascript>DF_showAllMenu();</javascript></code><run
+><font color='red'/>全展开</run></actionhotspot><run html='true'><font color='red'/></run></par></tablecell>
+<tablecell>
+<pardef id='17' hide='notes web mobile' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'
+ keepwithnext='true' keeptogether='true'/>
+<par def='17'><run html='true'><font color='red'/>&lt;img src="/DF_Res/DF_Img_Source/Img_KJ/collapse.gif" border=0 &gt;</run><actionhotspot
+ htmlclass='green'><code event='onClick' for='web'><javascript>DF_hideAllMenu();</javascript></code><run
+><font color='red'/>全折叠</run></actionhotspot><run><font color='red'/></run></par></tablecell></tablerow></table>
+<par def='14'><run html='true'><font color='red'/>&lt;/td&gt;&lt;/tr&gt;</run></par>
+<pardef id='18' leftmargin='0.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='18'/>
+<pardef id='19' leftmargin='1in' hide='web' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='19'><run html='true'><font color='red'/>&lt;!------功能连接列表表单中结构如下----------&gt;</run></par>
+<pardef id='20' leftmargin='1.2500in' hide='web' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='20'><run html='true'><font color='red'/>&lt;tr&gt;&lt;td&gt;</run></par>
+<par def='20'><run html='true'><font color='red'/>&lt;/tr&gt;&lt;/td&gt;</run></par>
+<par def='5'><run html='true'><font color='red'/>&lt;/table&gt;</run></par>
+<par def='5'><run html='true'><font color='red'/>&lt;!---------功能链接列表中结构结束--------------&gt;</run></par></richtext></body>
+<item name='OriginalModTime' sign='true'><datetime>20070628T200239,91+08</datetime></item>
+<item name='$$ScriptName' summary='false' sign='true'><text>zfrmMenuList</text></item></subform>
+

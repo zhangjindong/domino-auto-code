@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='(FlowBody)' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'
+ renderpassthrough='true'>
+<noteinfo noteid='1aa' unid='054B4902B4797E1E48257F7B006E5B99' sequence='163'>
+<created><datetime>20160320T040524,09+08</datetime></created>
+<modified><datetime>20191028T153145,62+08</datetime></modified>
+<revised><datetime>20170918T171807,21+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,62+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,62+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") != "1"</formula></code></pardef>
+<par def='1'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>&lt;!--- NTKO ---&gt;</run></par>
+<pardef id='2' leftmargin='1in' rightmargin='100%'><code event='hidewhen'><formula
+>@GetProfileField("config";"BodyType") != "1"</formula></code></pardef>
+<par def='2'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='#4200ff'/>&lt;div class="row"&gt;</run></par>
+<pardef id='3' leftmargin='1in' rightmargin='100%'><code event='hidewhen'><formula
+>BodyTools = "0" | @IsNewDoc</formula></code></pardef>
+<par def='3'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='#4200ff'/>&lt;div class="col col-xs-12 padding-5"&gt;</run></par>
+<pardef id='4' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>BodyTools = "0" | @IsNewDoc</formula></code></pardef>
+<par def='4'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='#4200ff'/>&lt;span onclick="</run><run html='true'><font
+ name='Consolas' pitch='fixed' truetype='true' familyid='30' color='#4200ff'/>NTKO_Flow</run><run
+ html='true'><font name='Consolas' pitch='fixed' truetype='true' familyid='30'
+ color='#4200ff'/>.</run><run html='true'><font name='Consolas' pitch='fixed'
+ truetype='true' familyid='30' color='#4200ff'/>AcceptAllRevisions</run><run
+ html='true'><font name='Consolas' pitch='fixed' truetype='true' familyid='30'
+ color='#4200ff'/>()" class="btn btn-sm btn-primary btn-white btn-round" title="" data-original-title="清稿"&gt;&lt;i class=" ace-icon fa fa-align-right"&gt;&lt;/i&gt;清稿&lt;/span&gt;</run></par>
+<par def='3'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='#4200ff'/>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='#4200ff'/>&lt;div class="col col-xs-12" id="NTKO_OBJECT" data-ajax=</run><run
+ html='true'><font name='Consolas' pitch='fixed' truetype='true' familyid='30'
+ color='blue'/>"/</run><run html='true'><font name='Consolas' pitch='fixed'
+ truetype='true' familyid='30' color='blue'/><computedtext><code event='value'><formula
+>FlowProcessDB</formula></code></computedtext></run><run html='true'><font
+ name='Consolas' pitch='fixed' truetype='true' familyid='30' color='blue'/>/FlowBody?readform&amp;flag=</run><run
+ html='true'><font name='Consolas' pitch='fixed' truetype='true' familyid='30'/><computedtext
+><code event='value'><formula>BodyControl</formula></code></computedtext></run><run
+ html='true'><font name='Consolas' pitch='fixed' truetype='true' familyid='30'
+ color='blue'/></run><run html='true'><font name='Consolas' pitch='fixed'
+ truetype='true' familyid='30'/><computedtext><code event='value'><formula
+>@If(FlowProcessUnid = "";"";"&amp;pid="+FlowProcessUnid)</formula></code></computedtext></run><run
+ html='true'><font name='Consolas' pitch='fixed' truetype='true' familyid='30'
+ color='blue'/>"</run><run html='true'><font name='Consolas' pitch='fixed'
+ truetype='true' familyid='30' color='#4200ff'/>&gt;&lt;/div&gt;</run></par>
+<par def='1'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>&lt;script language="JScript" for="TANGER_OCX" event="</run><run
+ html='true'><font name='Consolas' pitch='fixed' truetype='true' familyid='30'
+ color='blue'/>OnDocumentOpened</run><run html='true'><font name='Consolas'
+ pitch='fixed' truetype='true' familyid='30' color='blue'/>(STR,OBJ)"&gt;</run></par>
+<pardef id='5' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") != "1"</formula></code></pardef>
+<par def='5'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>document.all.</run><run html='true'><font name='Consolas'
+ pitch='fixed' truetype='true' familyid='30' color='#4200ff'/>TANGER_OCX.WebUserName = curUser.UserNameCN;</run></par>
+<par def='5'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>if(typeof(TANGER_OCX_OnDocumentOpened) == "function"){</run></par>
+<pardef id='6' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") != "1"</formula></code></pardef>
+<par def='6'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>document.all.</run><run html='true'><font name='Consolas'
+ pitch='fixed' truetype='true' familyid='30' color='#4200ff'/>TANGER_OCX</run><run
+ html='true'><font name='Consolas' pitch='fixed' truetype='true' familyid='30'
+ color='blue'/>.ActiveDocument.TrackRevisions = false;</run></par>
+<par def='6'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>TANGER_OCX_OnDocumentOpened(STR,OBJ)</run></par>
+<par def='5'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>}</run></par>
+<pardef id='7' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") != "1" | @IsNewDoc</formula></code></pardef>
+<par def='7'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>document.all.</run><run html='true'><font name='Consolas'
+ pitch='fixed' truetype='true' familyid='30' color='#4200ff'/>TANGER_OCX</run><run
+ html='true'><font name='Consolas' pitch='fixed' truetype='true' familyid='30'
+ color='blue'/>.ActiveDocument.TrackRevisions = true;</run></par>
+<par def='1'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>&lt;/script&gt;</run></par>
+<par def='2'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='#4200ff'/>&lt;/div&gt;</run></par>
+<par def='1'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30' color='blue'/>&lt;!--- NTKO ---&gt;</run></par>
+<pardef id='8' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") = "1"</formula></code></pardef>
+<par def='8'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30'/>&lt;!--- 文本框 ---&gt;</run></par>
+<pardef id='9' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") = "1" | @IsNotMember(NodeAuthor;@UserName(0))</formula></code></pardef>
+<par def='9'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30'/></run><run><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30'/><field type='richtext' kind='editable' name='Body' htmlstyle='height:200px;overflow:visible'><code
+ event='htmlattributes'><formula>"class='"+@If(@GetProfileField("config";"BodyType") = "2" ; "editor" ; "")+" form-control'"</formula></code></field></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='11' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAEAAAA=
+</compositedata><run><font name='Consolas'
+ pitch='fixed' truetype='true' familyid='30'/></run></par>
+<pardef id='10' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") = "1" | @IsMember(NodeAuthor;@UserName(0))</formula></code></pardef>
+<par def='10'><run><font name='Consolas' pitch='fixed' truetype='true' familyid='30'/>[&lt;pre&gt;</run><run
+><font name='Consolas' pitch='fixed' truetype='true' familyid='30'/><field
+ type='richtext' kind='computed' name='Body_Show'><code event='defaultvalue'><formula
+>Body</formula></code></field></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='8' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAEAAAA=
+</compositedata><run><font name='Consolas' pitch='fixed'
+ truetype='true' familyid='30'/>&lt;/pre&gt;]</run></par>
+<pardef id='11' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='11'><run html='true'><font name='Consolas' pitch='fixed' truetype='true'
+ familyid='30'/></run></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>FlowNTKO</text></item></subform>
+

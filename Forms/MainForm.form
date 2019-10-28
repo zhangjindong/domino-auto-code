@@ -1,0 +1,375 @@
+<?xml version='1.0' encoding='utf-8'?>
+<form name='MainForm' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.0'
+ replicaid='482584A1002906C1' htmlallfields='true' publicaccess='false' designerversion='8.5.3'
+ inherit='true' recalc='true' editonopen='true' renderpassthrough='true'>
+<noteinfo noteid='246' unid='7910A9B5CC07BE7448257F7700361AF3' sequence='378'>
+<created><datetime>20160315T175058,43+08</datetime></created>
+<modified><datetime>20191028T153146,79+08</datetime></modified>
+<revised><datetime>20170918T171808,07+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,79+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,79+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><code event='windowtitle'><formula
+>@DbTitle</formula></code><code event='webquerysave'><formula>@Command([ToolsRunMacro]; "agtDocSave")</formula></code><code
+ event='webqueryopen'><formula>@Command([ToolsRunMacro]; "agtDocOpen")</formula></code><code
+ event='htmlbody'><formula>"class=\"no-skin\""</formula></code>
+<body><richtext>
+<pardef id='1' hide='web'/>
+<par def='1'><sharedfieldref name='$$HTMLFrontMatter'/><sharedfieldref name='$$HTMLHEAD'/><field
+ type='text' kind='editable' name='FlowProcessDB'><code event='defaultvalue'><formula
+>ss:=@DbLookup("";"":"flow/flowprocess.nsf";"vwProperty";"ProcessProperty";"ProcessDBFile");
+@If(@IsError(ss) | ss = "";"flow/flowprocess.nsf";ss)</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='17' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='FlowProcessUnid'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='23' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><sharedfieldref name='DF_DbPath'/><sharedfieldref
+ name='DF_DbDir'/><field type='text' kind='editable' name='AppIndex'><code
+ event='defaultvalue'><formula>tmp := @UrlQueryString("index");
+index:=@If(tmp="";"1";tmp);
+index</formula></code></field><compositedata type='98' prevtype='65418' nexttype='222'
+ afterparcount='39' containertype='65418' aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><sharedfieldref
+ name='DF_DbName'/><field type='text' kind='editable' name='TFCurNodeID'><code
+ event='defaultvalue'><formula>"FlowStartNode"</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='50' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='computed' name='TFPreNodeID'><code event='defaultvalue'><formula>TFCurNodeID</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='56' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='DocUnid'><code event='defaultvalue'><formula>@Text(@DocumentUniqueID)</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='62' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='DocID'/><compositedata type='98' prevtype='65418' nexttype='222'
+ afterparcount='68' containertype='65418' aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field
+ type='text' kind='editable' name='TFCurNodeName'/><compositedata type='98'
+ prevtype='65418' nexttype='222' afterparcount='74' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='authors'
+ allowmultivalues='true' kind='editable' name='TFCurNodeAuthors' listinputseparators='comma semicolon'
+ listdisplayseparator='semicolon'/><field type='text' kind='editable' name='subForm'><code
+ event='defaultvalue'><formula>tmp := @UrlQueryString("index");
+index:=@If(tmp="";1;@TextToNumber(tmp));
+sfrm := @GetProfileField("config";"AppSubForms");
+@If(@IsError(sfrm[index]);sfrm[1];sfrm[index])</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='85' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppFlowUnid'><code event='defaultvalue'><formula>tmp := @UrlQueryString("index");
+index:=@If(tmp="";1;@TextToNumber(tmp));
+sfrm := @GetProfileField("config";"AppFlowUnids");
+@If(@IsError(sfrm[index]);sfrm[1];sfrm[index])</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='93' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppSubject'><code event='defaultvalue'><formula>tmp := @UrlQueryString("index");
+index:=@If(tmp="";1;@TextToNumber(tmp));
+sfrm := @GetProfileField("config";"AppSubjects");
+@If(@IsError(sfrm[index]);sfrm[1];sfrm[index])</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='99' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppAbstracts'><code event='defaultvalue'><formula>tmp := @UrlQueryString("index");
+index:=@If(tmp="";1;@TextToNumber(tmp));
+sfrm := @GetProfileField("config";"Abstracts");
+@If(@IsError(sfrm[index]);sfrm[1];sfrm[index])</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='105' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppTypes'><code event='defaultvalue'><formula>tmp := @UrlQueryString("index");
+index:=@If(tmp="";1;@TextToNumber(tmp));
+sfrm := @GetProfileField("config";"AppTypes");
+@If(@IsError(sfrm[index]);sfrm[1];sfrm[index])</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='111' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='computedfordisplay' name='subForm_Ext'><code event='defaultvalue'><formula
+>@GetProfileField("config";subForm+"_"+TFCurNodeID)</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='117' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='readers'
+ allowmultivalues='true' kind='editable' name='FlowReaders' listinputseparators='comma'
+ listdisplayseparator='comma'><code event='defaultvalue'><formula>@UserName(0)</formula></code></field><field
+ type='authors' allowmultivalues='true' kind='editable' name='FlowAuthors'
+ listinputseparators='comma' listdisplayseparator='comma'/><field type='authors'
+ allowmultivalues='true' kind='editable' name='AppManagers' listinputseparators='comma'
+ listdisplayseparator='comma'><code event='defaultvalue'><formula>"[admin]"</formula></code></field><field
+ type='readers' allowmultivalues='true' kind='editable' name='AppReaders'
+ listinputseparators='comma' listdisplayseparator='comma'><code event='defaultvalue'><formula
+>"[allReader]":"[viewAll]"</formula></code></field><field type='text' kind='computedfordisplay'
+ name='Path_Info_Decoded'><code event='defaultvalue'><formula>Path_Info_Decoded</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='143' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><sharedfieldref
+ name='$V2AttachmentOptions'/><field type='authors' allowmultivalues='true'
+ kind='editable' name='NodeAuthor' listinputseparators='comma' listdisplayseparator='comma'><code
+ event='defaultvalue'><formula>@UserName(0)</formula></code></field><field
+ type='text' allowmultivalues='true' kind='editable' name='NodeAuthorCN' listinputseparators='comma'
+ listdisplayseparator='comma'><code event='defaultvalue'><formula>@UserName(0)</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='159' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppCreater'><code event='defaultvalue'><formula>@Name([CN];@UserName(0))</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='165' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppCreated'><code event='defaultvalue'><formula>@Date(@Now)</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='171' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppCreaterCN'><code event='defaultvalue'><formula>@Name([CN];@UserName(0))</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='177' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppCreaterDeptID'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='183' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='AppCreaterDeptName'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='189' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='TFcurNodeAuthorsCN'><code event='defaultvalue'><formula
+>@Name([CN];@UserName(0))</formula></code></field><compositedata type='98'
+ prevtype='65418' nexttype='222' afterparcount='195' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppFlowOptID'/><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='201' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='computedfordisplay'
+ name='AttControl'><code event='defaultvalue'><formula>AttControl</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='207' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='AppDocUnid'><code event='defaultvalue'><formula>@Text(@DocumentUniqueID)</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='213' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='computedfordisplay' name='query_string'><code event='defaultvalue'><formula
+>query_string</formula></code></field><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='219' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='computedfordisplay'
+ name='query_string_decoded'><code event='defaultvalue'><formula>query_string_decoded</formula></code></field><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='225' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<pardef id='2' leftmargin='0.2500in' firstlineleftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/><subformref
+><code event='value'><formula>"CommonInclude"</formula></code></subformref>
+<pardef id='3' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'>&lt;div id="navbar" class="navbar navbar-default  h-navbar navbar-fixed-top"&gt;</run></par>
+<pardef id='4' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='4'><run html='true'>&lt;script type="text/javascript"&gt;</run></par>
+<pardef id='5' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='5'><run html='true'>try{ace.settings.check('navbar' , 'fixed')}catch(e){}</run></par>
+<par def='4'><run html='true'>&lt;/script&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="navbar-container" id="navbar-container"&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="navbar-header pull-left" </run><run
+ html='true'>&gt;</run></par>
+<pardef id='6' leftmargin='1in' firstlineleftmargin='1.7500in' hide='web'
+ tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='6'><run html='true'>&lt;button class="pull-left navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".sidebar"&gt;</run></par>
+<par def='6'><run html='true'>&lt;span class="sr-only"&gt;Toggle sidebar&lt;/span&gt;&lt;span class="icon-bar"&gt;&lt;/span&gt;&lt;span class="icon-bar"&gt;&lt;/span&gt;&lt;span class="icon-bar"&gt;&lt;/span&gt;</run></par>
+<par def='6'><run html='true'>&lt;/button&gt;</run></par>
+<pardef id='7' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='7'><run html='true'>&lt;a href="#" class="navbar-brand"&gt;&lt;/a&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="navbar-header pull-right navbar-collapse center" style="padding-top:10px;"</run><run
+ html='true'>&gt;</run></par>
+<par def='7'><run html='true'>&lt;div class="btn-group btn-corner" data-addType="append" data-ajax="/</run><run
+ html='true'><computedtext><code event='value'><formula>FlowProcessDB</formula></code></computedtext></run><run
+ html='true'>/Flow</run><run html='true'><computedtext><code event='value'><formula
+>index:=@UrlQueryString("index");
+@If(@IsNewDoc &amp; index="" &amp; @Elements(@GetProfileField("config";"AppSubForms")) &gt; 1;"SelectType";"Action")</formula></code></computedtext></run><run
+ html='true'>?readform&amp;pid=</run><run html='true'><computedtext><code
+ event='value'><formula>FlowProcessUnid</formula></code></computedtext></run><run
+ html='true'>&amp;flowid=</run><run html='true'><computedtext><code event='value'><formula
+>AppFlowUnid</formula></code></computedtext></run><run html='true'>&amp;db=</run><run
+ html='true'><computedtext><code event='value'><formula>@WebDbName</formula></code></computedtext></run><run
+ html='true'>&amp;docid=</run><run html='true'><computedtext><code event='value'><formula
+>@Text(@DocumentUniqueID)</formula></code></computedtext></run><run html='true'><computedtext
+><code event='value'><formula>@Implode("&amp;"+ActionNames+"="+ActionValues)</formula></code></computedtext></run><run
+ html='true'>"</run><run html='true'>&gt;</run></par><subformref><code event='value'><formula
+>"FlowAction"</formula></code></subformref>
+<par def='7'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;nav role="navigation" class="navbar-menu pull-left collapse navbar-collapse"&gt;&lt;/nav&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;!-- /section:basics/navbar.layout --&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="main-container" id="main-container" style=""&gt;</run></par>
+<par def='4'><run html='true'>&lt;script type="text/javascript"&gt;try{ace.settings.check('main-container' , 'fixed')}catch(e){}&lt;/script&gt;</run></par>
+<par def='4'><run html='true'>&lt;div id="sidebar" class="h-sidebar navbar-collapse collapse sidebar-fixed" style="background-color:#F8F8F8;border-bottom:1px solid #C5D0DC;z-index:1000;position:fixed;padding-left:100px"&gt;</run></par>
+<par def='5'><run html='true'>&lt;ul class="nav nav-tabs"&gt;</run></par>
+<par def='7'><run html='true'>&lt;li class="hover active"&gt;</run></par>
+<pardef id='8' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='8'><run html='true'>&lt;a href="#" data-toggle="tab" data-target="#BasicInfo"&gt;&lt;span class="menu-text"&gt;&lt;i class="menu-icon fa fa-tachometer"&gt;&lt;/i&gt;</run><run
+ html='true'><computedtext><code event='value'><formula>L_BasicInfo</formula></code></computedtext></run><run
+ html='true'>&lt;/span&gt;&lt;/a&gt;</run></par>
+<par def='7'><run html='true'>&lt;/li&gt;</run></par>
+<pardef id='9' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"HasBody") = "no"</formula></code></pardef>
+<par def='9'><run html='true'><font color='blue'/>&lt;li class="hover"&gt;</run></par>
+<pardef id='10' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"HasBody") = "no"</formula></code></pardef>
+<par def='10'><run html='true'><font color='blue'/>&lt;a href="#" data-toggle="tab" data-target="#MainContent"&gt;&lt;span class=menu-text""&gt;&lt;i class="menu-icon fa </run><run
+ html='true'><font color='blue'/>fa-bookmark-o</run><run html='true'><font
+ color='blue'/>"&gt;&lt;/i&gt;</run><run html='true'><computedtext><code event='value'><formula
+>L_MainBody</formula></code></computedtext></run><run html='true'><font color='blue'/>&lt;/span&gt;&lt;/a&gt;</run></par>
+<par def='9'><run html='true'><font color='blue'/>&lt;/li&gt;</run></par>
+<pardef id='11' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"HasAtt") = "no"</formula></code></pardef>
+<par def='11'><run html='true'><font color='green'/>&lt;li class="hover"&gt;</run></par>
+<pardef id='12' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"HasAtt") = "no"</formula></code></pardef>
+<par def='12'><run html='true'><font color='green'/>&lt;a href="#" data-toggle="tab" data-target="#AttachMent"&gt;&lt;span class="menu-text"&gt;&lt;i class="menu-icon fa </run><run
+ html='true'><font color='green'/>fa-hdd-o</run><run html='true'><font color='green'/>"&gt;&lt;/i&gt;</run><run
+ html='true'><computedtext><code event='value'><formula>L_Attachment</formula></code></computedtext></run><run
+ html='true'><font color='green'/>&lt;/span&gt;&lt;/a&gt;</run></par>
+<par def='11'><run html='true'><font color='green'/>&lt;/li&gt;</run></par><subformref
+><code event='value'><formula>"ext_tabs_form"</formula></code></subformref>
+<par def='7'><run html='true'>&lt;li class="hover"&gt;</run></par>
+<par def='8'><run html='true'>&lt;a href="#" data-toggle="tab" data-target="#FlowMindList"&gt;&lt;span class="menu-text"&gt;&lt;i class="menu-icon fa </run><run
+ html='true'>fa-comments-o</run><run html='true'>"&gt;&lt;/i&gt;</run><run
+ html='true'><computedtext><code event='value'><formula>L_ListMind</formula></code></computedtext></run><run
+ html='true'>&lt;/span&gt;&lt;/a&gt;</run></par>
+<par def='7'><run html='true'>&lt;/li&gt;</run></par>
+<par def='5'><run html='true'>&lt;/ul&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="main-content no-margin"&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="page-content" id="BasicInfo"&gt;</run></par>
+<par def='7'><run html='true'>&lt;div class="center"&gt;&lt;h2&gt;</run><run
+ html='true'><computedtext><code event='value'><formula>AppTypes</formula></code></computedtext></run><run
+ html='true'>&lt;/h2&gt;&lt;/div&gt;</run></par>
+<pardef id='13' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>AppAbstracts=""</formula></code></pardef>
+<par def='13'><run html='true'>&lt;div class="page-header"&gt;</run></par>
+<pardef id='14' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>AppAbstracts=""</formula></code></pardef>
+<par def='14'><run html='true'>&lt;h1&gt;</run><run html='true'><computedtext
+><code event='value'><formula>L_Abstract</formula></code></computedtext></run><run
+ html='true'>：&lt;small&gt;</run><run html='true'><computedtext><code event='value'><formula
+>AppAbstracts</formula></code></computedtext></run><run html='true'>&lt;/small&gt;&lt;/h1&gt;</run></par>
+<par def='13'><run html='true'>&lt;/div&gt;</run></par><subformref><code event='value'><formula
+>@If(subForm_Ext="";subForm;subForm_Ext)</formula></code></subformref>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='15' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"HasBody") = "no"</formula></code></pardef>
+<par def='15'><run html='true'><font color='blue'/>&lt;div class="page-content </run><run
+ html='true'><font color='blue'/>hidden-md</run><run html='true'><font color='blue'/> </run><run
+ html='true'><font color='blue'/>hidden-</run><run html='true'><font color='blue'/>lg" id="MainContent"&gt;</run></par>
+<par def='15'><run html='true'><font color='blue'/>&lt;div class="page-header </run><run
+ html='true'><font color='blue'/>hidden-lg</run><run html='true'><font color='blue'/> hidden-md"&gt;</run></par>
+<par def='15'><run html='true'><font color='blue'/>&lt;h1&gt;</run><run html='true'><computedtext
+><code event='value'><formula>L_MainBody</formula></code></computedtext></run><run
+ html='true'><font color='blue'/>：&lt;/h1&gt;</run></par>
+<par def='15'><run html='true'><font color='blue'/>&lt;/div&gt;</run></par><subformref
+><code event='value'><formula>@If(@GetProfileField("config";"HasBody") = "no";"";"FlowBody")</formula></code></subformref>
+<par def='15'><run html='true'><font color='blue'/>&lt;/div&gt;</run></par>
+<pardef id='16' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"HasAtt") = "no"</formula></code></pardef>
+<par def='16'><run html='true'><font color='green'/>&lt;div class="page-content hidden-md hidden-lg" id="AttachMent"&gt;</run></par>
+<par def='11'><run html='true'><font color='green'/>&lt;div class="page-header hidden-lg hidden-md"&gt;</run></par>
+<par def='11'><run html='true'><font color='green'/>&lt;h1&gt;</run><run html='true'><computedtext
+><code event='value'><formula>L_Attachment</formula></code></computedtext></run><run
+ html='true'><font color='green'/>：&lt;/h1&gt;</run></par>
+<par def='11'><run html='true'><font color='green'/>&lt;/div&gt;</run></par>
+<par def='11'><run html='true'><font color='green'/>&lt;div</run><run html='true'><font
+ color='green'/> id="</run><run html='true'><font color='green'/>AttachMent</run><run
+ html='true'><font color='green'/>Body</run><run html='true'><font color='green'/>" data-ajax="/</run><run
+ html='true'><font color='green'/><computedtext><code event='value'><formula
+>FlowProcessDB</formula></code></computedtext></run><run html='true'><font
+ color='green'/>/FlowAttachMent?readform&amp;db=</run><run html='true'><font
+ color='green'/><computedtext><code event='value'><formula>@WebDbName</formula></code></computedtext></run><run
+ html='true'><font color='green'/>&amp;docid=</run><run html='true'><font
+ color='green'/><computedtext><code event='value'><formula>@Text(@DocumentUniqueID)</formula></code></computedtext></run><run
+ html='true'><font color='green'/>&amp;edit=</run><run html='true'><computedtext
+><code event='value'><formula>AttControl</formula></code></computedtext></run><run
+ html='true'><font color='green'/>"&gt;&lt;/div&gt;</run></par>
+<par def='16'><run html='true'><font color='green'/>&lt;/div&gt;</run></par><subformref
+><code event='value'><formula>"ext_tabContent_form"</formula></code></subformref>
+<par def='5'><run html='true'>&lt;div class="page-content hidden-md hidden-lg" id="FlowMindList" </run><run
+ html='true'><computedtext><code event='value'><formula>@If(@IsNewDoc;"";"data-ajax='/"+FlowProcessDB+"/FlowMind?readform&amp;pid="+FlowProcessUnid+"'")</formula></code></computedtext></run><run
+ html='true'>&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="page-header hidden-lg hidden-md"&gt;</run></par>
+<par def='5'><run html='true'>&lt;h1&gt;</run><run html='true'><computedtext
+><code event='value'><formula>L_ListMind</formula></code></computedtext></run><run
+ html='true'>：&lt;/h1&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'/>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="footer" data-ajax="/</run><run
+ html='true'><computedtext><code event='value'><formula>FlowProcessDB</formula></code></computedtext></run><run
+ html='true'>/footer?openpage"&gt;&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"&gt;&lt;i class="ace-icon fa fa-angle-double-up icon-only bigger-110"&gt;&lt;/i&gt;&lt;/a&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='17' leftmargin='0.2500in' firstlineleftmargin='1in' hide='notes mobile'/>
+<par def='17'><run html='true'>&lt;script&gt;</run></par>
+<pardef id='18' leftmargin='0.2500in' firstlineleftmargin='1.2500in' hide='notes mobile'/>
+<par def='18'><run html='true'>var curUser = UserList('</run><run html='true'><computedtext
+><code event='value'><formula>@Name([CN];@UserName(0))</formula></code></computedtext></run><run
+ html='true'>');</run></par>
+<par def='18'><run html='true'>var digiFlow_MsgExt = "</run><run html='true'><computedtext
+><code event='value'><formula>@GetProfileField("config";"MsgExtStr")</formula></code></computedtext></run><run
+ html='true'>";</run></par>
+<par def='4'><run html='true'>$(function(){</run></par>
+<par def='5'><run html='true'>$("li",".nav-tabs").on(ace.click_event,function(){</run></par>
+<par def='7'><run html='true'>var $this = $(this);</run></par>
+<par def='7'><run html='true'>var $a = $("a",this);</run></par>
+<par def='7'><run html='true'>var ids = [];</run></par>
+<par def='7'><run html='true'>$("li",".nav-tabs").removeClass("active").each(function(){</run></par>
+<par def='8'><run html='true'>ids.push($("a",this).data("target"));</run></par>
+<par def='7'><run html='true'>});</run></par>
+<par def='7'><run html='true'>$(ids.join(",")).addClass("hidden-md hidden-lg");</run></par>
+<par def='7'><run html='true'>$this.addClass("active");</run></par>
+<par def='7'><run html='true'>$($a.data("target")).removeClass("hidden-md hidden-lg");</run></par>
+<pardef id='19' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") != "1"</formula></code></pardef>
+<par def='19'><run html='true'>if($a.data("target") == "#MainContent"){</run></par>
+<pardef id='20' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") != "1"</formula></code></pardef>
+<par def='20'><run html='true'><font name='Courier New' pitch='fixed' truetype='true'
+ familyid='30' color='#4200ff'/>NTKO_Flow.init();</run></par>
+<par def='19'><run html='true'>}</run></par>
+<par def='5'><run html='true'>});</run></par>
+<par def='4'><run html='true'>});</run></par>
+<par def='17'><run html='true'>&lt;/script&gt;</run></par>
+<pardef id='21' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'><code
+ event='hidewhen'><formula>@GetProfileField("config";"BodyType") != "1"</formula></code></pardef>
+<par def='21'><run html='true'><font color='blue'/></run></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>TestForm</text></item></form>
+

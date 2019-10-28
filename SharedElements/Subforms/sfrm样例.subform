@@ -1,0 +1,534 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='sfrm样例' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.0'
+ replicaid='482584A1002906C1' designerversion='8.5.3' renderpassthrough='true'>
+<noteinfo noteid='252' unid='7F255E7AB4319A4C48257FDF0029433A' sequence='72'>
+<created><datetime>20160627T153041,86+08</datetime></created>
+<modified><datetime>20191028T153334,87+08</datetime></modified>
+<revised><datetime>20191028T153334,86+08</datetime></revised>
+<lastaccessed><datetime>20191028T153334,87+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,85+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><code event='jsheader'
+ for='web'><javascript>function ff(){alert()}</javascript></code>
+<body><richtext>
+<pardef id='1' leftmargin='0.7500in' firstlineleftmargin='0.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='1'><run html='true'>&lt;div class="row"&gt;</run></par>
+<pardef id='2' leftmargin='1in' firstlineleftmargin='0.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='2'><run html='true'>&lt;div class="col-md-12"&gt;</run></par>
+<pardef id='3' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'>&lt;div class="widget-box widget-color-blue"&gt;</run></par>
+<pardef id='4' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='4'><run html='true'>&lt;div class="widget-header widget-header-small"&gt;</run></par>
+<pardef id='5' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='5'><run html='true'>&lt;h6 class="widget-title"&gt;&lt;i class="ace-icon fa fa-table"&gt;&lt;/i&gt;基本信息&lt;/h6&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<pardef id='6' leftmargin='1.2500in' firstlineleftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<pardef id='7' leftmargin='1.5000in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="ApplyDate"&gt;申请单号&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='SerialNumber' htmlid='SerialNumber'
+ htmlclass='form-control' extrahtmlattrs='readonly type="text"'/></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='8' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="</run><run html='true'>col-md-6</run><run
+ html='true'>"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label name="</run><run
+ html='true'>StCreaterCN</run><run html='true'>"&gt;&lt;span class="f_red"&gt;*&lt;/span&gt;经办人&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='StCreaterCN' htmlid='StCreaterCN'
+ htmlclass='form-control' extrahtmlattrs='type="text" readonly'><code event='defaultvalue'><formula
+>@Name([CN];@UserName(1))</formula></code></field></run><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='9' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='StCreater'
+ htmlid='StCreater' htmlclass='form-control' htmlstyle='display:none' extrahtmlattrs='type="text" readonly'><code
+ event='htmlattributes'><formula>"data-psnpicker='true' data-callback='fn_Name'"</formula></code><code
+ event='defaultvalue'><formula>@Name([CN];@UserName(1))</formula></code></field><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='18' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='StCreaterEN' htmlid='StCreaterEn' htmlstyle='display:none'
+ extrahtmlattrs='type="text" readonly'><code event='defaultvalue'><formula
+>@Name([CN];@UserName(0))</formula></code></field><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='25' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'/>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="</run><run
+ html='true'><font size='9pt' name='serif'/>StCreated</run><run html='true'>"&gt;&lt;span class="f_red"&gt;*&lt;/span&gt;填写日期&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='StCreated' htmlid='ApplyDate'
+ htmlclass='form-control' extrahtmlattrs='readonly type="text"'><code event='defaultvalue'><formula
+>@Text(@Today)</formula></code></field></run><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='9' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="DeptOU"&gt;&lt;span class="f_red"&gt;*&lt;/span&gt;所属部门&lt;/label&gt;&lt;/span&gt;</run><field
+ type='text' kind='editable' name='DeptOU' htmlid='DeptOU' htmlclass='form-control'
+ extrahtmlattrs='type="text" readOnly'/><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='8' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='DeptOUID'
+ htmlid='DeptOUID' htmlclass='form-control' htmlstyle='display:none'/><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='15' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label name="StCreaterCN"&gt;&lt;span class="f_red"&gt;*&lt;/span&gt;申请人工号&lt;/label&gt;&lt;/span&gt;</run><field
+ type='text' kind='editable' name='StPsn' htmlid='StPsn' htmlclass='form-control'
+ htmlstyle='display:none' extrahtmlattrs='type="text" readonly'><code event='htmlattributes'><formula
+>"data-psnpicker='true' data-callback='fn_extHRInfo' "</formula></code><code
+ event='defaultvalue'><formula>@Name([CN];@UserName(1))</formula></code></field><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='9' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='StPsnEN' htmlid='StPsnEN' htmlclass='form-control'
+ extrahtmlattrs='type="text" readonly'><code event='defaultvalue'><formula
+>@Name([CN];@UserName(0))</formula></code></field><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='16' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;span class="input-group-addon picker"&gt;&lt;i class="fa fa-user"&gt;&lt;/i&gt;&lt;/span&gt;</run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label name="StCreaterCN"&gt;</run><run
+ html='true'>&lt;span class="f_red"&gt;*&lt;/span&gt;申请人姓名&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='StPsnCN' htmlid='StPsnCN'
+ htmlclass='form-control' extrahtmlattrs='type="text" readonly'><code event='defaultvalue'><formula
+>@Name([CN];@UserName(1))</formula></code></field></run><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='8' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="StDept"&gt;&lt;span class="f_red"&gt;*&lt;/span&gt;所属部门&lt;/label&gt;&lt;/span&gt;</run><field
+ type='text' kind='editable' name='StDept' htmlid='StDept' htmlclass='form-control'
+ extrahtmlattrs='type="text" readOnly'><code event='htmlattributes'><formula
+>"check-type='required'"</formula></code></field><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='9' containertype='65418' aftercontainercount='2'
+ afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='StDeptID'
+ htmlid='StDeptID' htmlclass='form-control' htmlstyle='display:none' extrahtmlattrs='type="text"'><code
+ event='htmlattributes'><formula>"check-type='required'"</formula></code></field><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='17' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='StAppUserDeptID' htmlid='StAppUserDeptID' htmlclass='form-control'
+ htmlstyle='display:none' extrahtmlattrs='type="text"'><code event='htmlattributes'><formula
+>"check-type='required'"</formula></code></field><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='25' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='StAppUserDept' htmlid='StAppUserDept' htmlclass='form-control'
+ htmlstyle='display:none' extrahtmlattrs='type="text"'><code event='htmlattributes'><formula
+>"check-type='required'"</formula></code></field><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='33' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="StDept"&gt;&lt;span class="f_red"&gt;*&lt;/span&gt;职位&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='StPsnPost' htmlid='StPsnPost'
+ htmlclass='form-control' extrahtmlattrs='type="text" readOnly'><code event='htmlattributes'><formula
+>"check-type='required'"</formula></code></field></run><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='8' containertype='65418' aftercontainercount='2'
+ afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;span class="input-group-addon picker dialog" data-type="jstree" </run><run
+ html='true'>data-dbpath="</run><run html='true'>Produce/DigiFlowOrgMng.nsf</run><run
+ html='true'>" data-viewp="</run><run html='true'>OrgRegView1</run><run html='true'>" data-view="OrgRegView2" data-fid="StOrgID" data-fname="StOrgName" data-root="ComOrg" </run><run
+ html='true'>data-plugins="</run><run html='true'>state</run><run html='true'>"</run><run
+ html='true'> data-title="组织选择"  data-callback="ff"&gt;&lt;i class="fa fa-user"&gt;&lt;/i&gt;&lt;/span&gt;</run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="StPsnLv"&gt;&lt;span class="f_red"&gt;*&lt;/span&gt;级别&lt;/label&gt;&lt;/span&gt;</run><field
+ type='text' kind='editable' name='StPsnLv' htmlid='StPsnLv' htmlclass='form-control'
+ extrahtmlattrs='type="text" readOnly'><code event='htmlattributes'><formula
+>"check-type='required'"</formula></code><code event='defaultvalue'><formula
+>"-"</formula></code></field><compositedata type='98' prevtype='65402' nexttype='222'
+ afterparcount='9' containertype='65418' aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field
+ type='text' kind='editable' name='StLv' htmlid='StPsnLv_1' htmlclass='form-control'
+ htmlstyle='display:none' extrahtmlattrs='type="text" readOnly'/><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='16' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="</run><run
+ html='true'>StPsnJoinDate</run><run html='true'>"&gt;</run><run html='true'>&lt;span class="f_red"&gt;*&lt;/span&gt;入职日期&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='StPsnJoinDate' htmlid='StPsnJoinDate'
+ htmlclass='form-control ' extrahtmlattrs='type="text" readOnly'><code event='htmlattributes'><formula
+>"data-date-format=\"dd-mm-yyyy\""</formula></code></field></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='11' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="restYearHour"&gt;剩余年假天数&lt;/label&gt;&lt;/span&gt;</run><field
+ type='text' kind='editable' name='restYearDay' htmlid='restYearDay' htmlclass='form-control '
+ extrahtmlattrs='type="text" readOnly'><code event='defaultvalue'><formula
+>"0.00"</formula></code></field><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='8' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='restYearHour'
+ htmlid='restYearHour' htmlclass='form-control ' htmlstyle='display:none'
+ extrahtmlattrs='type="text" readOnly'><code event='defaultvalue'><formula
+>"0.00"</formula></code></field><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='15' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="restHour"&gt;剩余可补休时长&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='restHour' htmlid='restHour'
+ htmlclass='form-control ' extrahtmlattrs='type="text" readOnly'><code event='defaultvalue'><formula
+>"0.00"</formula></code></field></run><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='7' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="StFZ1"&gt;是否五天以上&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='keyword' kind='editable' name='StFZ1' htmlid='StFZ1'
+ htmlclass='form-control ' extrahtmlattrs='type="text" '><keywords ui='dialoglist'><textlist
+><text>是|0</text><text>否|1</text></textlist></keywords></field></run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6" style="display:none"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="MFlag"&gt;是否需要人资审批&lt;/label&gt;&lt;/span&gt;</run><field
+ type='text' kind='editable' name='MFlag' htmlid='MFlag' htmlclass='form-control '
+ extrahtmlattrs='type="text" readOnly'/><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='8' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='St1EN'/><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='14' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'><field
+ type='text' kind='editable' name='St2EN'/></run><compositedata type='98'
+ prevtype='65418' nexttype='222' afterparcount='21' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'><field
+ type='text' kind='editable' name='St3EN'/></run><compositedata type='98'
+ prevtype='65418' nexttype='222' afterparcount='27' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'><field
+ type='text' kind='editable' name='St4EN'/></run><compositedata type='98'
+ prevtype='65418' nexttype='222' afterparcount='33' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<pardef id='8' leftmargin='1.2500in' hide='notes mobile'/>
+<par def='8'><run html='true'>职务描述：</run><run html='true'><field type='text'
+ kind='editable' name='Mechanism_desc'/></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='7' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6" style="display:none"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label &gt;审批领导&lt;/label&gt;&lt;/span&gt;</run><field
+ type='text' kind='editable' name='DLeadership' htmlid='DLeadership' htmlclass='form-control '
+ extrahtmlattrs='type="text" readOnly'/><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='8' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='DLeadership_ZL'
+ htmlid='DLeadership_ZL' htmlclass='form-control ' extrahtmlattrs='type="text" readOnly'/><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='15' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='LeadershipApp' htmlid='LeadershipApp' htmlclass='form-control '
+ extrahtmlattrs='type="text" readOnly'/><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='22' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='LeadershipFinalApp'
+ htmlid='LeadershipFinalApp' htmlclass='form-control ' extrahtmlattrs='type="text" readOnly'/><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='29' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='LeadershipApp_ZL' htmlid='LeadershipApp_ZL' htmlclass='form-control '
+ extrahtmlattrs='type="text" readOnly'/><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='36' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='LeadershipFinalApp_ZL'
+ htmlid='LeadershipFinalApp_ZL' htmlclass='form-control ' extrahtmlattrs='type="text" readOnly'/><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='43' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6" style="display:none"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  fo</run><run
+ html='true'>r="</run><run html='true'>brchid</run><run html='true'>"&gt;</run><run
+ html='true'>brchid</run><run html='true'>&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='brchid' htmlid='brchid'
+ htmlclass='form-control ' extrahtmlattrs='type="text" readOnly'/></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='12' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6" style="display:none"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="</run><run
+ html='true'>sfzid</run><run html='true'>"&gt;身份证&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='sfzid' htmlid='sfzid'
+ htmlclass='form-control ' extrahtmlattrs='type="text" readOnly'/></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='9' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6" style="display:none"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="</run><run
+ html='true'>sexstr</run><run html='true'>"&gt;性别&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='sexstr' htmlid='sexstr'
+ htmlclass='form-control ' extrahtmlattrs='type="text" readOnly'/></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='9' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6" style="display:none"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="</run><run
+ html='true'><font name='serif'/>UserGSLX</run><run html='true'>"&gt;</run><run
+ html='true'><font name='serif'/>UserGSLX</run><run html='true'>&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='UserGSLX' htmlid='UserGSLX'
+ htmlclass='form-control ' extrahtmlattrs='type="text" readOnly'/></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='11' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-6" style="display:none"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="</run><run
+ html='true'><font name='Courier New' pitch='fixed' truetype='true' familyid='30'/>LeaveEmpno</run><run
+ html='true'>"&gt;</run><run html='true'><font name='Courier New' pitch='fixed'
+ truetype='true' familyid='30'/>已查询的休假人员</run><run html='true'>&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='LeaveEmpno' htmlid='LeaveEmpno'
+ htmlclass='form-control ' extrahtmlattrs='type="text"'/></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='11' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="col-md-12" style="display:none"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='7'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="</run><run
+ html='true'><font name='Courier New' pitch='fixed' truetype='true' familyid='30'/>LeaveRecordsJson</run><run
+ html='true'>"&gt;</run><run html='true'>休假记录&lt;/label&gt;&lt;/span&gt;</run><field
+ type='richtext' kind='editable' name='LeaveRecordsJson' htmlid='LeaveRecordsJson'
+ htmlclass='form-control ' extrahtmlattrs='type="text"'/><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='11' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text'
+ kind='editable' name='isShowJT' htmlid='isShowJT' htmlclass='form-control '
+ extrahtmlattrs='type="text"'><code event='defaultvalue'><formula>"none"</formula></code></field><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='18' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='1'><run html='true'>&lt;/div&gt;</run></par>
+<par def='1'><run html='true'>&lt;div class="row"&gt;</run></par>
+<pardef id='9' leftmargin='0.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='9'><run html='true'>&lt;div class="col-md-12 col-xs-12"&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="widget-box widget-color-</run><run
+ html='true'>blue" id="firstTable" data-rel="dTable" data-edit="</run><run
+ html='true'><computedtext><code event='value'><formula>@If(TFCurNodeID="FlowStartNode";"false";"false")</formula></code></computedtext></run><run
+ html='true'>" data-default="</run><run html='true'>"&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="hide data"&gt;</run><run html='true'><computedtext
+><code event='value'><formula>o_leavecode+"&lt;&gt;"+o_leavename+"&lt;&gt;"+o_begindate+"&lt;&gt;"+o_begintime+"&lt;&gt;"+o_enddate+"&lt;&gt;"+o_endtime+"&lt;&gt;"+o_leavehour+"&lt;&gt;"+o_leavedays+"&lt;&gt;"+o_originaldays+"&lt;&gt;"+o_leaveremark</formula></code></computedtext></run><run
+ html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="widget-header widget-header-small"&gt;</run></par>
+<par def='5'><run html='true'>&lt;h6 class="widget-title"&gt;&lt;i class="ace-icon fa fa-table"&gt;&lt;/i&gt;销假详情&lt;/h6&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="widget-toolbar"&gt;</run></par>
+<pardef id='10' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='10'><run html='true'>&lt;a href="#" </run><run html='true'>data-action="add" </run><run
+ html='true'>data-rel=tooltip data-original-title="新增条目" style="display:</run><run
+ html='true'><computedtext><code event='value'><formula>@If(TFCurNodeID="FlowStartNode";"";"none")</formula></code></computedtext></run><run
+ html='true'>"&gt;&lt;i class="ace-icon fa fa-plus"&gt;&lt;/i&gt;新增&lt;/a&gt;</run></par>
+<par def='10'><run html='true'>&lt;a href="#" data-action="delete" data-rel=tooltip data-original-title="删除条目"&gt;&lt;i class="ace-icon fa fa-times"&gt;&lt;/i&gt;删除&lt;/a&gt;</run></par>
+<par def='10'><run html='true'>&lt;a href="#" data-action="fullscreen" data-rel=tooltip data-original-title="全屏显示"&gt;&lt;i class="ace-icon fa fa-expand"&gt;&lt;/i&gt;全屏&lt;/a&gt;</run></par>
+<par def='10'><run html='true'>&lt;a href="#" data-action="collapse" data-rel=tooltip data-original-title="折叠"&gt;</run><run
+ html='true'>&lt;i class="ace-icon fa fa-chevron-up"&gt;&lt;/i&gt;</run><run
+ html='true'>折叠&lt;/a&gt;</run></par>
+<par def='10'/>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="widget-body"&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="widget-body-inner" style="display:block;"&gt;</run></par>
+<par def='10'><run html='true'>&lt;div class="widget-main" style="padding:5px"&gt;</run></par>
+<pardef id='11' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='11'><run html='true'>&lt;table class="table table-bordered" </run><run
+ html='true'>cellpadding="0" cellspacing="0"</run><run html='true'>&gt;</run></par>
+<pardef id='12' leftmargin='1in' firstlineleftmargin='2.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='12'><run html='true'>&lt;thead&gt;</run></par>
+<pardef id='13' leftmargin='1in' firstlineleftmargin='2.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='13'><run html='true'>&lt;tr&gt;</run></par>
+<pardef id='14' leftmargin='1in' firstlineleftmargin='2.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='14'><run html='true'>&lt;th style="width:5%"&gt;&lt;input name="checkAll" type=checkbox class="ace index"</run><run
+ html='true'>&gt;&lt;span class="lbl"</run><run html='true'>&gt;序号&lt;/span&gt;&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:7%"&gt;假期代码&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:8%"&gt;假期类型&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:8%"&gt;开始日期&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:7%"&gt;开始时间&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:8%"&gt;结束日期&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:7%"&gt;结束时间&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:8%"&gt;请假小时数&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:7%"&gt;请假天数&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:7%"&gt;自然天数&lt;/th&gt;</run></par>
+<par def='14'><run html='true'>&lt;th style="width:20%"&gt;请假原因&lt;/th&gt;</run></par>
+<par def='13'><run html='true'>&lt;/tr&gt;</run></par>
+<par def='12'><run html='true'>&lt;/thead&gt;</run></par>
+<par def='12'><run html='true'>&lt;tbody&gt;</run></par>
+<par def='13'><run html='true'>&lt;tr class="template hide</run><run html='true'>"&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;&lt;input name="index" type=checkbox class="ace index"&gt;&lt;span class="lbl"&gt;1&lt;/span&gt;&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field usenotesstyle='false'
+ height='0.2500in' width='1in' multiline='true' borderstyle='single' lookupeachchar='false'
+ lookupaddressonrefresh='false' type='keyword' kind='editable' name='o_leavecode'
+ htmlid='o_leavecode'><keywords helperbutton='false' columns='1' ui='listbox'><textlist
+><text>2|2</text><text>11|11</text><text>12|13</text></textlist></keywords></field></run><run
+ html='true'>&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field type='text'
+ kind='editable' name='o_leavename'/></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='6' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field type='text'
+ kind='editable' name='o_begindate'/></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='6' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field type='text'
+ kind='editable' name='o_begintime'/></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='6' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field type='text'
+ kind='editable' name='o_enddate'/></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='6' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field type='text'
+ kind='editable' name='o_endtime'/></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='6' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field type='text'
+ kind='editable' name='o_leavehour'/></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='6' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field type='text'
+ kind='editable' name='o_leavedays'/></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='6' containertype='65418' aftercontainercount='1'
+ afterbegincount='3'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field borderstyle='inset'
+ lookupeachchar='false' lookupaddressonrefresh='false' type='keyword' allowmultivalues='true'
+ kind='editable' name='o_originaldays' listinputseparators='comma' listdisplayseparator='comma'><keywords
+ helperbutton='false' columns='2' ui='checkbox'><textlist><text>10|10</text><text
+>99|99</text></textlist></keywords></field></run><run html='true'>&lt;/td&gt;</run></par>
+<par def='14'><run html='true'>&lt;td&gt;</run><run html='true'><field borderstyle='inset'
+ type='text' kind='editable' name='o_leaveremark'><keywords helperbutton='false'
+ columns='2' ui='radiobutton'/></field></run><compositedata type='98' prevtype='65418'
+ nexttype='222' afterparcount='7' containertype='65418' aftercontainercount='1'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><run html='true'>&lt;/td&gt;</run></par>
+<par def='13'><run html='true'>&lt;/tr&gt;</run></par>
+<par def='12'><run html='true'>&lt;/tbody&gt;</run></par>
+<par def='11'><run html='true'>&lt;/table&gt;</run></par>
+<par def='10'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='9'><run html='true'>&lt;/div&gt;</run></par>
+<par def='1'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='15' leftmargin='0.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='15'/></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>sfrm001</text></item></subform>
+

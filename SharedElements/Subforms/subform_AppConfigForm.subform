@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='subform_AppConfigForm' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'
+ renderpassthrough='true'>
+<noteinfo noteid='25e' unid='8E612F5552AA908C48257FD20043B510' sequence='63'>
+<created><datetime>20160614T201932,64+08</datetime></created>
+<modified><datetime>20191028T153147,07+08</datetime></modified>
+<revised><datetime>20170918T171806,81+08</datetime></revised>
+<lastaccessed><datetime>20191028T153147,07+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153147,07+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' leftmargin='0.7500in' firstlineleftmargin='0.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='1'><run html='true'>&lt;div class="row"&gt;</run></par>
+<pardef id='2' leftmargin='1in' firstlineleftmargin='0.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='2'><run html='true'>&lt;div class="col-md-12"&gt;</run></par>
+<pardef id='3' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'>&lt;div class="widget-box widget-color-blue"&gt;</run></par>
+<pardef id='4' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='4'><run html='true'>&lt;div class="widget-header widget-header-small"&gt;</run></par>
+<pardef id='5' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='5'><run html='true'>&lt;h6 class="widget-title"&gt;&lt;i class="ace-icon fa fa-table"&gt;&lt;/i&gt;配置基本信息&lt;/h6&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="widget-body"&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="widget-body-inner" style="display:block;"&gt;</run></par>
+<pardef id='6' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='6'><run html='true'>&lt;div class="widget-main" style="padding:5px"&gt;</run></par>
+<pardef id='7' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='7'><run html='true'>&lt;div class="row"&gt;</run></par>
+<pardef id='8' leftmargin='1in' firstlineleftmargin='2.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='8'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<pardef id='9' leftmargin='1.2500in' firstlineleftmargin='2.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='9'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<pardef id='10' leftmargin='1.5000in' firstlineleftmargin='2.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='10'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;项目1&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='Data1' htmlid='StCreater'><code
+ event='htmlattributes'><formula>"data-excel-col=1"</formula></code></field></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='9' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='9'><run html='true'>&lt;/div&gt;</run></par>
+<par def='8'><run html='true'>&lt;/div&gt;</run></par>
+<par def='8'><run html='true'>&lt;div class="col-md-6"&gt;</run></par>
+<par def='9'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='10'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label&gt;项目2&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='Data2' htmlid='StCreater_1'><code
+ event='htmlattributes'><formula>"data-excel-col=2"</formula></code></field></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='8' containertype='65418'
+ aftercontainercount='2' afterbegincount='5'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='9'><run html='true'>&lt;/div&gt;</run></par>
+<par def='8'><run html='true'>&lt;/div&gt;</run></par>
+<par def='7'><run html='true'>&lt;/div&gt;</run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='11' leftmargin='1in' firstlineleftmargin='0.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='11'><run html='true'>&lt;/div&gt;</run></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>subform_AppConfigForm</text></item></subform>
+

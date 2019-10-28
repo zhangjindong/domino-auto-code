@@ -1,0 +1,1706 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+Option Public
+Option Explicit
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Sub Initialize
+Declare Sub msg(strMessage As String)
+Declare Sub XML2JSON(Node As NotesDOMNode)
+Declare Function fnEval(jstr As String) As Boolean
+Declare Function fnNomberToChinese(Number As Long) As String
+Declare Function ServerDomain(server As String) As String
+Declare Function fnGetEleMentsByTagName(ByVal xml As String,nodeName As String) As Variant
+Declare Sub fnWriteToRtfWithHtmlStyle(doc As NotesDocument, ByVal strRtfFieldName As String, _
+ByVal strText As String)
+Declare Sub sendTask_new(doc As NotesDocument,psns As Variant,action As String,subject As String)
+Declare Function getDocument(db As NotesDatabase,unid As String) As NotesDocument
+Declare Function getRefValue(ByVal strURLParam As String,strTitle As String)As String
+Declare Function getDBPath(db As NotesDatabase) As String
+Declare Function fnGetString(formula As String,doc As NotesDocument) As String
+Declare Function fnGetElementChilds(xml As String) As Variant
+Declare Function getLastIndex(array As Variant,schstr As String) As Integer
+Declare Function ArrayCompact(ary As Variant) As Variant
+Declare Sub sendTask(doc As NotesDocument,psns As Variant)
+Declare Function fngetdbpath(db As NotesDatabase) As String
+Declare Function fnSplit(SrcStr As String,SplitStr As Variant,index As Integer) As Variant
+Declare Sub ContentType(contentType As String,charsetType As String)
+Declare Function fnGetElementTagName(node As String) As String
+Declare Function getindex(array As Variant,schstr As String) As Integer
+Declare Function fnGetElementAttr(node As String,attr As String) As String
+Declare Sub sendMail_ext(subject As String,strBody As String,sendto As Variant,SendMail As String,SendName As String)
+Declare Function fnRemoveFromArray(astrArray As Variant, strTarget As String) As Variant
+Declare Function IsDbAdmin(dbpath As String,userName As NotesName) As Boolean
+Declare Sub suDealFullName(doc As NotesDocument)
+Declare Function unique(astrArray)
+Declare Function fnHttpStrDecoded(ByVal strSrc As String) As String
+Declare Function fnGetNumber(strSrc As String) As Variant
+Declare Function QueryString(arg As String) As String
+Declare Function FullName(id As String) As String
+Declare Sub sendMail(subject As String,strBody As String,sendto As Variant)
+Declare Sub fnWriteToRtfField(doc As NotesDocument, ByVal strRtfFieldName As String,ByVal strText As String)
+Declare Function PrintPageHeader() As String
+Declare Function fnReturnDateStyle(curDate As NotesDateTime,DateStyle As String)
+Declare Function fnPutinArrayList(tarArray As Variant,tarStr As String,tarIndex As Integer) As Variant
+Declare Sub ShowError(agentName As String)
+Declare Function fnParams(strQuery As String) As Variant
+Declare Function fnNotesNames(itCode As String) As String
+Declare Function fnRemoveFromArrayByIndex(astrArray As Variant, strIndex As Integer) As Variant
+Declare Function ItemAppendText(doc As NotesDocument,itemName As String,sText As String) As NotesItem
+Declare Function fnGetElementText(node As String) As String
+Declare Sub fnPrintMsg(strMsg)
+Declare Function fnReverseArray( array1 As Variant , array2 As Variant ) As Variant
+
+'++LotusScript Development Environment:2:5:(Declarations):0:10
+Dim DATE_FORMAT As String,TIME_FORMAT As String
+Dim directory As NotesDirectory
+Dim session As NotesSession
+Dim curName As NotesName
+Const FULLNAME_READER = "DF_FullNameReaders"
+Const FULLNAME_AUTHOR = "DF_FullNameAuthors"
+Const Flow_DBPATH = "Produce/Proind.nsf"
+
+'++LotusScript Development Environment:2:2:Initialize:1:10
+Sub Initialize
+	On Error GoTo err_handle
+	Set session = New NotesSession
+	
+	Set directory = session.Getdirectory("")
+	Dim nav As NotesDirectoryNavigator
+	Dim note As NotesDocument
+	Set note = session.Documentcontext
+	If Not note Is Nothing Then
+		If note.Remote_User(0) <> "" Then
+			Set curName = New NotesName(note.Remote_User(0))
+		End If
+	End If
+	
+	If curName Is Nothing Then
+		Set curName = New NotesName(session.Effectiveusername)
+		Set nav = directory.Lookupnames("$Users", session.Effectiveusername, "FullName", False)
+		If nav.Namelocated Then
+			If Not nav.Matchlocated Then
+				Set curName = New NotesName(nav.Getfirstitemvalue()(0))
+			End If
+		Else
+			Set curName = New NotesName(session.Effectiveusername)
+		End If
+	End If
+	
+	DATE_FORMAT = "yyyy" + session.International.Datesep + "mm" + session.International.Datesep + "dd"
+	TIME_FORMAT = "hh" + session.International.Timesep + "mm" + session.International.Timesep + "ss"
+	Exit Sub
+err_handle:
+	ShowError("GeneralLIb")
+End Sub
+
+'++LotusScript Development Environment:2:2:msg:1:8
+Sub msg(strMessage As String)
+	On Error GoTo err_handle
+	Dim session As New NotesSession
+	Dim dbconfig As NotesDatabase
+	
+	Dim agent As NotesAgent,db As NotesDatabase
+	Set agent = session.Currentagent
+	Set db = session.Currentdatabase
+	Set dbconfig = session.Getdatabase(db.Server, "Produce/DBConfig.nsf")
+	Dim showMsg As Boolean
+	showMsg = True
+	If dbconfig.Isopen Then
+		Dim vwconfig As NotesView,docconfig As NotesDocument
+		Set vwconfig = dbconfig.Getview("vwconfig")
+		If Not vwconfig Is Nothing Then
+			Set docconfig = vwconfig.Getdocumentbykey("key_showmsg", True)
+			If Not docconfig Is Nothing Then
+				If docconfig.key_value(0) = "no" Then
+					showMsg = False
+				End If
+			End If
+		End If
+	End If
+	If showMsg Then
+		MsgBox |================Message Start=======================|
+		MsgBox |DBPath:|+ db.Filepath
+		MsgBox |AgentName:| + agent.Name
+		MsgBox |Msg:|+strMessage
+		MsgBox |================Message END=========================|
+	End If
+	Exit Sub
+err_handle:
+	'ShowError("msg")
+End Sub
+
+'++LotusScript Development Environment:2:2:XML2JSON:2:8
+
+Sub XML2JSON(Node As NotesDOMNode)
+	On Error GoTo err_handle
+	Dim child As NotesDOMNode
+	Dim elt As NotesDOMNode
+	Dim attrs As NotesDOMNamedNodeMap
+	Dim a As NotesDOMAttributeNode	
+	If Not node.IsNull Then 
+		Select Case node.NodeType
+		Case DOMNODETYPE_DOCUMENT_NODE:        ' If it is a Document node
+			Set child = node.FirstChild   ' Get the first node
+			Dim numChildNodes As Integer
+			numChildNodes = node.NumberOfChildNodes
+			While numChildNodes > 0 
+				Set child = child.NextSibling ' Get next node
+				numChildNodes = numChildNodes - 1
+				Call XML2JSON(child)
+			Wend
+		Case DOMNODETYPE_DOCUMENTTYPE_NODE:   ' It is a <!DOCTYPE> tag
+			
+		Case DOMNODETYPE_TEXT_NODE:           ' Plain text node
+			MsgBox node.Nodevalue
+		Case DOMNODETYPE_ELEMENT_NODE:        ' Most nodes are Elements
+			Set elt = node
+			
+			Dim numAttributes As Integer, numChildren As Integer
+			numAttributes = elt.attributes.numberofentries
+			Set attrs = elt.Attributes     ' Get attributes
+			Dim i As Integer
+			For i = 1 To numAttributes     ' Loop through them
+				Set a = attrs.GetItem(i)
+				' Print attr. name & value
+				
+			Next
+			numChildren =  elt.NumberOfChildNodes
+			Set child = elt.FirstChild     ' Get child
+			While numChildren > 0
+				Call XML2JSON(child)
+				Set child = child.NextSibling   ' Get next child
+				numChildren = numChildren - 1
+			Wend
+			
+		Case DOMNODETYPE_COMMENT_NODE:                ' Comments
+			
+		Case DOMNODETYPE_PROCESSINGINSTRUCTION_NODE:  ' Handle PI nodes
+			
+		Case DOMNODETYPE_CDATASECTION_NODE:           ' CDATA sections
+			
+		Case DOMNODETYPE_ENTITYREFERENCE_NODE:        ' Handle entities
+			
+		Case Else:
+			
+		End Select
+	
+	End If
+	Exit Sub
+err_handle:
+	ShowError("XML2Item")
+End Sub
+
+'++LotusScript Development Environment:2:1:fnEval:5:8
+%REM
+	Function fncalculate
+	Description: Comments for Function
+%END REM
+Function fnEval(jstr As String) As Boolean
+	On Error GoTo err_handle
+	Dim script As String,retcode As Integer
+	
+	Dim keys(4) As String,tar(4) As String
+	keys(0) = "&&"
+	keys(1) = "||"
+	keys(2) = "=="
+	keys(3) = "'"
+	keys(4) = "!="
+	
+	tar(0) = " and "
+	tar(1) = " or "
+	tar(2) = " = "
+	tar(3) = |"|
+	tar(4) = | <> |
+	jstr = Replace(jstr,keys,tar)
+	'jstr = |yes = "yes" and (5 < 4 or 4 <> 3)|
+	
+	Dim tmp As String
+	Dim t As Variant
+	ReDim t(11) As String
+	t(0) = "<>"
+	t(1) = ">"
+	t(2) = "<"
+	t(3) = " and "
+	t(4) = "("
+	t(5) = ")"
+	t(6) = "+"
+	t(7) = "-"
+	t(8) = "*"
+	t(9) = "/"
+	t(10) = " or "
+	t(11) = " = "
+	
+	Dim v As Variant,index As Integer,f As String
+	ReDim v(0) As String
+	
+	tmp = jstr
+	While Trim(tmp) <> ""
+		index = -1
+		f = ""
+		ForAll st In t
+			If InStr(tmp,st) And (index = -1 Or InStr(tmp,st) < index) Then
+				index = InStr(tmp,st)
+				f = st
+			End If
+		End ForAll
+		
+		
+		If index = -1 Then
+			v = ArrayAppend(v,Trim(tmp))
+			tmp = ""
+		Else
+			v = ArrayAppend(v,Trim(Mid(tmp,1,index-1)))
+			v = ArrayAppend(v,Trim(f))
+			tmp = Mid(tmp,index+Len(f))
+		End If
+	Wend
+	For index = 0 To UBound(v)
+		If ArrayGetIndex(FullTrim(t),v(index))>=0 And index < UBound(v) Then
+			v(index) = " " + v(index) + " "
+			
+			If InStr( v(index+1),|"|) Then
+				v(index-1) = |"| + Trim(v(index-1)) + |"|
+			End If
+		End If
+	Next
+	
+	jstr = Join(v,"")
+	
+	script$ = _
+	|Option Declare
+      Sub Initialize
+		if (|+jstr+|) then
+			End 1
+		else
+			End 0
+		end if
+        End 2
+      End Sub|
+	retcode% = Execute (script$)
+	
+	fnEval = retcode%
+	Exit Function
+err_handle:
+	ShowError("fnEval")
+End Function
+
+'++LotusScript Development Environment:2:1:fnNomberToChinese:1:8
+Function fnNomberToChinese(Number As Long) As String
+	'====================================
+	
+	'====================================
+	On Error GoTo err_handle
+	If Number = 0 Then
+		fnNomberToChinese = ""
+		Exit Function
+	End If
+	If Number = 10 Then
+		fnNomberToChinese = "十"
+		Exit Function
+	End If
+	Dim Chinese(0 To 9) As String
+	Chinese(0) = "零"
+	Chinese(1) = "一"
+	Chinese(2) = "二"
+	Chinese(3) = "三"
+	Chinese(4) = "四"
+	Chinese(5) = "五"
+	Chinese(6) = "六"
+	Chinese(7) = "七"
+	Chinese(8) = "八"
+	Chinese(9) = "九"
+	If Number > 10 And Number < 20 Then
+		fnNomberToChinese = "十" + Chinese(Number-10)
+		Exit Function
+	End If
+	Dim Flag(0 To 4) As String
+	Flag(0) = ""
+	Flag(1) = "万"
+	Flag(2) = "亿"
+	Flag(3) = "兆"
+	
+	Dim Bases(0 To 3) As String
+	Bases(0) = ""
+	Bases(1) = "十"
+	Bases(2) = "百"
+	Bases(3) = "千"
+	
+	Dim level As Integer
+	Dim i As Integer
+	Dim length As Integer
+	Dim StrNumber As String,result As String,tmp As Integer
+	Dim TmpStr As String
+	
+	StrNumber = Trim(Str(Number))
+	length = Len(Trim(Str(Number)))
+	
+	If length Mod 4 > 0 Then
+		level = Int(length/4)
+	Else
+		level = Int(length/4)-1
+	End If
+	
+	
+	Dim cutNumber As Integer,cutCount As Integer
+	
+	
+	If length > 4 Then
+		cutNumber = length Mod 4
+		If cutNumber = 0 Then
+			cutNumber = 4
+		End If
+		If Val(Mid(StrNumber,cutNumber+1)) = 0 Then
+			fnNomberToChinese = fnNomberToChinese(Val(Mid(StrNumber,1,cutNumber)))+ Flag(level)
+			Exit Function
+		End If
+		If Mid(StrNumber,cutNumber+1) <> Trim(Str(Val(Mid(StrNumber,cutNumber+1)))) Then
+			fnNomberToChinese = fnNomberToChinese(Val(Mid(StrNumber,1,cutNumber)))+ Flag(level) + "零" + fnNomberToChinese(Val(Mid(StrNumber,cutNumber+1)))
+		Else
+			fnNomberToChinese = fnNomberToChinese(Val(Mid(StrNumber,1,cutNumber)))+ Flag(level) + fnNomberToChinese(Val(Mid(StrNumber,cutNumber+1)))
+		End If
+	Else
+		tmp = 1
+		For i = 1 To 4
+			If (4-length) < i Then
+				If Mid(StrNumber,tmp,1) = "0" Then
+					result = result + Chinese(Val(Mid(StrNumber,tmp,1)))
+				Else
+					result = result + Chinese(Val(Mid(StrNumber,tmp,1))) + Bases((4-i) Mod 4)
+				End If
+				tmp = tmp + 1
+			End If
+		Next
+		tmp = Len(result)
+		While Mid(result,tmp,1) = "零"
+			result = Mid(result,1,tmp-1)
+			tmp = Len(result)
+		Wend
+		fnNomberToChinese = result
+	End If
+	Exit Function
+err_handle:
+	ShowError("fnNomberToChinese")
+End Function
+
+'++LotusScript Development Environment:2:1:ServerDomain:5:8
+%REM
+	Function ServerDomain
+	Description: Comments for Function
+%END REM
+Function ServerDomain(server As String) As String
+	On Error GoTo err_handle
+	Dim nav As NotesDirectoryNavigator
+	Set nav = directory.Lookupnames("$ServersLookup", server, "HTTP_HostName", False)
+	
+	If nav.CurrentMatches > 0 And nav.Namelocated Then
+		If nav.Matchlocated Then
+			ServerDomain = Join(nav.Getfirstitemvalue)
+			If ServerDomain <> "" Then
+				Exit Function
+			End If
+		End If
+	End If
+	If ServerDomain = "" Then
+		Set nav = directory.Lookupnames("$ServersLookup", server, "SMTPFullHostDomain", False)
+		If nav.CurrentMatches > 0 And nav.Namelocated Then
+			If nav.Matchlocated Then
+				ServerDomain = Join(nav.Getfirstitemvalue)
+				Exit Function
+			End If
+		End If
+	End If
+	ServerDomain = server
+	Exit Function
+err_handle:
+	ShowError("ServerDomain")
+End Function
+
+'++LotusScript Development Environment:2:1:fnGetEleMentsByTagName:1:8
+Function fnGetEleMentsByTagName(ByVal xml As String,nodeName As String) As Variant
+	'=====================================
+	
+	'=====================================
+	On Error GoTo err_handle
+	Dim iStart As Long
+	Dim iEnd As Long
+	Dim StartNodeName As String
+	Dim EndNodeName As String
+	Dim tmpNodeList As Variant
+	ReDim tmpNodeList(0) As String
+	
+	Dim tmpxml As String
+	tmpxml = xml
+	StartNodeName = "<" + nodeName
+	EndNodeName = "</" + nodeName + ">"
+	Dim i As Integer
+	While InStr(tmpxml,StartNodeName) > 0 And InStr(tmpxml,EndNodeName) > 0
+		iStart = InStr(tmpxml,StartNodeName)
+		iEnd = InStr(iStart+1,tmpxml,EndNodeName)
+		If (tmpNodeList(0) = "") Then
+			tmpNodeList(0) = Mid$(tmpxml,iStart,iEnd+Len(EndNodeName)-iStart)
+		Else
+			tmpNodeList = ArrayAppend(tmpNodeList,Mid$(tmpxml,iStart,iEnd+Len(EndNodeName)-iStart))
+		End If
+		tmpxml = Mid$(tmpxml,iEnd+Len(EndNodeName))
+		i = i + 1
+	Wend
+	
+	fnGetEleMentsByTagName = tmpNodeList
+	Exit Function
+err_handle:
+	ShowError("fnGetEleMentsByTagName ")
+End Function
+
+'++LotusScript Development Environment:2:2:fnWriteToRtfWithHtmlStyle:2:8
+Sub fnWriteToRtfWithHtmlStyle(doc As NotesDocument, ByVal strRtfFieldName As String, _
+ByVal strText As String)
+	'======================================
+	'【功能】
+	'	将字符串添加到表单中的rtf域中
+	'【作者】
+	'	ellis.matao 2009-07-30
+	'========================================
+	On Error GoTo errorHandle
+	
+	' 需要在表单中将rtf域的样式设置为html，所以此处代码略去
+	
+	Dim rtitem As Variant
+	If doc.hasitem(strRtfFieldName) Then
+		Set rtitem = doc.GetFirstItem(strRtfFieldName)
+		If rtitem.Type <> RICHTEXT Then
+			Call rtitem.remove
+			Set rtitem = New NotesRichTextItem(doc,strRtfFieldName)
+		End If
+	Else 
+		Set rtitem = New NotesRichTextItem(doc,strRtfFieldName)
+	End If
+	
+	rtitem.appendText(strText)
+	
+	Exit Sub
+	
+errorHandle:
+	ShowError("fnWriteToRtfWithHtmlStyle")
+End Sub
+
+'++LotusScript Development Environment:2:2:sendTask_new:1:8
+Sub sendTask_new(doc As NotesDocument,psns As Variant,action As String,subject As String)
+	On Error GoTo err_handle
+	'action  app msg del flow
+	If subject = "" Then
+		subject = doc.subject(0)
+	End If
+	If subject = "" Then
+		subject = "审批文档！"
+	End If
+	Dim pdb As NotesDatabase,pdoc As NotesDocument
+	Set pdb = session.Getdatabase("", "flow/flowprocess.nsf")
+	Set pdoc = pdb.Createdocument()
+	pdoc.form = "OtherEvent"
+	pdoc.docunid = doc.Universalid
+	pdoc.DocID = doc.Universalid
+	pdoc.server = doc.Parentdatabase.Server
+	pdoc.dbpath = doc.Parentdatabase.Filepath
+	pdoc.psns = psns
+	pdoc.action = action
+	pdoc.subject = subject
+	pdoc.NodeID = doc.TFCurNodeID(0)
+	pdoc.NodeName = doc.TFCurNodeName(0)
+	pdoc.ThisFlowCreater = doc.ThisFlowCreater(0)
+	
+	Call pdoc.Save(true, false)
+	Dim agent As NotesAgent
+	Set agent = pdb.Getagent("agtToDoOtherEvent")
+	Call agent.Run(pdoc.Noteid)
+	
+	Dim item As NotesItem
+	Set item = doc.Getfirstitem("Messager")
+	If item Is Nothing Then
+		Set item = New NotesItem(doc,"Messager",FullTrim(psns))
+		item.Isreaders = True
+		item.Issummary = True
+	Else
+		item.Appendtotextlist(FullTrim(psns))
+	End If
+	
+	Exit Sub
+err_handle:
+	showError("sendTask_new")
+End Sub
+
+'++LotusScript Development Environment:2:1:getDocument:5:8
+%REM
+	Function getDocument
+	Description: Comments for Function
+%END REM
+Function getDocument(db As NotesDatabase,unid As String) As NotesDocument
+	Dim doc As NotesDocument
+	On Error Resume Next
+	Set doc = db.Getdocumentbyunid(unid)
+	Set getDocument = doc
+	Exit Function
+err_handle:
+	Set getDocument = Nothing
+End Function
+
+'++LotusScript Development Environment:2:1:getRefValue:1:8
+Function getRefValue(ByVal strURLParam As String,strTitle As String)As String
+	'######################################
+	'『功能』Domino的应用可利用URL来传递参数，本函数从URL中读取指定参数项的值
+	'『接口』
+	'	strURLParam	input	URL部分字符串，例如： ?openform&count=20&start=41
+	'	strTitle		input	指定要读取的参数项，例如：count=
+	'『函数返回值』
+	'	指定参数项的值	字符串	例如：20，如果找不到指定的参数项，则返回空字符串
+	'######################################
+	Dim strTemp As String
+	Dim intPos1 As Integer,intPos2 As Integer
+	
+	On Error GoTo errorHandle
+	
+	strTemp=strURLParam
+	intPos1=InStr(strTemp,"&"+strTitle)+1
+	If intPos1=1 Then
+		getRefValue=""
+		Exit Function
+	End If
+	strTemp=Right(strTemp,Len(strTemp)-intPos1-Len(strTitle)+1)
+	intPos2=InStr(strTemp,"&")
+	If(intPos2>0)Then
+		strTemp=Left(strTemp,intPos2-1)
+	End If
+	getRefValue=strTemp
+	
+	Exit Function
+	
+errorHandle:
+	ShowError("getRefValue")
+End Function
+
+'++LotusScript Development Environment:2:1:getDBPath:1:8
+Function getDBPath(db As NotesDatabase) As String
+	On Error GoTo err_handle
+	GetDBPath = Replace(db.filepath,"\","/")
+	Exit Function
+err_handle:
+	Showerror("getDBPath ")
+End Function
+
+'++LotusScript Development Environment:2:1:fnGetString:5:8
+%REM
+	Function fnGetString
+	Description: Comments for Function
+%END REM
+Function fnGetString(formula As String,doc As NotesDocument) As String
+	On Error GoTo err_handle
+	Dim keys(1) As String
+	keys(0) = "{"
+	keys(1) = "}"
+	Dim tmp As Variant
+	tmp = fnSplit(formula,keys,2)
+	ForAll t In tmp
+		formula = Replace(formula,|{| + t + |}|,doc.Getitemvalue(t)(0))
+	End ForAll
+	fnGetString = formula
+	Exit Function
+err_handle:
+	ShowError("fnGetString")
+End Function
+
+'++LotusScript Development Environment:2:1:fnGetElementChilds:1:8
+Function fnGetElementChilds(xml As String) As Variant
+	'======================
+	
+	'=====================
+	On Error GoTo err_handle
+	Dim iStart As Long
+	Dim iEnd As Long
+	
+	
+	Dim ParentNode As String
+	Dim tagName As String
+	
+	Dim  StartNodeName As String
+	Dim EndNodeName As String
+	
+	Dim tmpNodeList As Variant
+	ReDim tmpNodeList(0) As String
+	
+	Dim i As Integer
+	
+	If InStr(xml,"<") > 0 And InStr(xml,">") > 0 Then
+		ParentNode = Mid(xml,InStr(xml,"<"),InStr(xml,">"))
+		xml = Mid(xml,InStr(xml,">")+1)
+		
+		If InStr(xml,"<") > 0 And InStr(xml,">") > 0 Then
+			While InStr(tagName,"/") = 0
+				tagName = fnGetElementTagName(xml)
+				StartNodeName = "<" + tagName
+				EndNodeName = "</" + tagName + ">"
+				If InStr(xml,EndNodeName) = 0 Then
+					EndNodeName = "/>"
+				End If
+				iStart = InStr(xml,StartNodeName)
+				iEnd = InStr(iStart+1,xml,EndNodeName)
+				
+				tmpNodeList = ArrayAppend(tmpNodeList, Mid(xml,iStart,iEnd+Len(EndNodeName)-iStart))
+				xml = Mid(xml,iEnd+Len(EndNodeName))
+				tagName = fnGetElementTagName(xml)
+			Wend
+		End If
+		fnGetElementChilds = tmpNodeList
+	Else
+		fnGetElementChilds = ""
+	End If
+	
+	Exit Function
+err_handle:
+	ShowError("fnReturnChilds")
+End Function
+
+'++LotusScript Development Environment:2:1:getLastIndex:1:8
+Function getLastIndex(array As Variant,schstr As String) As Integer
+	'============================================
+	'『功能』获得字符串在数组中的数组索引
+	'『接口』
+	'	array	input	要查询的字符串数组
+	'	schstr		input	指定的字符串
+	'『函数返回值』
+	'	匹配到则返回一整数，否则返回-1	
+	'============================================
+	If IsEmpty(array) Then
+		getLastIndex=-1
+		Exit Function
+	End If
+	
+	Dim i As Variant
+	getLastIndex=-1
+	For i=UBound(array) To 0 Step -1
+		If Trim(LCase(array(i)))=Trim(LCase(schstr)) Then
+			getLastIndex=i
+			Exit Function
+		End If
+	Next i
+End Function
+
+'++LotusScript Development Environment:2:1:ArrayCompact:1:8
+Function ArrayCompact(ary As Variant) As Variant
+	On Error GoTo err_handle
+	Dim flag As Boolean,tmpAry As Variant
+	'ReDim tmpAry(0) As Variant
+	ForAll a In ary
+		flag = True
+		Select Case TypeName(a)
+		Case "STRING":
+			If a = "" Then
+				flag = False
+			End If
+		Case "BOOLEAN","INTEGER","LONG","SINGLE":
+		Case Else:
+			If a Is Nothing Then
+				flag = False
+			End If
+		End Select
+		If flag Then
+			If Not IsArray(tmpAry) Then
+				ReDim tmpAry(0) As Variant
+				tmpAry(0) = a
+			Else
+				tmpAry = ArrayAppend(tmpAry,a)
+			End If
+		End If
+	End ForAll
+	ArrayCompact = tmpAry
+	Exit Function
+err_handle:
+	ShowError("ArrayCompact")
+End Function
+
+'++LotusScript Development Environment:2:2:sendTask:1:8
+Sub sendTask(doc As NotesDocument,psns As Variant)
+	On Error GoTo err_handle
+	Dim Pdb As NotesDatabase, pdoc As NotesDocument
+	Set pdb = session.Getdatabase("", doc.FlowProcessDB(0))
+	Set pdoc = pdb.Createdocument()
+	pdoc.form = "Event"
+	pdoc.pid = doc.FlowProcessUnid(0)
+	pdoc.psns = psns
+	pdoc.action = "msg"
+	Call pdoc.Save(True, False)
+	
+	Dim item As NotesItem
+	Set item = doc.Getfirstitem("Messager")
+	If item Is Nothing Then
+		Set item = New NotesItem(doc,"Messager",psns)
+		item.Isreaders = True
+		item.Issummary = true
+	Else
+		item.Appendtotextlist(psns)
+	End If
+	Exit Sub
+err_handle:
+	ShowError("sendTask")
+End Sub
+
+'++LotusScript Development Environment:2:1:fngetdbpath:1:8
+Function fngetdbpath(db As NotesDatabase) As String
+	'========================
+	
+	'========================
+	On Error GoTo err_handle
+	fngetdbpath = Replace(db.FilePath,"\","/")
+	Exit Function
+err_handle:
+	ShowError("fngetdbpath ")
+End Function
+
+'++LotusScript Development Environment:2:1:fnSplit:1:8
+Function fnSplit(SrcStr As String,SplitStr As Variant,index As Integer) As Variant
+	'==========================
+	
+	'==========================
+	On Error GoTo err_handle
+	
+	Dim n As Integer,tmp As String
+	tmp = Replace(SrcStr,SplitStr,SplitStr(0))
+	
+	Dim strList As Variant
+	strList = Split(tmp,SplitStr(0))
+	
+	Dim tmpList As Variant
+	ReDim tmpList(0) As String
+	Dim count As Integer
+	'Msgbox strList(index-1)
+	For count = index-1 To UBound(strList) Step UBound(SplitStr)+1
+		If tmpList(0) = "" Then
+			tmpList(0) = strList(count)
+		Else
+			tmpList = ArrayAppend(tmpList,strList(count))
+		End If
+	Next
+	fnSplit = tmpList
+	Exit Function
+err_handle:
+	ShowError("fnSplit")
+End Function
+
+'++LotusScript Development Environment:2:2:ContentType:5:8
+%REM
+	Sub ContentType
+	Description: Comments for Sub
+%END REM
+Sub ContentType(contentType As String,charsetType As String)
+	If contentType = "" Then
+		contentType = "text/plain"
+	End If
+	
+	If charsetType = "" Then
+		charsetType = "UTF-8"
+	End If
+	Print "content-type:"+contentType+";charset="+charsetType+";"
+End Sub
+
+'++LotusScript Development Environment:2:1:fnGetElementTagName:1:8
+Function fnGetElementTagName(node As String) As String
+	'======================
+	
+	'======================
+	On Error GoTo err_handle
+	Dim iStart As Long
+	Dim iEnd As Long
+	
+	iStart = InStr(node,"<")
+	iEnd = InStr(iStart+1,node,">")
+	If iStart > 0 And iEnd > 0 Then
+		fnGetElementTagName = Mid(node,iStart + 1, iEnd-iStart-1)
+	Else
+		fnGetElementTagName = ""
+	End If
+	Exit Function
+err_handle:
+	ShowError("fnGetElementTagName ")
+End Function
+
+'++LotusScript Development Environment:2:1:getindex:1:8
+Function getindex(array As Variant,schstr As String) As Integer
+	'============================================
+	'『功能』获得字符串在数组中的数组索引
+	'『接口』
+	'	array	input	要查询的字符串数组
+	'	schstr		input	指定的字符串
+	'『函数返回值』
+	'	匹配到则返回一整数，否则返回-1	
+	'============================================
+	If IsEmpty(array) Then
+		getindex=-1
+		Exit Function
+	End If
+	
+	Dim i As Variant
+	getindex=-1
+	For i=0 To UBound(array)
+		If Trim(LCase(array(i)))=Trim(LCase(schstr)) Then
+			getindex=i
+			Exit Function
+		End If
+	Next i
+End Function
+
+'++LotusScript Development Environment:2:1:fnGetElementAttr:1:8
+Function fnGetElementAttr(node As String,attr As String) As String
+	'============================================
+	
+	'===========================================
+	On Error GoTo err_handle
+	Dim TarAttr As String
+	TarAttr = attr + "="
+	
+	Dim iStart As Long
+	Dim iEnd As Long
+	iStart = InStr(node,TarAttr)
+	Dim flag As String
+	flag = Mid(node,iStart+Len(TarAttr),1)
+	iStart = InStr(iStart+1,node,flag)
+	iEnd = InStr(iStart+1,node,flag)
+	
+	If iStart > 0 And iEnd > 0 Then
+		fnGetElementAttr = Mid(node,iStart+1,iEnd-iStart-1)
+	Else
+		fnGetElementAttr = ""
+	End If
+	Exit Function
+err_handle:
+	ShowError("fnGetElementAttr ")
+End Function
+
+'++LotusScript Development Environment:2:2:sendMail_ext:6:8
+%REM
+	Sub sendMail
+	Description: 发送邮件函数
+	Args:subject邮件标题；strBody邮件内容;sendto接收人
+%END REM
+Sub sendMail_ext(subject As String,strBody As String,sendto As Variant,SendMail As String,SendName As String)
+	On Error GoTo err_handle
+	Dim memodoc As NotesDocument
+	Set memodoc = session.Currentdatabase.Createdocument()
+	memodoc.form = "Memo"
+	memodoc.Subject = subject
+	memodoc.sendto = sendto
+	memodoc.PostedDate = Now
+	
+	If SendMail <> ""  Then
+		memodoc.Principal = |"|+SendName+|"<| + SendMail + |>|
+		memodoc.From = SendName
+		memodoc.AltFrom = SendName
+		memodoc.SendFrom = SendName
+		memodoc.INetFrom = SendName
+		memodoc.tmpDisplaySentBy = SendName
+		memodoc.tmpDisplayFrom_Preview = SendName
+		memodoc.DisplaySent = SendName
+		memodoc.tmpDisplaySentBy = SendName
+	End If
+	Dim stream As NotesStream
+	Set stream=session.CreateStream()
+	Call stream.writeText(strBody)
+	
+	Dim entity As NotesMIMEEntity   
+	Set entity=memodoc.createMIMEEntity("Body")
+	Call entity.setContentFromText(stream,"text/html;charset=UTF-8", 1725)  
+	Call stream.close() 
+	
+	sendto = FullTrim(ArrayUnique(sendto))
+	If sendto(0) <> "" Then
+		On Error Resume Next
+		Call memodoc.Send(False)
+	End If
+	Exit Sub
+err_handle:
+	ShowError("sendMail_ext")
+End Sub
+
+'++LotusScript Development Environment:2:1:fnRemoveFromArray:1:8
+Function fnRemoveFromArray(astrArray As Variant, strTarget As String) As Variant
+	'======================================
+	'【功能】
+	'	从数组中删除指定字符串，并去空！
+	'【作者】
+	'	ellis.matao 2009-07-30
+	'========================================
+	On Error GoTo err_handle
+	Dim temArray As Variant
+	ReDim temArray(0) As String
+	
+	Dim count As Integer
+	count = 0
+	ForAll s In astrArray
+		If s <> strTarget And s <> "" Then
+			temArray = ArrayAppend(temArray,Trim(s))
+			count = count + 1
+		End If
+	End ForAll
+	fnRemoveFromArray = temArray
+	Exit Function
+err_handle:
+	MsgBox Erl
+	ShowError("fnRemoveFromArray ")
+End Function
+
+'++LotusScript Development Environment:2:1:IsDbAdmin:5:8
+%REM
+	Function fnCheckAdmin
+	Description: Comments for Function
+%END REM
+Function IsDbAdmin(dbpath As String,userName As NotesName) As Boolean
+	On Error GoTo err_handle
+	Dim db As NotesDatabase
+	Set db = session.Getdatabase("", dbpath)
+
+	If db.Isopen Then
+		Dim acl As NotesACL,aclen As NotesACLEntry
+		Set acl = db.Acl
+		Set aclen = acl.Getentry(userName.Abbreviated)
+		If  aclen Is Nothing Then
+			Set aclen = acl.Getentry(userName.Common)
+		End If
+		If Not aclen Is Nothing Then
+			IsDbAdmin = aclen.Isroleenabled("[admin]")
+		Else
+			IsDbAdmin = False
+		End If
+	Else
+		IsDbAdmin = False
+	End If
+	Exit Function
+err_handle:
+	ShowError("IsDbAdmin")
+End Function
+
+'++LotusScript Development Environment:2:2:suDealFullName:5:8
+%REM
+	Sub suDealFullName
+	Description: Comments for Sub
+%END REM
+Sub suDealFullName(doc As NotesDocument)
+	On Error GoTo err_handle
+	Dim fItem_Authors As NotesItem
+	Set fItem_Authors = doc.Getfirstitem(FULLNAME_AUTHOR)
+	
+	If fItem_Authors Is Nothing Then
+		Set fItem_Authors = New NotesItem(doc,FULLNAME_AUTHOR,"[admin]")
+		fItem_Authors.Issummary = True
+		fItem_Authors.Isauthors = True
+	End If
+	If Not fItem_Authors.Contains("[admin]") Then
+		Call fItem_Authors.Appendtotextlist("[admin]")
+	End If
+	
+	If Not fItem_Authors.Contains("[allReader]") Then
+		Call fItem_Authors.Appendtotextlist("[allReader]")
+	End If
+	
+	Dim fItem_Readers As NotesItem
+	Set fItem_Readers = doc.Getfirstitem(FULLNAME_READER)
+	If fItem_Readers Is Nothing Then
+		Set fItem_Readers = New NotesItem(doc,FULLNAME_READER,"[admin]")
+		fItem_Readers.Issummary = True
+		fItem_Readers.Isreaders = True
+	End If
+	
+	If Not fItem_Readers.Contains("[allReader]") Then
+		Call fItem_Readers.Appendtotextlist("[allReader]")
+	End If
+	
+	
+	Dim ids As Variant
+	Dim nav As NotesDirectoryNavigator,fullname As String
+	ForAll i In doc.Items
+		If i.isReaders And LCase(i.name) <> LCase(FULLNAME_READER) Then
+			ids = ArrayCompact(i.values)
+			If IsArray(ids) Then
+				ids = ArrayUnique(ids)
+				ForAll id In ids
+					Set nav = directory.Lookupnames("$Users", CStr(id), "FullName", False)
+					If nav.Namelocated Then
+						If nav.Matchlocated Then
+							fullname = nav.getFirstItemValue()(0)
+							If Not fItem_Readers.Contains(fullname) Then
+								Call fItem_Readers.Appendtotextlist(fullname)
+							End If
+						End If
+					End If
+				End ForAll
+			End If
+		ElseIf i.isAuthors And LCase(i.name) <> LCase(FULLNAME_AUTHOR) Then
+			ids = ArrayCompact(i.values)
+			If IsArray(ids) Then
+				ids = ArrayUnique(ids)
+				ForAll id In ids
+					Set nav = directory.Lookupnames("$Users", CStr(id), "FullName", False)
+					If nav.Namelocated Then
+						If nav.Matchlocated Then
+							fullname = nav.getFirstItemValue()(0)
+							If Not fItem_Authors.Contains(fullname) Then
+								Call fItem_Authors.Appendtotextlist(fullname)
+							End If
+						End If
+					End If
+				End ForAll
+			End If
+		End If
+	End ForAll
+	Exit Sub
+err_handle:
+	ShowError("suDealFullName")
+	Exit Sub
+End Sub
+
+'++LotusScript Development Environment:2:1:unique:1:8
+Function unique(astrArray)
+	'==============================================
+	'【函数功能】
+	'	处理给定数组，使该数组中没有重复的元素
+	'【函数接口】	
+	'	srcArray		input	处理目标数组
+	'【返回值】
+	'	Array
+	'【作者】
+	'	ellis matao 20090629
+	'============================================
+	On Error GoTo err_handle
+	Dim strResult As String
+	Dim strMacro As String
+	Dim i As Integer
+	
+	strResult = |"| + astrArray(0) + |"|
+	For i=1 To UBound(astrArray)
+		strResult = strResult + |:"| + astrArray(i) + |"|
+	Next
+	strMacro = |@unique(| + strResult + |)|
+	unique = Evaluate(strMacro)
+	Exit Function
+err_handle:
+	ShowError("unique ")
+End Function
+
+'++LotusScript Development Environment:2:1:fnHttpStrDecoded:1:8
+Function fnHttpStrDecoded(ByVal strSrc As String) As String
+	
+	On Error GoTo errorhandle
+	Dim strRet As String
+	Dim iPos As Long,iLast As Long
+	Dim strTmp As String,strReplace As String
+	iPos=InStr(strSrc,"%")
+	iLast=1
+	Dim temp As String
+	While iPos>0
+		temp=Mid$(strSrc,iPos+1,2)
+		strTmp="&H"+Mid$(strSrc,iPos+1,2)
+		If IsNumeric(strTmp) And Len(strTmp)>3 Then
+			strReplace=Chr$(CInt(strTmp))
+			strRet=strRet+Mid$(strSrc,iLast,iPos-iLast)+strReplace
+			iLast=iPos+3
+		Else
+			'不是编码则不替换
+		End If
+		iPos=InStr(iPos+1,strSrc,"%")
+	Wend
+	'处理剩余部分的字串
+	strRet=strRet+Mid$(strSrc,iLast)
+	fnHttpStrDecoded = strRet
+	
+	Exit Function
+errorhandle:
+	showError("fnHttpStrDecoded")
+End Function
+
+'++LotusScript Development Environment:2:1:fnGetNumber:1:8
+Function fnGetNumber(strSrc As String) As Variant
+	'==========
+	'提取字符串中数字，并返回一数组
+	'===========
+	On Error GoTo err_handle
+	Dim a() As String
+	Dim acount As Integer
+	Dim i As Integer
+	'你的字符串
+	Dim strX As String
+	Dim a_num As Boolean
+	
+	strX = strSrc
+	
+	acount = 1
+	ReDim Preserve a(1 To acount)
+	For i = 1 To Len(strX)
+		If (Asc(Mid(strX, i, 1)) >= 48 And Asc(Mid(strX, i, 1)) <= 57) _
+		Or Asc(Mid(strX, i, 1)) = 46 Then
+			a(acount) = a(acount) & Mid(strX, i, 1)
+			If a_num = False Then
+				a_num = True
+			End If
+		Else
+			If a_num = True And Len(strX)-i > 0 Then
+				acount = acount + 1
+				ReDim Preserve a(1 To acount)
+				a_num = False
+			End If
+		End If
+	Next i
+	fnGetNumber = a
+	Exit Function
+err_handle:
+	ShowError("fnGetNumber")
+End Function
+
+'++LotusScript Development Environment:2:1:QueryString:1:8
+Function QueryString(arg As String) As String
+	On Error GoTo err_handle
+	Dim note As NotesDocument
+	Set note = session.Documentcontext
+	Dim Query_String As String
+	Query_String = (note.query_string(0) + "&" + note.request_content(0))
+	Dim tmp As Variant,tmp1 As Variant,i As Integer,tmpstr As String
+	
+	If InStr(Query_String,"?" + arg + "=") Or InStr(Query_String,"&" + arg + "=") Then
+		tmpstr = getRefValue(Query_String, arg + "=")
+		
+		If InStr(tmpstr,"%u") Then
+			tmp1 = Split(tmpstr,"%u")
+			tmpstr = ""
+			For i = 0 To UBound(tmp1)
+				If tmp1(i) <> "" Then
+					If i = 0 Then
+						tmp = Evaluate(|@URLDecode("Domino";"|+Replace(tmp1(i),|"|,|\"|)+|")|)
+					Else
+						tmp = Evaluate(|@URLDecode("Domino";"|+Replace("%u"+tmp1(i),|"|,|\"|)+|")|)
+					End If
+					tmpstr = tmpstr + tmp(0)
+				End If
+			Next
+			QueryString = tmpstr
+		Else
+			If InStr(tmpstr,"%") Then
+				tmp1 = Split(tmpstr,"%")
+				tmpstr = ""
+				For i = 0 To UBound(tmp1)
+					If tmp1(i) <> "" Then
+						If i = 0 Then
+							tmp = Evaluate(|@URLDecode("Domino";"|+Replace(tmp1(i),|"|,|\"|)+|")|)
+						Else
+							tmp = Evaluate(|@URLDecode("Domino";"|+Replace("%"+tmp1(i),|"|,|\"|)+|")|)
+						End If
+						tmpstr = tmpstr + tmp(0)
+					End If
+				Next
+			End If
+			QueryString = tmpstr
+		End If
+	Else
+		QueryString = ""
+	End If
+	Exit Function
+err_handle:
+	ShowError("QueryStringUrl")
+End Function
+
+'++LotusScript Development Environment:2:1:FullName:5:8
+%REM
+	Function FullName
+	Description: Comments for Function
+%END REM
+Function FullName(id As String) As String
+	On Error GoTo err_handle
+	Dim nav As NotesDirectoryNavigator,tmp As String
+	tmp = ""
+	Set nav = directory.Lookupnames("$Users", Trim(id), "FullName", False)
+	If nav.Namelocated Then
+		If nav.Matchlocated Then
+			tmp = nav.getFirstItemValue()(0)
+		End If
+	End If
+	fullname = tmp
+	Exit Function
+err_handle:
+	ShowError("FullName")
+End Function
+
+'++LotusScript Development Environment:2:2:sendMail:6:8
+%REM
+	Sub sendMail
+	Description: 发送邮件函数
+	Args:subject邮件标题；strBody邮件内容;sendto接收人
+%END REM
+Sub sendMail(subject As String,strBody As String,sendto As Variant)
+	On Error GoTo err_handle
+	Dim memodoc As NotesDocument
+	Set memodoc = session.Currentdatabase.Createdocument()
+	memodoc.form = "Memo"
+	memodoc.Subject = subject
+	memodoc.sendto = sendto
+	memodoc.PostedDate = Now
+	
+	Dim stream As NotesStream
+	Set stream=session.CreateStream()
+	Call stream.writeText(strBody)
+	
+	Dim entity As NotesMIMEEntity   
+	Set entity=memodoc.createMIMEEntity("Body")
+	Call entity.setContentFromText(stream,"text/html;charset=UTF-8", 1725)  
+	Call stream.close() 
+	
+	sendto = FullTrim(ArrayUnique(sendto))
+	If sendto(0) <> "" Then
+		Call memodoc.Send(False)
+	End If
+	
+	Exit Sub
+err_handle:
+	ShowError("sendMail")
+End Sub
+
+'++LotusScript Development Environment:2:2:fnWriteToRtfField:1:8
+Sub fnWriteToRtfField(doc As NotesDocument, ByVal strRtfFieldName As String,ByVal strText As String)
+	'=======================================================
+	'『函数功能』
+	'	向RTF域写入HTML文本，并在Web端以HTML方式显示
+	'『函数接口』
+	'
+	'『作者』	
+	'	ellis.matao 2009-07-09
+	'========================================================
+	On Error GoTo errorHandle
+	
+	Dim rtitem As Variant
+	If doc.hasitem(strRtfFieldName) Then
+		Set rtitem = doc.GetFirstItem(strRtfFieldName)
+		If rtitem.Type <> RICHTEXT Then
+			Call rtitem.remove
+			Set rtitem = New NotesRichTextItem(doc,strRtfFieldName)
+		End If
+	Else 
+		Set rtitem = New NotesRichTextItem(doc,strRtfFieldName)
+	End If
+	
+	rtitem.appendText(strText)
+	
+	Exit Sub	
+errorHandle:
+	Call ShowError("WriteToRtfWithHtmlStyle")
+End Sub
+
+'++LotusScript Development Environment:2:1:PrintPageHeader:1:8
+Function PrintPageHeader() As String
+	PrintPageHeader = |<!DOCTYPE html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" href="/ace1.3/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/ace1.3/assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/ace1.3/assets/css/ace-fonts.css" />
+<link rel="stylesheet" href="/ace1.3/assets/css/ace.min.css" />
+<!--[if lte IE 9]>
+<link rel="stylesheet" href="/ace1.3/assets/css/ace-part2.min.css" />
+<![endif]-->
+<link rel="stylesheet" href="/ace1.3/assets/css/ace-skins.min.css" />
+<link rel="stylesheet" href="/ace1.3/assets/css/ace-rtl.min.css" />
+<!--[if lte IE 9]>
+<link rel="stylesheet" href="/ace1.3/assets/css/ace-ie.min.css" />
+<![endif]-->
+<script src="/ace1.3/assets/js/ace-extra.min.js"></script>
+<!--[if lte IE 8]>
+<script src="/ace1.3/assets/js/html5shiv.js"></script>
+<script src="/ace1.3/assets/js/respond.min.js"></script>
+<![endif]-->
+<!--[if !IE]> -->
+<script src="/ace1.3/assets/js/jquery.min.js"></script>
+<![endif]-->
+<!--[if IE]>
+<script src="/ace1.3/assets/js/jquery1x.min.js"></script>
+<![endif]-->
+<script src="/ace1.3/assets/js/sea.js"></script>
+</head>|
+End Function
+
+'++LotusScript Development Environment:2:1:fnReturnDateStyle:1:8
+Function fnReturnDateStyle(curDate As NotesDateTime,DateStyle As String)
+	'======================================
+	'【功能】
+	'	根据相应的日期样式，返回相应的日期字符串
+	'【作者】
+	'	ellis.matao 2009-07-30
+	'========================================
+	On Error GoTo err_handle
+	
+	Dim strHTML As String
+	Dim strYear As String
+	Dim strMonth As String
+	Dim strDay As String
+	Dim Num As String
+	Dim NumList As Variant
+	
+	Num = ""
+	
+	If InStr(DateStyle,"○") > 0 Then
+		Num = "○,一,二,三,四,五,六,七,八,九"	
+	End If
+	If InStr(DateStyle,"零") > 0 Then
+		Num = "零,一,二,三,四,五,六,七,八,九"	
+	End If
+	
+	If Num <> "" Then
+		NumList = Split(Num,",")
+		
+		strYear = Year(curDate.DateOnly)
+		strMonth = Month(curDate.DateOnly)
+		strDay = Day(curDate.DateOnly)
+		Dim x As Integer
+		Dim result As String
+		strMonth = CStr(Val(strMonth))
+		strDay = CStr(Val(strDay))
+		
+		For x = 1 To Len(strYear)
+			result =result + NumList(Val(Mid(strYear,x,1)))
+		Next
+		result = result + "年"
+		If Val(strMonth) > 10 Then
+			result = result + "十"
+			result = result + NumList(Val(strMonth)-10)
+		ElseIf Val(strMonth) = 10 Then
+			result = result + "十"
+		Else
+			result = result + NumList(Val(strMonth))
+		End If
+%REM
+		If strMonth = "10" Then
+			result = result + "十"
+		Else
+			For x = 1 To Len(strMonth)
+				result =result + NumList(Val(Mid(strMonth,x,1)))
+				If(Len(strMonth) = 2 And x = 1) Then
+					result = result + "十"
+				End If
+			Next
+		End If
+%END REM
+		result = result + "月"
+		
+		If Val(strDay) > 30 Then
+			result = result + "三十"
+			result = result + NumList(Val(strDay)-30)
+		ElseIf Val(strDay) = 30 Then
+			result = result + "三十"
+		ElseIf Val(strDay) > 20 Then
+			result = result + "二十"
+			result = result + NumList(Val(strDay)-20)
+		ElseIf Val(strDay) = 20 Then
+			result = result + "二十"
+		ElseIf Val(strDay) > 10 Then
+			result = result + "十"
+			result = result + NumList(Val(strDay)-10)
+		ElseIf Val(strDay) = 10 Then
+			result = result + "十"
+		Else
+			result = result + NumList(Val(strDay))
+		End If
+%REM
+
+
+		If strDay = "10" Then
+			result = result + "十"
+		Else
+			For x = 1 To Len(strDay)
+				If (Len(strDay) = 2 And x=2 And Mid(strDay,x,1)="0") Then
+					result =result
+				Else
+					result =result + NumList(Val(Mid(strDay,x,1)))
+				End If
+				
+				If(Len(strDay) = 2 And x = 1) Then
+					result = result + "十"
+				End If
+			Next
+		End If
+%END REM
+		result = result + "日"
+		fnReturnDateStyle = result
+	Else
+		fnReturnDateStyle = Format(curDate.DateOnly,DateStyle)
+	End If
+	Exit Function
+err_handle:
+	ShowError("fnReturnDateStyle ")
+End Function
+
+'++LotusScript Development Environment:2:1:fnPutinArrayList:1:8
+Function fnPutinArrayList(tarArray As Variant,tarStr As String,tarIndex As Integer) As Variant
+	'======================================
+	'【功能】
+	'	将字符串插入到数组中的指定位置
+	'【作者】
+	'	ellis.matao 2009-07-30
+	'========================================
+	On Error GoTo err_handle
+	
+	Dim tempStr As String
+	If Not IsArray(tarArray) Then
+		tempStr = tarArray
+		ReDim Preserve tarArray(0) As String
+		tarArray(0) = tempStr
+	End If
+	If tarArray(0) = "" Then
+		tarArray(0) = tarStr
+		fnPutinArrayList = tarArray
+		Exit Function
+	End If
+	
+	If tarStr = "" Then
+		fnPutinArrayList = tarArray
+		Exit Function
+	Else
+		ReDim Preserve tarArray(UBound(tarArray)+1) As String
+		If (UBound(tarArray) = tarIndex) Then
+			tarArray(tarIndex) = tarStr
+			fnPutinArrayList = tarArray
+			Exit Function
+		End If
+	End If
+	Dim index As Integer
+	
+	For index = UBound(tarArray)-1 To 0 Step -1
+		If(index >= tarIndex) Then
+			
+			tempStr = tarArray(index+1)
+			tarArray(index+1) = tarArray(index)
+			tarArray(index) = tempStr
+			If (index = tarIndex) Then
+				tarArray(index) = tarStr
+			End If
+		End If
+	Next
+	fnPutinArrayList = tarArray
+	Exit Function
+err_handle:
+	ShowError("fnPutinArrayList ")
+End Function
+
+'++LotusScript Development Environment:2:2:ShowError:1:8
+Sub ShowError(agentName As String)
+	'=======================================
+	'【功能】
+	'	将错误打印到屏幕
+	'【作者】
+	'	ellis.matao 2009-07-30
+	'======================================
+	Dim session As New NotesSession
+	MsgBox |================ERROR HANDLE Start=======================|
+	MsgBox |DBPath:|+ session.Currentdatabase.Filepath
+	MsgBox |AgentName:| + session.Currentagent.name
+	MsgBox |MethodName:| + agentName
+	MsgBox |ErrorLine:| + Trim(Erl)
+	MsgBox |Error:|+error
+	MsgBox |================ERROR HANDLE END=========================|
+End Sub
+
+'++LotusScript Development Environment:2:1:fnParams:1:8
+Function fnParams(strQuery As String) As Variant
+	On Error GoTo err_handle
+	
+	Dim QueryList List As String
+	Dim tmp1 As Variant
+	Dim tmp2 As Variant
+	
+	tmp1 = Split(strQuery,"&")
+	ForAll t In tmp1
+		If(InStr(t,"=")) Then
+			QueryList(StrLeft(CStr(t),"=")) = StrRight(CStr(t),"=")
+		End If
+	End ForAll
+	fnParams = QueryList
+	Exit Function
+err_handle:
+	ShowError("fnParam ")
+End Function
+
+'++LotusScript Development Environment:2:1:fnNotesNames:1:8
+Function fnNotesNames(itCode As String) As String
+	On Error GoTo err_handle
+	Dim nav As NotesDirectoryNavigator
+	Dim fullname As String
+	If Trim(itCode) = "" Then
+		fnNotesNames = ""
+		Exit Function
+	End If
+	If InStr(itCode,"/") Then
+		itCode = StrRight(itCode,"/")
+	End If
+	fullname = ""
+	Set nav = directory.Lookupnames("$VIMPeopleByLastName", CStr(itCode), "FullName", False)
+	If nav.Namelocated Then
+		If nav.Matchlocated Then
+			fullname = nav.getFirstItemValue()(0)
+		End If
+	End If
+	fnNotesNames = fullname
+	Exit Function
+err_handle:
+	ShowError("fnNotesNames")
+End Function
+
+'++LotusScript Development Environment:2:1:fnRemoveFromArrayByIndex:1:8
+Function fnRemoveFromArrayByIndex(astrArray As Variant, strIndex As Integer) As Variant
+	'======================================
+	'【功能】
+	'	删除数组中指定位置的元素
+	'【作者】
+	'	ellis.matao 2009-07-30
+	'========================================
+	On Error GoTo err_handle
+	Dim temArray As Variant
+	ReDim temArray(0) As String
+	
+	If strIndex < 0 Or strIndex > UBound(astrArray) Then
+		fnRemoveFromArrayByIndex = astrArray
+		Exit Function
+	End If
+	Dim count As Integer
+	count = 0
+	ForAll s In astrArray
+		If count <> strIndex Then
+			temArray = ArrayAppend(temArray,Trim(s))
+			count = count + 1
+		End If
+	End ForAll
+	count = 0
+	
+	fnRemoveFromArrayByIndex = temArray
+	Exit Function
+err_handle:
+	ShowError("fnRemoveFromArrayByIndex ")
+End Function
+
+'++LotusScript Development Environment:2:1:ItemAppendText:5:8
+%REM
+	Sub ItemAppendText
+	Description: Comments for Sub
+%END REM
+Function ItemAppendText(doc As NotesDocument,itemName As String,sText As String) As NotesItem
+	On Error GoTo err_handle
+	Dim item As NotesItem
+	If sText = "" Then
+		Exit Function
+	End If
+	Set item = doc.Getfirstitem(itemName)
+	If item Is Nothing Then
+		Call doc.Replaceitemvalue(Itemname, sText)
+	Else
+		Dim index As Integer,flag As Boolean
+		index  = 0
+		flag = False
+		While UBound(item.Values) > 900
+			If item.Contains(sText) Then
+				Exit Function
+			End If
+			index = index + 1
+			Set item = doc.Getfirstitem(Itemname + "_" + CStr(index))
+			If item Is Nothing Then
+				Set item = item.Copyitemtodocument(doc, Itemname+"_" + CStr(index))
+				Call doc.Replaceitemvalue(Itemname+"_" + CStr(index), sText)
+				flag = True
+			End If
+		Wend
+		If flag = False Then
+			Call item.Appendtotextlist(sText)
+		End If
+	End If
+	
+	Exit Function
+err_handle:
+	ShowError("ItemAppendText")
+End Function
+
+'++LotusScript Development Environment:2:1:fnGetElementText:1:8
+Function fnGetElementText(node As String) As String
+	'===============================
+	'
+	'===============================
+	On Error GoTo err_handle
+	Dim iStart As Long
+	Dim iEnd As Long
+	
+	Dim i As Integer
+	i = 1
+	Dim tmpnode As String
+	
+	node = Mid(node,InStr(node,"<"))
+	While InStr(node,">") > 0 And InStr(node,"<") > 0
+		iStart = InStr(node,"<")
+		iEnd = InStr(iStart+1,node,">")
+		If iStart = 1 Then
+			node = Mid(node,iEnd+1)
+		Else
+			node = Mid(node,1,iStart-1) + Mid(node,iEnd+1)
+		End If
+	Wend
+	fnGetElementText = Trim(node)
+	Exit Function
+err_handle:
+	ShowError("fnGetTagText ")
+End Function
+
+'++LotusScript Development Environment:2:2:fnPrintMsg:1:8
+Sub fnPrintMsg(strMsg)
+	On Error GoTo err_handle
+	'######################################
+	'【功能】
+	'	针对提交页面弹出指定对话框信息
+	'【接口】
+	'	strMsg 要提示的信息内容;
+	'【作者】
+	'	ellis.matao 2009-07-30
+	'######################################
+	ContentType "text/html","utf-8"
+	Print |<html><head><title>页面提示信息</title>|
+	Print |<META HTTP-EQUIV="Pragma" CONTENT="no-cache">|
+	Print |<meta http-equiv="Content-Type" content="text/html; charset=gb2312">|
+	Print |<script language=javascript><!--|
+	Print |alert("| + strMsg + |");|
+	Print |history.back();|
+	Print |//-->|
+	Print |</script>|
+	Print |</head><body></body></html>|
+	Exit Sub
+err_handle:
+	ShowError("fnPrintMsg ")
+End Sub
+
+'++LotusScript Development Environment:2:1:fnReverseArray:1:8
+Function fnReverseArray( array1 As Variant , array2 As Variant ) As Variant
+	'=============================================
+	'【功能简介】
+	'	返回array1剩余列表：去除array1中包含array2的相同部分；
+	'【接口】
+	'	数组
+	'【返回值】
+	'	array
+	'【作者】
+	'	ellis matao 20090629
+	'===============================================
+	On Error GoTo err_handle
+	
+	If array1(0) = "" Then
+		fnReverseArray = ""
+		Exit Function
+	End If
+	If array2(0) = "" Then
+		fnReverseArray = array1
+		Exit Function
+	End If
+	Dim i As Integer
+	For i = 0 To UBound( array2 )
+		array1 = fnRemoveFromArray(array1,array2(i))
+	Next
+	fnReverseArray = array1
+	Exit Function
+err_handle:	
+	ShowError( "fnReverseArray" )
+End Function

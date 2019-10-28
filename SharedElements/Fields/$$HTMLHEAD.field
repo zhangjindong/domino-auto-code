@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sharedfield name='$$HTMLHEAD' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'>
+<noteinfo noteid='15e' unid='55DA3711C7E1ABDA48257C92000E5AE4' sequence='98'>
+<created><datetime>20140305T103647,72+08</datetime></created>
+<modified><datetime>20191028T153145,30+08</datetime></modified>
+<revised><datetime>20170918T171808,13+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,30+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,30+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><field type='text' kind='computedfordisplay'
+ name='$$HTMLHEAD'><code event='defaultvalue'><formula>"&lt;meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" /&gt;"
++@NewLine+"&lt;meta charset=\"utf-8\" /&gt;"
++@NewLine+"&lt;meta http-equiv=\"Expires\" CONTENT=\"0\"&gt;"
++@NewLine+"&lt;meta http-equiv=\"Cache-Control\" CONTENT=\"no-cache\"&gt;"
++@NewLine+"&lt;meta http-equiv=\"Pragma\" CONTENT=\"no-cache\"&gt;"
++@NewLine+"&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\" /&gt;"
++@NewLine+"&lt;link rel=\"stylesheet\" href=\"/ace1.3/assets/css/bootstrap.min.css\" /&gt;"
++@NewLine+"&lt;link rel=\"stylesheet\" href=\"/ace1.3/assets/css/font-awesome.min.css\" /&gt;"
++@NewLine+"&lt;link rel=\"stylesheet\" href=\"/ace1.3/assets/css/ace-fonts.css\" /&gt;"
++@NewLine+"&lt;link rel=\"stylesheet\" href=\"/ace1.3/assets/css/ace.min.css\" /&gt;"
++@NewLine+"&lt;link rel=\"stylesheet\" href=\"/flow/flowprocess.nsf/extcss.css\" /&gt;"
++@NewLine+"&lt;!--[if lte IE 9]&gt;"
++@NewLine+"&lt;link rel=\"stylesheet\" href=\"/ace1.3/assets/css/ace-part2.min.css\" /&gt;"
++@NewLine+"&lt;![endif]--&gt;"
++@NewLine+"&lt;link rel=\"stylesheet\" href=\"/ace1.3/assets/css/ace-skins.min.css\" /&gt;"
++@NewLine+"&lt;link rel=\"stylesheet\" href=\"/ace1.3/assets/css/ace-rtl.min.css\" /&gt;"
++@NewLine+"&lt;!--[if lte IE 9]&gt;"
++@NewLine+"&lt;link rel=\"stylesheet\" href=\"/ace1.3/assets/css/ace-ie.min.css\" /&gt;"
++@NewLine+"&lt;![endif]--&gt;"
++@NewLine+"&lt;script src=\"/ace1.3/assets/js/ace-extra.min.js\"&gt;&lt;/script&gt;"
++@NewLine+"&lt;!--[if lte IE 8]&gt;"
++@NewLine+"&lt;script src=\"/ace1.3/assets/js/html5shiv.js\"&gt;&lt;/script&gt;"
++@NewLine+"&lt;script src=\"/ace1.3/assets/js/respond.min.js\"&gt;&lt;/script&gt;"
++@NewLine+"&lt;![endif]--&gt;"</formula></code></field>
+<item name='OriginalModTime' sign='true'><datetime>20070531T145050,28+08</datetime></item>
+<item name='$HTMLCode' sign='true'>
+<rawitemdata type='1'>
+</rawitemdata></item></sharedfield>
+

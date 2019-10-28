@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="filter" maintenanceversion="1.0" replicaid="482584A1002906C1" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="22e" sequence="10" unid="A3A54C5DF0E502C5482580D1002FB214">
+<created><datetime>20170224T164057,80+08</datetime></created>
+<modified><datetime>20191028T153146,63+08</datetime></modified>
+<revised><datetime>20170918T171809,17+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,63+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,63+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=mat/OU=xinxibu/O=VICUTU</name><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<item name="$TITLE" sign="true"><text>DigiFlowLib</text></item>
+<item name="$Flags"><text>s34Q</text></item>
+<item name="$PublicAccess" sign="true"><text>1</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$POID"><datetime>20170918T171809,17+08</datetime></item></note>

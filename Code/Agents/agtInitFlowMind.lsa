@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<agent name='agtInitFlowMind' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' hide='v3' publicaccess='false'
+ designerversion='8.5.3'>
+<noteinfo noteid='202' unid='6225C747311310D4482580140049C35F' sequence='36'>
+<created><datetime>20160819T212541,43+08</datetime></created>
+<modified><datetime>20191028T153146,22+08</datetime></modified>
+<revised><datetime>20170918T171809,31+08</datetime></revised>
+<lastaccessed><datetime>20191028T153146,22+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,22+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=VICUTU</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<designchange><datetime>20170918T171754,83+08</datetime></designchange>
+<trigger type='actionsmenu'/>
+<documentset type='runonce'/><code event='options'><lotusscript>%REM
+	Agent agtInitFlowMind
+	Created 2016-8-19 by admin/VICUTUDEV
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+Use "GeneralLib"
+Use "LibUserAndOrg"
+
+</lotusscript></code><code event='initialize'><lotusscript>Sub Initialize
+	On Error GoTo err_handle
+	Dim doc As NotesDocument
+	Set doc = session.Documentcontext
+	
+	Dim pdb As NotesDatabase
+	Set pdb = session.Getdatabase("", doc.FlowProcessDB(0))
+	
+	Dim psn As Variant,node As Variant,dt As Variant,mind As Variant,Indexs As Variant
+	ReDim psn(0) As String
+	ReDim node(0) As String
+	ReDim dt(0) As String
+	ReDim mind(0) As String
+	ReDim Indexs(0) As String
+	'ReDim opt(0) As String
+	
+	Dim sname As NotesName,tmpmind As String,nodename As String
+	
+	If pdb.Isopen And doc.FlowProcessUnid(0) &lt;&gt; "" Then
+		Dim pdoc As NotesDocument
+		Set pdoc = getdocument(pdb,doc.FlowProcessUnid(0))
+		If Not pdoc Is Nothing Then
+			Dim index As Integer
+			For index = 0 To UBound(pdoc.optid)
+				Set sname = New NotesName(pdoc.opter(index))
+				tmpmind = pdoc.optmind(index)
+				If tmpmind = "null" Then
+					tmpmind = "&amp;nbsp;"
+				End If
+				nodename = pdoc.Getitemvalue("Name_" + pdoc.optFNode(index))(0)
+				If pdoc.optid(index) &lt;&gt; "save" And pdoc.optid(index) &lt;&gt; "th" And pdoc.optid(index) &lt;&gt; "tz" Then
+					psn = ArrayAppend(psn,Util.getUserName(sname.Common)(0))
+					node = ArrayAppend(node,nodename)
+					dt = ArrayAppend(dt,pdoc.opttime(index))
+					mind = ArrayAppend(mind,tmpmind)
+					Indexs = ArrayAppend(Indexs,CStr(index))
+					'opt = ArrayAppend(opt,fnGetOptType(pdoc.optid(index)))
+				End If
+			Next
+		End If
+	End If
+	doc.psn = FullTrim(psn)
+	doc.node = FullTrim(node)
+	doc.dt = FullTrim(dt)
+	doc.mind = FullTrim(mind)
+	Exit Sub
+err_handle:
+	ShowError("agtInitFlowMind")
+End Sub</lotusscript></code>
+<rundata processeddocs='0' exitcode='0'>
+<agentmodified><datetime>20160819T234121,63+08</datetime></agentmodified></rundata>
+<item name='$POID'><datetime>20170918T171809,31+08</datetime></item></agent>
+

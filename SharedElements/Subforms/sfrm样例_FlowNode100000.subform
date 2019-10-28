@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='sfrm样例_FlowNode100000' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'
+ renderpassthrough='true'>
+<noteinfo noteid='256' unid='B8392F10A343AC3A48257F67005223C2' sequence='60'>
+<created><datetime>20160228T225711,06+08</datetime></created>
+<modified><datetime>20191028T153334,89+08</datetime></modified>
+<revised><datetime>20191028T153334,88+08</datetime></revised>
+<lastaccessed><datetime>20191028T153334,89+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153146,87+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' leftmargin='0.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='1'><run html='true'>&lt;</run><run html='true'><font color='red'/>!--一个区段--&gt;</run></par>
+<par def='1'><run html='true'>&lt;fieldset class="field_box form-group col_form" id="fieldSet1"&gt;</run></par>
+<pardef id='2' leftmargin='0.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='2'><run html='true'><font color='red'/>&lt;!--start 区域标题--&gt;</run></par>
+<par def='2'><run html='true'>&lt;legend&gt;基础信息(FlowNode1)&lt;/legend&gt;</run></par>
+<par def='2'><run html='true'><font color='red'/>&lt;!--end 区域标题--&gt;</run></par>
+<par def='2'><run html='true'>&lt;div class="row"&gt;</run></par>
+<pardef id='3' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'>&lt;div class="col_4 col"&gt;</run></par>
+<pardef id='4' leftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='4'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<pardef id='5' leftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='5'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  name="ApplyPsnCN"&gt;申请人&lt;/label&gt;&lt;/span&gt;</run><field
+ type='text' kind='editable' name='ApplyPsnCN' htmlid='ApplyPsnCN' htmlclass='form-control'
+ extrahtmlattrs='type="text" readonly'><code event='defaultvalue'><formula
+>@Name([CN];@UserName(1))</formula></code></field><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='9' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata><field type='text' kind='editable' name='ApplyPsnEN'
+ htmlid='ApplyPsnEN' htmlstyle='display:none'><code event='defaultvalue'><formula
+>@Name([CN];@UserName(0))</formula></code></field><compositedata type='98'
+ prevtype='65402' nexttype='222' afterparcount='16' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="col_4 col"&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='5'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="ApplyDate"&gt;申请日期&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='ApplyDate' htmlid='ApplyDate'
+ htmlclass='form-control' extrahtmlattrs='readonly type="text"'><code event='defaultvalue'><formula
+>@Text(@Today)</formula></code></field></run><compositedata type='98' prevtype='65402'
+ nexttype='222' afterparcount='7' containertype='65418' aftercontainercount='2'
+ afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="col_4 col"&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='5'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="ApplyDept"&gt;&lt;span class="f_red"&gt;*&lt;/span&gt;申请部门&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='ApplyDept' htmlid='ApplyDept'
+ htmlclass='form-control' extrahtmlattrs='type="text"'/></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='7' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;div class="col_4 col"&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="input-group"&gt;</run></par>
+<par def='5'><run html='true'>&lt;span class="input-group-addon"&gt;&lt;label  for="ApplyPsnTel"&gt;联系电话&lt;/label&gt;&lt;/span&gt;</run><run
+ html='true'><field type='text' kind='editable' name='ApplyPsnTel' htmlid='ApplyPsnTel'
+ htmlclass='form-control' extrahtmlattrs='type="text"'/></run><compositedata
+ type='98' prevtype='65402' nexttype='222' afterparcount='7' containertype='65418'
+ aftercontainercount='2' afterbegincount='4'>
+Yg4BAIQAAAAAAAAAAAA=
+</compositedata></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<par def='2'><run html='true'>&lt;/div&gt;</run></par>
+<par def='1'><run html='true'>&lt;/fieldset&gt;</run></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>sfrm001</text></item></subform>
+

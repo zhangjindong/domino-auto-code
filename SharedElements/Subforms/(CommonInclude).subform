@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='(CommonInclude)' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'
+ renderpassthrough='true'>
+<noteinfo noteid='19e' unid='C0100CEAE8A25B1048257FB700545700' sequence='64'>
+<created><datetime>20160518T232112,96+08</datetime></created>
+<modified><datetime>20191028T153145,56+08</datetime></modified>
+<revised><datetime>20170918T171806,65+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,56+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,56+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<body><richtext>
+<pardef id='1' leftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/><subformref
+><code event='value'><formula>ss:=@DbLookup("";"":"flow/flowprocess.nsf";"vwProperty";"ProcessProperty";"Language");
+lng := @If(@IsError(ss);"zh";ss="";"zh";ss);
+"Lang_"+lng</formula></code></subformref>
+<par def='1'><run html='true'>&lt;style&gt;</run></par>
+<par def='1'><run html='true'>.input-group-addon label{width:100px !important}</run></par>
+<par def='1'><run html='true'>.input-group{margin-left:-1px;margin-bottom:2px !important}</run></par>
+<par def='1'><run html='true'>&lt;/style&gt;</run></par>
+<par def='1'><run html='true'>&lt;!--[if !IE]&gt; --&gt;</run></par>
+<par def='1'><run html='true'>&lt;script type="text/javascript"&gt;</run></par>
+<par def='1'><run html='true'>window.jQuery || document.write("&lt;script src='/ace1.3/assets/js/jquery.min.js'&gt;"+"&lt;"+"/script&gt;");</run></par>
+<par def='1'><run html='true'>&lt;/script&gt;</run></par>
+<par def='1'><run html='true'>&lt;!-- &lt;![endif]--&gt;</run></par>
+<par def='1'><run html='true'>&lt;!--[if IE]&gt;</run></par>
+<par def='1'><run html='true'>&lt;script type="text/javascript"&gt;</run></par>
+<par def='1'><run html='true'> window.jQuery || document.write("&lt;script src='/ace1.3/assets/js/jquery1x.min.js'&gt;"+"&lt;"+"/script&gt;");</run></par>
+<par def='1'><run html='true'>&lt;/script&gt;</run></par>
+<par def='1'><run html='true'>&lt;![endif]--&gt;</run></par>
+<par def='1'><run html='true'>&lt;script type="text/javascript"&gt;</run></par>
+<par def='1'><run html='true'>if('ontouchstart' in document.documentElement) document.write("&lt;script src='/ace1.3/assets/js/jquery.mobile.custom.min.js'&gt;"+"&lt;"+"/script&gt;");</run></par>
+<par def='1'><run html='true'>&lt;/script&gt;</run></par>
+<par def='1'><run html='true'>&lt;script src="/ace1.3/assets/js/bootstrap.min.js"&gt;&lt;/script&gt;</run></par>
+<par def='1'><run html='true'>&lt;script src="/ace1.3/assets/js/ace-elements.min.js"&gt;&lt;/script&gt;</run></par>
+<par def='1'><run html='true'>&lt;script src="/ace1.3/assets/js/sea.js"&gt;&lt;/script&gt;</run></par>
+<par def='1'><run html='true'>&lt;script src="/ace1.3/assets/js/uncompressed/ace.js"&gt;&lt;/script&gt;</run></par>
+<par def='1'><run html='true'>&lt;script src="</run><run html='true'>/ace1.3/assets/js/bootstrap-dialog.min.js"&gt;&lt;/script&gt;</run></par>
+<pardef id='2' leftmargin='0.2500in' firstlineleftmargin='1in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='2'><run html='true'>&lt;a href="/" id="ROOT_PATH" style="display:none"&gt;&lt;/a&gt;</run></par>
+<par def='2'><run html='true'>&lt;script&gt;</run></par>
+<pardef id='3' leftmargin='0.2500in' firstlineleftmargin='1.2500in' hide='notes mobile'/>
+<par def='3'><run html='true'>var ROOT_PATH = document.all.ROOT_PATH.href;</run></par>
+<par def='3'><run html='true'>var DB_PATH = ROOT_PATH + "</run><run html='true'><computedtext
+><code event='value'><formula>@WebDbName</formula></code></computedtext></run><run
+ html='true'>";</run></par>
+<par def='3'><run html='true'>var AppIsNew = </run><run html='true'><computedtext
+><code event='value'><formula>@If(@IsNewDoc;"true";"false")</formula></code></computedtext></run><run
+ html='true'>;</run></par>
+<par def='3'><run html='true'>var AppModfied = "</run><run html='true'><computedtext
+><code event='value'><formula>@Modified</formula></code></computedtext></run><run
+ html='true'>";</run></par>
+<par def='2'><run html='true'>&lt;/script&gt;</run></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>CommonInclude</text></item></subform>
+

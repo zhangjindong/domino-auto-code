@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sharedfield name='$V2AttachmentOptions' xmlns='http://www.lotus.com/dxl'
+ version='9.0' maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'>
+<noteinfo noteid='16a' unid='01079CBA322D4A7148257F7800194F9A' sequence='61'>
+<created><datetime>20160316T123627,78+08</datetime></created>
+<modified><datetime>20191028T153145,36+08</datetime></modified>
+<revised><datetime>20170918T171808,09+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,36+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,36+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=DevServer</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name
+>CN=admin/O=digi</name><name>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=VICUTUDEV</name><name>CN=admin/O=VICUTU</name><name>CN=admin/O=digi</name><name
+>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><field type='text' kind='computedfordisplay'
+ name='$V2AttachmentOptions'><code event='defaultvalue'><formula>"0"</formula></code></field>
+<item name='$HTMLCode' sign='true'>
+<rawitemdata type='1'>
+</rawitemdata></item></sharedfield>
+

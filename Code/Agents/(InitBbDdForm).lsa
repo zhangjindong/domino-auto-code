@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='utf-8'?>
+<agent name='(InitBbDdForm)' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' hide='v3' runaswebuser='true'
+ publicaccess='false' designerversion='8.5.3' comment='Z.S ▲搜索模板__操作列表 '>
+<noteinfo noteid='1b2' unid='72B7F8F06D214B2F48257FC80052B65A' sequence='78'>
+<created><datetime>20160604T230326,34+08</datetime></created>
+<modified><datetime>20191028T153145,65+08</datetime></modified>
+<revised><datetime>20170918T171806,67+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,65+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,65+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<designchange><datetime>20170918T171753,91+08</datetime></designchange>
+<trigger type='agentlist'/>
+<documentset type='runonce'/><code event='options'><lotusscript>Option Public
+
+</lotusscript></code><code event='declarations'><lotusscript>Dim session As NotesSession 
+Dim db As NotesDatabase 
+Dim doc As NotesDocument 
+Dim cdoc As NotesDocument
+Dim doccol As NotesDocumentCollection 
+Dim view As NotesView 
+Dim item As NotesItem 
+Dim thDbPath As String 
+Dim thDbPath1 As String 
+Dim tstr As String 
+ 
+'******2007-11-06扩展******
+Dim ThisSearchCfgKey As String
+Dim ThisSearchDB As String
+Dim curUser As NotesName
+
+</lotusscript></code><code event='initialize'><lotusscript>Sub Initialize
+	'编写人:王冠
+	'编写日期：2004-10-25
+	'修改时间:2005-11-18
+	'功能说明：获取查询操作列表
+	'修改时间：2006-6-30
+	'修改说明：统一采用视图显示模板库中的查询方法。
+	'修改时间：2008-4-1，增加搜索配置排序的功能
+		
+	Set session = New NotesSession 
+	Set db = session.CurrentDatabase 
+	Set doc = session.DocumentContext
+	Set curUser = New NotesName(session.Effectiveusername)
+	
+	
+	Call InitMenuXML	
+	thDbPath1=db.FilePath
+	thDbPath=Replace(db.FilePath,"\","/")
+	doc.thDbPath=thDbPath
+	
+	If doc.HasItem("StSearchCfgKey") Then  	
+		ThisSearchCfgKey=doc.StSearchCfgKey(0)
+	Else
+		ThisSearchCfgKey=""
+	End If
+	
+	
+	If doc.HasItem("StSearchDBPath") Then  
+		ThisSearchDBPath=doc.StSearchDBPath(0)
+	Else
+		ThisSearchDBPath=""
+	End If
+	
+	
+	Set db = session.GetDatabase("","Produce\DesignTools.nsf")
+	Set view = db.GetView(" BbDdOptMenuView")
+	
+	
+	'*************** 2008-3-19 更新，扩展查询模板支持排序功能 wangguan ******************
+	If ThisSearchCfgKey = "" Then
+		ThisSearchCfgKey = Lcase(thDbPath1)
+	End If	
+	
+	Set cdoc = view.GetDocumentByKey(ThisSearchCfgKey,True)
+	tstr="&lt;table width='100%' border='0'&gt;"
+	While Not cdoc Is Nothing 
+		If Lcase(cdoc.db(0))=ThisSearchCfgKey Then
+			tstr=tstr+"&lt;tr&gt;&lt;td&gt;&lt;nobr&gt;"		
+			If ThisSearchDBPath = "" Then
+				tstr=tstr+"&lt;a href='javascript:GJOpt_ViewSetGotoURL(""/Produce/DesignTools.nsf/showBbDd?openform&amp;login&amp;did="+cdoc.UniversalID +""")'&gt;&lt;img src='/KJ_Imgs/buttonImgs/chaxun1.gif' border=0&gt; "+cdoc.sname(0)+"&lt;/a&gt;"
+			Else
+				tstr=tstr+"&lt;a href='javascript:GJOpt_ViewSetGotoURL(""/Produce/DesignTools.nsf/showBbDd?openform&amp;login&amp;did="+cdoc.UniversalID +"&amp;thdb="+ThisSearchDBPath+""")'&gt;&lt;img src='/KJ_Imgs/buttonImgs/chaxun1.gif' border=0&gt; "+cdoc.sname(0)+"&lt;/a&gt;"
+			End If
+			
+			tstr=tstr+"&lt;/nobr&gt;&lt;/td&gt;&lt;/tr&gt;"
+			Set cdoc = view.GetNextDocument(cdoc)
+		Else
+			Goto out
+		End If		
+	Wend
+out:
+	tstr=tstr+"&lt;/table&gt;"
+	doc.SearchMenuList=tstr
+	
+End Sub
+
+</lotusscript></code><code event='fnCheckUserApp'><lotusscript>%REM
+	Function fnCheckUserApp
+	Description: Comments for Function
+%END REM
+Function fnCheckUserApp(UserApp As String) As Boolean
+	On Error GoTo err_handle
+	If UserApp = "" Then
+		fnCheckUserApp = True
+		Exit function
+	End If
+	
+	Dim users As Variant
+	users = Split(UserApp,";")
+	ForAll u In users
+		If StrRight(u,"/") = curUser.Common Then
+			fnCheckUserApp = True
+			Exit Function
+		End If
+		
+		If Not IsEmpty(session.UserGroupNameList) Then
+			ForAll group In session.UserGroupNameList
+				If StrRight(u,"/") = group.common Then
+					fnCheckUserApp = True
+					Exit Function
+				End If
+			End ForAll
+		End If
+	End ForAll
+	Exit Function
+err_handle:
+	fnCheckUserApp = False
+	msgbox("fnCheckUserApp")
+End Function
+
+</lotusscript></code><code event='InitMenuXML'><lotusscript>Sub InitMenuXML
+	Dim pdoc As NotesDocument
+	Set pdoc = db.Getprofiledocument("config")
+	Dim xml As String,index As Integer
+	index = 1
+	Dim dbpath As String,dbdir As String,dbname As String
+	dbpath = Replace(db.Filepath,|\|,|/|)
+	dbdir = StrLeftBack(dbpath,"/")
+	dbname = db.Filename
+	
+	Dim viewFlag As String,classFlag As Boolean,tmp As String,tmp1 As String
+	If UBound(pdoc.AppTypes) &gt;= 1 Then
+		viewFlag = "ByCat"
+		classFlag = true
+	Else
+		viewFlag = ""
+		classFlag = False
+		tmp = ""
+		tmp1 = ""
+	End If
+	ForAll t In pdoc.AppTypes
+		If classFlag Then
+			tmp1 = CStr(index)+|$|
+			tmp = |&amp;class=|+tmp1
+		End If
+		
+		xml = xml + |&lt;Menu1 name="|+t+|" opt="" ico=""&gt;|
+		If UBound(pdoc.AppTypes) = UBound(pdoc.AppActive) And UBound(pdoc.AppTypes) = UBound(pdoc.AppUser) Then
+			If (pdoc.AppActive(index-1) = "yes" Or pdoc.AppActive(index-1) = "") And fnCheckUserApp(pdoc.AppUser(index-1)) Then
+				xml = xml + |&lt;Menu2 name="填写申请单" opt="window.open('/|+dbpath+|/mainform?OpenForm&amp;index=|+CStr(index)+|&amp;login')" ico="/DF_Res/DF_Img_Source/Img_KJ/create.gif" /&gt;|
+			End If
+		Else
+			xml = xml + |&lt;Menu2 name="填写申请单" opt="window.open('/|+dbpath+|/mainform?OpenForm&amp;index=|+CStr(index)+|&amp;login')" ico="/DF_Res/DF_Img_Source/Img_KJ/create.gif" /&gt;|
+		End If
+		
+		xml = xml + |&lt;Menu2 name="申请单状态查询" opt="" ico=""&gt;|
+		xml = xml + |&lt;Menu3 name="草稿" opt="GJOpt_ViewTmpGotoURL('/Produce/DesignTools.nsf/ViewShow_form?OpenForm&amp;login&amp;thDir=|+dbdir+|&amp;thDb=|+dbname+|&amp;thView=vwDraft|+viewFlag+|&amp;count=24&amp;page=1&amp;checkboxFlag=yes&amp;seeFlag=yes&amp;realwidthflag=yes&amp;draftflag=yes|+tmp+|')" ico="/DF_Res/DF_Img_Source/Img_KJ/draft.gif" /&gt;|
+		xml = xml + |&lt;Menu3 name="处理中" opt="GJOpt_ViewTmpGotoURL('/Produce/DesignTools.nsf/ViewShow_form?OpenForm&amp;login&amp;thDir=|+dbdir+|&amp;thDb=|+dbname+|&amp;thView=vwDoing|+viewFlag+|&amp;count=24&amp;page=1&amp;checkboxFlag=yes&amp;seeFlag=yes&amp;realwidthflag=yes|+tmp+|')" ico="/DF_Res/DF_Img_Source/Img_KJ/doing.gif" /&gt;|
+		xml = xml + |&lt;Menu3 name="已完成" opt="GJOpt_ViewTmpGotoURL('/Produce/DesignTools.nsf/ViewShow_form?OpenForm&amp;login&amp;thDir=|+dbdir+|&amp;thDb=|+dbname+|&amp;thView=vwDone|+viewFlag+|&amp;count=24&amp;page=1&amp;checkboxFlag=yes&amp;seeFlag=yes&amp;realwidthflag=yes|+tmp+|')" ico="/DF_Res/DF_Img_Source/Img_KJ/done.gif" /&gt;|
+		xml = xml + |&lt;Menu3 name="我的申请" opt="GJOpt_ViewTmpGotoURL('/Produce/DesignTools.nsf/ViewShow_form?OpenForm&amp;login&amp;thDir=|+dbdir+|&amp;thDb=|+dbname+|&amp;thView=vwMy|+viewFlag+|&amp;count=24&amp;page=1&amp;checkboxFlag=yes&amp;seeFlag=yes&amp;realwidthflag=yes&amp;class=|+curUser.Common+|$|+tmp1+|')" ico="/DF_Res/DF_Img_Source/Img_KJ/my.gif" /&gt;|
+		xml = xml + |&lt;Menu3 name="所有申请" opt="GJOpt_ViewTmpGotoURL('/Produce/DesignTools.nsf/ViewShow_form?OpenForm&amp;login&amp;thDir=|+dbdir+|&amp;thDb=|+dbname+|&amp;thView=vwAll|+viewFlag+|&amp;count=24&amp;page=1&amp;checkboxFlag=yes&amp;seeFlag=yes&amp;realwidthflag=yes|+tmp+|')" ico="/DF_Res/DF_Img_Source/Img_KJ/all.gif" /&gt;|
+		xml = xml + |&lt;/Menu2&gt;|
+		xml = xml + |&lt;/Menu1&gt;|
+		index = index + 1
+	End ForAll
+	doc.MenuXML = xml
+End Sub</lotusscript></code>
+<rundata processeddocs='0' exitcode='0'>
+<agentmodified><datetime>20170413T215926,48+08</datetime></agentmodified></rundata>
+<item name='$POID'><datetime>20170918T171806,67+08</datetime></item></agent>
+

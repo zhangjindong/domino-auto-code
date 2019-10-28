@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<agent name='(agtInitConfig)' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.0' replicaid='482584A1002906C1' hide='v3' publicaccess='false'
+ designerversion='8.5.3' comment='初始化配置单'>
+<noteinfo noteid='18a' unid='10B9FF9CCBB254A948257F770028A8C2' sequence='73'>
+<created><datetime>20160315T152406,42+08</datetime></created>
+<modified><datetime>20191028T153145,47+08</datetime></modified>
+<revised><datetime>20170918T171808,01+08</datetime></revised>
+<lastaccessed><datetime>20191028T153145,47+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153145,47+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby>
+<designchange><datetime>20170918T171754,34+08</datetime></designchange>
+<trigger type='agentlist'/>
+<documentset type='runonce'/><code event='options'><lotusscript>%REM
+	Agent agtInitConfig
+	Created 2016-3-15 by admin/DevServer
+	Description: Comments for Agent
+%END REM
+Option Public
+Option Declare
+Use "GeneralLib"
+
+</lotusscript></code><code event='initialize'><lotusscript>Sub Initialize
+	On Error GoTo err_handle
+	Dim db As NotesDatabase
+	Set db = session.Currentdatabase
+	
+	Dim pdoc As NotesDocument
+	Set pdoc = db.Getprofiledocument("config")
+	
+	Dim note As NotesDocument
+	Set note = session.Documentcontext
+	
+	Dim sforms As Variant
+	ReDim sforms(0) As String
+	Forall f In db.Forms
+		If f.issubform And InStr(f.name,"sfrm")=1 And InStr(f.name,"_Flow")=0 Then
+			sforms = ArrayAppend(sforms,f.name)
+		End If
+	End ForAll
+	
+	note.sforms = FullTrim(sforms)
+	note.AppTypes = pdoc.AppTypes
+	note.AppFlows = pdoc.AppFlows
+	note.AppSubForms = pdoc.AppSubForms
+	note.AppFlowUnids = pdoc.AppFlowUnids
+	note.AppSubjects = pdoc.AppSubjects
+	note.Abstracts = pdoc.Abstracts
+	note.AppActive = pdoc.AppActive
+	note.AppUsers = pdoc.AppUser
+	
+	'ACL
+	Dim acl As NotesACL,aclen As NotesACLEntry
+	Set acl = db.Acl
+	Set aclen = acl.Getfirstentry()
+	Dim Managers As Variant
+	ReDim Managers(0) As String
+	Dim tmpUser As NotesName
+	While Not aclen Is Nothing
+		If aclen.Isroleenabled("[admin]") Then
+			Set tmpUser = New NotesName(aclen.Name)
+			Managers = ArrayAppend(Managers,tmpUser.Common)
+		End If
+		Set aclen = acl.Getnextentry(aclen)
+	Wend
+	note.Managers = Join(FullTrim(Managers),";")
+	Exit Sub
+err_handle:
+	ShowError("agtInitConfig")
+End Sub</lotusscript></code>
+<rundata processeddocs='0' exitcode='0'>
+<agentmodified><datetime>20170412T221403,21+08</datetime></agentmodified></rundata>
+<item name='$POID'><datetime>20170918T171808,01+08</datetime></item></agent>
+

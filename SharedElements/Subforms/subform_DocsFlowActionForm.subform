@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<subform name='subform_DocsFlowActionForm' xmlns='http://www.lotus.com/dxl'
+ version='9.0' maintenanceversion='1.0' replicaid='482584A1002906C1' designerversion='8.5.3'
+ renderpassthrough='true'>
+<noteinfo noteid='262' unid='945A63BEA00F85C34825809100614B03' sequence='12'>
+<created><datetime>20161223T014241,95+08</datetime></created>
+<modified><datetime>20191028T153147,29+08</datetime></modified>
+<revised><datetime>20170918T171809,07+08</datetime></revised>
+<lastaccessed><datetime>20191028T153147,29+08</datetime></lastaccessed>
+<addedtofile><datetime>20191028T153147,29+08</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=admin/O=digi</name><name>CN=admin/O=jdb</name></updatedby>
+<wassignedby><name>CN=admin/O=jdb</name></wassignedby><code event='jsheader'
+ for='web'><javascript>function fnSyncallTask(db){
+	$.ajax({
+		url:DB_PATH + "/agtSyncallPsnTask?openagent",
+		type:"GET",
+		data:"db="+db,
+		cache:false,
+		success:function(str){
+			$("tbody","#DBTaskList").append(str)
+			
+		}
+	});
+}
+function fnDoFlowAction(param){
+	var mind = escape(document.all.Mind.value);
+		$("input:checked","#DBTaskList").each(function(){
+			var $tr = $(this).closest("tr");
+			var $this = $(this);
+			
+			$.ajax({
+				url:ROOT_PATH + $this.val().getRelValue("fdb") + "/agtDoFlowAction?openagent",
+				type:"POST",
+				cache:false,
+				data:this.value + "&amp;mind="+mind,
+				success:function(str){
+					//$("td:last", $tr).html(str)
+					str = $.trim(str);
+					if(str.indexOf("is ok")!=-1){
+						$("td:last", $tr).html('&lt;i class="ace-icon fa fa-check"&gt;&lt;/i&gt;成功');
+						$this.remove();
+						$("td",$tr).addClass("blue");
+						return ;
+					}else if(str.indexOf("is not open")!=-1){
+						$("td:last", $tr).html('&lt;i class="ace-icon fa fa-times"&gt;&lt;/i&gt;&lt;b&gt;数据库打开失败&lt;/b&gt;');
+					}else if(str.indexOf("is nothing")!=-1){
+						$("td:last", $tr).html('&lt;i class="ace-icon fa fa-times"&gt;&lt;/i&gt;&lt;b&gt;文档不存在&lt;/b&gt;');
+					}else if(str.indexOf("has no person for Node")!=-1){
+						$("td:last", $tr).html('&lt;i class="ace-icon fa fa-times"&gt;&lt;/i&gt;&lt;b&gt;下一环节处理人不能为空&lt;/b&gt;');
+					}else if(str.indexOf("do flowsave has error")!=-1){
+						$("td:last", $tr).html('&lt;i class="ace-icon fa fa-times"&gt;&lt;/i&gt;&lt;b&gt;流程保存异常&lt;/b&gt;');
+					}else if(str.indexOf("has more nextNodes")!=-1){
+						$("td:last", $tr).html('&lt;i class="ace-icon fa fa-times"&gt;&lt;/i&gt;&lt;b&gt;下一环节存在分支操作&lt;/b&gt;');
+					}
+					$("td",$tr).addClass("red");
+				}
+			})
+		});
+		//$("tbody","#DBTaskList").html('');
+		//fnSyncallTask();
+}</javascript></code>
+<body><richtext>
+<pardef id='1' leftmargin='1in'/>
+<par def='1'><run html='true'>&lt;div class="row"&gt;</run></par>
+<pardef id='2' leftmargin='1in' firstlineleftmargin='1.2500in'/>
+<par def='2'><run html='true'>&lt;div class="col-md-12"&gt;</run></par>
+<pardef id='3' leftmargin='1in' firstlineleftmargin='1.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='3'><run html='true'>&lt;div class="widget-box widget-color-blue"&gt;</run></par>
+<pardef id='4' leftmargin='1in' firstlineleftmargin='1.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='4'><run html='true'>&lt;div class="widget-header widget-header-small"&gt;</run></par>
+<pardef id='5' leftmargin='1in' firstlineleftmargin='2in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='5'><run html='true'>&lt;h6 class="widget-title" id="UI"&gt;&lt;i class="ace-icon fa fa-table"&gt;&lt;/i&gt;批量审批&lt;/h6&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="widget-toolbar" &gt;</run></par>
+<pardef id='6' leftmargin='1in' firstlineleftmargin='2.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='6'><run html='true'>&lt;a href="#" data-action="add" onclick="</run><run
+ html='true'>fnDoFlowAction</run><run html='true'>()" data-rel=tooltip data-original-title="批量处理"</run><run
+ html='true'>&gt;&lt;i class="ace-icon fa fa-check"&gt;&lt;/i&gt;批量处理&lt;/a&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="widget-body"&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="widget-body-inner" style="display:block;"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="widget-main" style="padding:5px;min-height:200px"&gt;</run></par>
+<pardef id='7' leftmargin='1in' firstlineleftmargin='2.5000in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='7'><run html='true'>&lt;table class="table table-striped table-bordered" id="DBTaskList"&gt;</run></par>
+<pardef id='8' leftmargin='1in' firstlineleftmargin='2.7500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='8'><run html='true'>&lt;thead&gt;</run></par>
+<pardef id='9' leftmargin='1in' firstlineleftmargin='3in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='9'><run html='true'><computedtext><code event='value'><formula>thead</formula></code></computedtext></run></par>
+<par def='8'><run html='true'>&lt;/thead&gt;</run></par>
+<par def='8'><run html='true'>&lt;tbody&gt;</run></par>
+<par def='9'><run html='true'><computedtext><code event='value'><formula>tbody</formula></code></computedtext></run></par>
+<par def='8'><run html='true'>&lt;/tbody&gt;</run></par>
+<par def='7'><run html='true'>&lt;/table&gt;</run></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="widget-header widget-header-small"&gt;</run></par>
+<par def='5'><run html='true'>&lt;h6 class="widget-title" id="UI"&gt;&lt;i class="ace-icon fa fa-table"&gt;&lt;/i&gt;审批意见&lt;/h6&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;div class="widget-body"&gt;</run></par>
+<par def='5'><run html='true'>&lt;div class="widget-body-inner" style="display:block;"&gt;</run></par>
+<par def='6'><run html='true'>&lt;div class="widget-main" style="padding:5px"&gt;</run></par>
+<par def='6'><run html='true'><field type='richtext' kind='editable' name='Mind'><code
+ event='defaultvalue'><formula>"同意"</formula></code></field></run><compositedata
+ type='98' prevtype='65418' nexttype='222' afterparcount='6' containertype='65418'
+ aftercontainercount='1' afterbegincount='3'>
+Yg4BAIQAAAAAAAEAAAA=
+</compositedata></par>
+<par def='6'><run html='true'>&lt;/div&gt;</run></par>
+<par def='5'><run html='true'>&lt;/div&gt;</run></par>
+<par def='4'><run html='true'>&lt;/div&gt;</run></par>
+<par def='3'><run html='true'>&lt;/div&gt;</run></par>
+<pardef id='10' leftmargin='1in' firstlineleftmargin='1.2500in' tabs='L0.5000in L1in L1.5000in L2in L2.5000in L3in L3.5000in L4in'/>
+<par def='10'><run html='true'>&lt;/div&gt;</run></par>
+<par def='1'><run html='true'>&lt;/div&gt;</run></par></richtext></body>
+<item name='$$ScriptName' summary='false' sign='true'><text>subform_DocsFlowActionForm</text></item></subform>
+
